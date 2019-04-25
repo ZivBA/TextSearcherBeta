@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"indexing"},{"l":"indexing.algorithms"},{"l":"indexing.algorithms.dictionarySearch"},{"l":"indexing.algorithms.suffixtree"},{"l":"rules"},{"l":"textStructure"},{"l":"utils"}]
