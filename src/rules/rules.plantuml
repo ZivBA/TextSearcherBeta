@@ -12,6 +12,39 @@ title __RULES's Class Diagram__\n
   }
   
 
+  package  {
+    package rules {
+      class STmovieParsingRule {
+          + parseBlock()
+          + getWordDistance()
+      }
+    }
+  }
+  
+
+  package  {
+    package rules {
+      class STtvSeriesParsingRule {
+          + parseBlock()
+          + getWordDistance()
+      }
+    }
+  }
+  
+
+  package  {
+    package rules {
+      class SimpleParsingRule {
+          + parseBlock()
+          + getWordDistance()
+      }
+    }
+  }
+  
+
+  STmovieParsingRule -up-|> IparsingRule
+  STtvSeriesParsingRule -up-|> IparsingRule
+  SimpleParsingRule -up-|> IparsingRule
 
 
 right footer

@@ -6,7 +6,7 @@ title __UTILS's Class Diagram__\n
     package utils {
       class MD5 {
           {static} + getMd5()
-          + main()
+          {static} + getMd5()
       }
     }
   }
@@ -41,7 +41,7 @@ title __UTILS's Class Diagram__\n
           - step4()
           - step5()
           - step6()
-          + stem()
+          ~ stem()
           + stem()
       }
     }
@@ -52,8 +52,8 @@ title __UTILS's Class Diagram__\n
     package utils {
       class Stopwords {
           {static} + stopwords : String[]
-          {static} + stopWordSet : Set<String>
-          {static} + stemmedStopWordSet : Set<String>
+          {static} - stopWordSet : Set<String>
+          {static} - stemmedStopWordSet : Set<String>
           {static} + isStopword()
           {static} + isStemmedStopword()
           {static} + removeStopWords()

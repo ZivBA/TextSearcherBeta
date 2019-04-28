@@ -13,10 +13,10 @@ import java.util.Collection;
 
 public class Indexer extends Aindexer {
 
-    public Indexer(String dataStrucType, IparsingRule parseRule){
+    public Indexer(String dataStrucType, IparsingRule parseRule) {
         this.parseRule = parseRule;
         this.dataStructType = dataStrucType;
-        switch (dataStrucType){
+        switch (dataStrucType) {
             case DICT:
                 this.dataStruct = new DictionaryIndexer();
                 break;
@@ -26,22 +26,22 @@ public class Indexer extends Aindexer {
         }
     }
 
-    public Collection<Entry> indexCorpus(Corpus origin){
+    public Collection<Entry> indexCorpus(Corpus origin) {
         ArrayList<Entry> entries = new ArrayList<Entry>();
-        for (Entry file : origin){
+        for (Entry file : origin) {
             entries.add(this.indexEntry(file));
         }
         return entries;
     }
 
-    public Entry indexEntry(Entry inputEntry){
+    public Entry indexEntry(Entry inputEntry) {
         this.dataStruct.indexEntry(inputEntry.getFile());
         return new Entry(this.dataStruct, this.parseRule);
     }
 
-    private void writeToFile(){
+    private void writeToFile() {
         try {
-            String dictFile = this.origin.getPath() + this.dataStructType+"_index.cache";
+            String dictFile = this.origin.getPath() + this.dataStructType + "_index.cache";
             String hashCode = this.origin.getChecksum();
             FileOutputStream fileOut = new FileOutputStream(dictFile);
 
@@ -56,6 +56,7 @@ public class Indexer extends Aindexer {
 
         } catch (Exception ex) {
             ex.printStackTrace();
-    }
+        }
 
+    }
 }

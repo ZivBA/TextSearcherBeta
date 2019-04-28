@@ -17,9 +17,13 @@ title __DICTIONARYSEARCH's Class Diagram__\n
               + DictionaryIndexer()
               + indexFile()
               - processSourceFile()
+              - writeDictionaryToFile()
               - updateDict()
               + searchWord()
               + searchWordList()
+              + searchMetaData()
+              + getOrigin()
+              + indexCorpus()
           }
         }
       }
@@ -27,7 +31,8 @@ title __DICTIONARYSEARCH's Class Diagram__\n
   }
   
 
-  DictionaryIndexer -up-|> IsearchAlgorithm
+  DictionaryIndexer -up-|> IdataStructure
+  DictionaryIndexer o-- Corpus : origin
 
 
 right footer

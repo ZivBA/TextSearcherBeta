@@ -5,6 +5,11 @@ title __TEXTSTRUCTURE's Class Diagram__\n
   package  {
     package textStructure {
       class Block {
+          - endIdx : long
+          - inputFile : RandomAccessFile
+          - starIdx : long
+          + Block()
+          + asString()
       }
     }
   }
@@ -23,7 +28,9 @@ title __TEXTSTRUCTURE's Class Diagram__\n
       class Corpus {
           - entryList : List<Entry>
           + Corpus()
+          {static} + getPath()
           + iterator()
+          + getChecksum()
       }
     }
   }
@@ -33,7 +40,11 @@ title __TEXTSTRUCTURE's Class Diagram__\n
     package textStructure {
       class Entry {
           - blockList : List<Block>
+          - sourceFile : String
           + Entry()
+          + iterator()
+          + getFile()
+          + getBytes()
       }
     }
   }
@@ -42,20 +53,23 @@ title __TEXTSTRUCTURE's Class Diagram__\n
   package  {
     package textStructure {
       class WordResult {
+          - idxInBlk : int
           - content : String
+          + WordResult()
+          + WordResult()
+          + getBlock()
+          + getWord()
       }
     }
   }
   
 
-  Block o-- IparsingRule : parsingRule
   BlockResult -up-|> Block
   Corpus -up-|> Iterable
+  Entry -up-|> Iterable
   Entry o-- IparsingRule : parseRule
-  Entry o-- IsearchAlgorithm : index
+  Entry o-- IdataStructure : index
   Entry o-- Corpus : origin
-  WordResult o-- Corpus : origin
-  WordResult o-- Entry : sourceFile
   WordResult o-- Block : location
 
 

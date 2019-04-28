@@ -4,8 +4,15 @@ title __INDEXING's Class Diagram__\n
 
   package  {
     package indexing {
-      interface Iindexing {
-          {abstract} + indexFile()
+      abstract class Aindexer {
+          {static} ~ DICT : String
+          {static} ~ NAIVE : String
+          {static} ~ RK : String
+          ~ dataStructType : String
+          ~ Aindexer()
+          {abstract} + indexEntry()
+          + setOrigin()
+          ~ Aindexer()
       }
     }
   }
@@ -14,20 +21,19 @@ title __INDEXING's Class Diagram__\n
   package  {
     package indexing {
       class Indexer {
-          {static} - DICT : String
           + Indexer()
-          + setOrigin()
           + indexCorpus()
-          + indexFile()
+          + indexEntry()
+          - writeToFile()
       }
     }
   }
   
 
-  Indexer -up-|> Iindexing
-  Indexer o-- IsearchAlgorithm : searchAlg
-  Indexer o-- Corpus : origin
-  Indexer o-- IparsingRule : parseRule
+  Aindexer o-- IparsingRule : parseRule
+  Aindexer o-- IdataStructure : dataStruct
+  Aindexer o-- Corpus : origin
+  Indexer -up-|> Aindexer
 
 
 right footer

@@ -3,6 +3,14 @@
 title __TEXTSEARCHERBETA's Class Diagram__\n
 
   package  {
+    package indexing {
+      abstract class Aindexer {
+      }
+    }
+  }
+  
+
+  package  {
     package textStructure {
       class Block {
       }
@@ -84,7 +92,9 @@ title __TEXTSEARCHERBETA's Class Diagram__\n
 
   package  {
     package indexing {
-      interface Iindexing {
+      package indexing.dataStructures {
+        interface IdataStructure {
+        }
       }
     }
   }
@@ -107,9 +117,19 @@ title __TEXTSEARCHERBETA's Class Diagram__\n
   
 
   package  {
+    package utils {
+      class MD5 {
+      }
+    }
+  }
+  
+
+  package  {
     package indexing {
       package indexing.dataStructures {
-        interface IsearchAlgorithm {
+        package indexing.dataStructures.naiveSearch {
+          class NaiveSearch {
+          }
         }
       }
     }
@@ -117,8 +137,12 @@ title __TEXTSEARCHERBETA's Class Diagram__\n
   
 
   package  {
-    package utils {
-      class MD5 {
+    package indexing {
+      package indexing.dataStructures {
+        package indexing.dataStructures.naiveSearch {
+          class NaiveSearchRK {
+          }
+        }
       }
     }
   }
@@ -131,6 +155,30 @@ title __TEXTSEARCHERBETA's Class Diagram__\n
           class Node {
           }
         }
+      }
+    }
+  }
+  
+
+  package  {
+    package rules {
+      class STmovieParsingRule {
+      }
+    }
+  }
+  
+
+  package  {
+    package rules {
+      class STtvSeriesParsingRule {
+      }
+    }
+  }
+  
+
+  package  {
+    package rules {
+      class SimpleParsingRule {
       }
     }
   }
@@ -178,24 +226,29 @@ title __TEXTSEARCHERBETA's Class Diagram__\n
   }
   
 
-  Block o-- IparsingRule : parsingRule
+  Aindexer o-- IparsingRule : parseRule
+  Aindexer o-- IdataStructure : dataStruct
+  Aindexer o-- Corpus : origin
   BlockResult -up-|> Block
   Corpus -up-|> Iterable
-  DictionaryIndexer -up-|> IsearchAlgorithm
+  DictionaryIndexer -up-|> IdataStructure
+  DictionaryIndexer o-- Corpus : origin
   Edge o-- Node : dest
   EdgeBag -up-|> Map
+  Entry -up-|> Iterable
   Entry o-- IparsingRule : parseRule
-  Entry o-- IsearchAlgorithm : index
+  Entry o-- IdataStructure : index
   Entry o-- Corpus : origin
   GeneralizedSuffixTree o-- Node : root
   GeneralizedSuffixTree o-- Node : activeLeaf
-  Indexer -up-|> Iindexing
-  Indexer o-- IsearchAlgorithm : searchAlg
-  Indexer o-- Corpus : origin
-  Indexer o-- IparsingRule : parseRule
+  Indexer -up-|> Aindexer
+  NaiveSearch -up-|> IdataStructure
+  NaiveSearch o-- Corpus : corpus
+  NaiveSearchRK -up-|> NaiveSearch
   Node o-- Node : suffix
-  WordResult o-- Corpus : origin
-  WordResult o-- Entry : sourceFile
+  STmovieParsingRule -up-|> IparsingRule
+  STtvSeriesParsingRule -up-|> IparsingRule
+  SimpleParsingRule -up-|> IparsingRule
   WordResult o-- Block : location
 
 
