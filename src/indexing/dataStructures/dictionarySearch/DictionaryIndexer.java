@@ -88,6 +88,10 @@ public class DictionaryIndexer implements IdataStructure {
             System.out.println("problem word: "+ sentence.split("\\s+"));
         }
 
+        writeDictionaryToFile();
+    }
+
+    private void writeDictionaryToFile() {
         try {
 
             FileOutputStream fileOut = new FileOutputStream(this.dictFile);
@@ -101,6 +105,7 @@ public class DictionaryIndexer implements IdataStructure {
             ex.printStackTrace();
         }
     }
+
     private void updateDict(String[] words, long i) {
         for (String word : words){
             word = STEMMER.stem(word.strip());
@@ -125,8 +130,18 @@ public class DictionaryIndexer implements IdataStructure {
     }
 
     @Override
+    public List<WordResult> searchMetaData(String word) {
+        return null;
+    }
+
+    @Override
     public Corpus getOrigin() {
         return this.origin;
+    }
+
+    @Override
+    public void indexCorpus(Corpus corpus) {
+
     }
 
 

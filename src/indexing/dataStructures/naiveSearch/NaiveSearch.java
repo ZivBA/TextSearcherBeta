@@ -1,5 +1,6 @@
 package indexing.dataStructures.naiveSearch;
 
+import indexing.dataStructures.IdataStructure;
 import textStructure.*;
 import utils.Stemmer;
 
@@ -7,21 +8,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class NaiveIndexer implements indexing.dataStructures.IdataStructure {
+public class NaiveSearch implements IdataStructure {
 
     private Corpus corpus;
-    private final Stemmer stemmer;
 
-    public NaiveIndexer(){
-        this.stemmer = new Stemmer();
-    }
 
-    public NaiveIndexer(Corpus corpus){
-        this();
+    public NaiveSearch(Corpus corpus){
         this.corpus = corpus;
     }
 
-    @Override
     public List<WordResult> searchWord(String word) {
         List<WordResult> results = new ArrayList<>();
         for (Entry entry : this.corpus){
@@ -40,18 +35,30 @@ public class NaiveIndexer implements indexing.dataStructures.IdataStructure {
         }
     }
 
-    @Override
     public List<BlockResult> searchWordList(Collection<String> wordList) {
         //TODO implement
         return null;
     }
 
     @Override
+    public List<WordResult> searchMetaData(String word) {
+        return null;
+    }
+
     public Corpus getOrigin() {
         return this.corpus;
     }
 
     @Override
+    public void writeToFile() {
+
+    }
+
+    @Override
+    public void indexCorpus(Corpus corpus) {
+
+    }
+
     public void indexFile(String inputFile) {
         // naive indexer doesn't really index anything! muahahah...
     }

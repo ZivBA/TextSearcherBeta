@@ -27,4 +27,8 @@ public class Entry implements Iterable<Block>{
     public String getFile() {
         return this.sourceFile;
     }
+
+    public byte[] getBytes() {
+        return new byte[0];
+    }
 }

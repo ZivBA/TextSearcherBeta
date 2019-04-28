@@ -1,15 +1,18 @@
 package utils;
 
-import java.io.IOException;
 import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-// Java program to calculate utils.MD5 hash value
+/**
+ * Helper class for calculating an MD5 checksum for a string
+ */
 public class MD5 {
+    /**
+     * Get an MD5 checksum from an input string.
+     * @param input - the string to calculate a checksum for.
+     * @return - String object representing the checksum.
+     */
     public static String getMd5(String input)
     {
         try {
@@ -38,6 +41,11 @@ public class MD5 {
         }
     }
 
+    /**
+     * Get an MD5 checksum from an input byte array.
+     * @param inputBytes - the array of bytes to calculate a checksum from.
+     * @return - an output String object representing the checksum.
+     */
     public static String getMd5(byte[] inputBytes)
     {
         try {

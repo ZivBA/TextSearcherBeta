@@ -27,6 +27,8 @@ public class STtvSeriesParsingRule implements IparsingRule {
 
     @Override
     public int getWordDistance(WordResult first, WordResult second, String[] queryWords) {
-        return 0;
+        // this should actually be a comparator for wordResults, where two word results are considered equal if they come from the same block
+        // if they come from different blocks, then either both blocks contain all the query words, in which case the order is according to scene number
+        // otherwise, whichever block has more queryWords gets a higher score (is grater than the other)
     }
 }

@@ -1,18 +1,15 @@
 package indexing.dataStructures.naiveSearch;
 
-import indexing.dataStructures.IdataStructure;
 import textStructure.Block;
-import textStructure.BlockResult;
 import textStructure.Corpus;
 import textStructure.WordResult;
 
 import java.math.BigInteger;
-import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
-public class NaiveIndexerRK extends NaiveIndexer {
-    public NaiveIndexerRK(Corpus corpus) {
+public class NaiveSearchRK extends NaiveSearch {
+    public NaiveSearchRK(Corpus corpus) {
         super(corpus);
     }
 

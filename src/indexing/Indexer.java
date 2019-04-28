@@ -1,33 +1,29 @@
 package indexing;
 
 import indexing.dataStructures.dictionarySearch.DictionaryIndexer;
-import indexing.dataStructures.naiveSearch.NaiveIndexer;
+import indexing.dataStructures.naiveSearch.NaiveSearch;
 import rules.IparsingRule;
 import textStructure.Corpus;
 import textStructure.Entry;
 
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 
 public class Indexer extends Aindexer {
 
-
-    private Corpus origin;
-
     public Indexer(String dataStrucType, IparsingRule parseRule){
         this.parseRule = parseRule;
+        this.dataStructType = dataStrucType;
         switch (dataStrucType){
             case DICT:
                 this.dataStruct = new DictionaryIndexer();
                 break;
             case NAIVE:
-                this.dataStruct = new NaiveIndexer();
+                this.dataStruct = new NaiveSearch();
 
         }
-    }
-
-    public void setOrigin(Corpus origin){
-        this.origin = origin;
     }
 
     public Collection<Entry> indexCorpus(Corpus origin){
@@ -39,10 +35,27 @@ public class Indexer extends Aindexer {
     }
 
     public Entry indexEntry(Entry inputEntry){
-        this.dataStruct.indexFile(inputEntry.getFile());
+        this.dataStruct.indexEntry(inputEntry.getFile());
         return new Entry(this.dataStruct, this.parseRule);
     }
 
+    private void writeToFile(){
+        try {
+            String dictFile = this.origin.getPath() + this.dataStructType+"_index.cache";
+            String hashCode = this.origin.getChecksum();
+            FileOutputStream fileOut = new FileOutputStream(dictFile);
 
+            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+
+            objectOut.writeObject(hashCode);
+
+            objectOut.writeObject(this.dataStruct);
+
+            objectOut.close();
+            System.out.println("The Object  was succesfully written to a file");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+    }
 
 }

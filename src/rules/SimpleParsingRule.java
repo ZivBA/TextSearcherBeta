@@ -15,11 +15,11 @@ public class SimpleParsingRule implements IparsingRule {
         String tempString;
         long endIdx;
         try {
-            for (endIdx = startIdx; endIdx < startIdx + 256; endIdx += 10){
+            for (endIdx = startIdx; endIdx < startIdx + 256; endIdx += 10) {
                 inputFile.seek(endIdx);
                 inputFile.read(temp);
                 tempString = new String(temp);
-                if (tempString.matches("\\n\\n")){
+                if (tempString.matches("\\n\\n")) {
                     break;
                 }
             }
@@ -32,7 +32,7 @@ public class SimpleParsingRule implements IparsingRule {
     }
 
     @Override
-    public int getWordDistance(WordResult first, WordResult second) {
+    public int getWordDistance(WordResult first, WordResult second, String[] queryWords) {
         return 0;
     }
 }
