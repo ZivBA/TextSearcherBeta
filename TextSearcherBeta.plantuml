@@ -28,8 +28,8 @@ title __TEXTSEARCHERBETA's Class Diagram__\n
 
   package  {
     package indexing {
-      package indexing.algorithms {
-        package indexing.algorithms.dictionarySearch {
+      package indexing.dataStructures {
+        package indexing.dataStructures.dictionarySearch {
           class DictionaryIndexer {
           }
         }
@@ -40,8 +40,8 @@ title __TEXTSEARCHERBETA's Class Diagram__\n
 
   package  {
     package indexing {
-      package indexing.algorithms {
-        package indexing.algorithms.suffixtree {
+      package indexing.dataStructures {
+        package indexing.dataStructures.suffixtree {
           class Edge {
           }
         }
@@ -52,8 +52,8 @@ title __TEXTSEARCHERBETA's Class Diagram__\n
 
   package  {
     package indexing {
-      package indexing.algorithms {
-        package indexing.algorithms.suffixtree {
+      package indexing.dataStructures {
+        package indexing.dataStructures.suffixtree {
           class EdgeBag {
           }
         }
@@ -72,8 +72,8 @@ title __TEXTSEARCHERBETA's Class Diagram__\n
 
   package  {
     package indexing {
-      package indexing.algorithms {
-        package indexing.algorithms.suffixtree {
+      package indexing.dataStructures {
+        package indexing.dataStructures.suffixtree {
           class GeneralizedSuffixTree {
           }
         }
@@ -108,7 +108,7 @@ title __TEXTSEARCHERBETA's Class Diagram__\n
 
   package  {
     package indexing {
-      package indexing.algorithms {
+      package indexing.dataStructures {
         interface IsearchAlgorithm {
         }
       }
@@ -126,8 +126,8 @@ title __TEXTSEARCHERBETA's Class Diagram__\n
 
   package  {
     package indexing {
-      package indexing.algorithms {
-        package indexing.algorithms.suffixtree {
+      package indexing.dataStructures {
+        package indexing.dataStructures.suffixtree {
           class Node {
           }
         }
@@ -160,8 +160,8 @@ title __TEXTSEARCHERBETA's Class Diagram__\n
 
   package  {
     package indexing {
-      package indexing.algorithms {
-        package indexing.algorithms.suffixtree {
+      package indexing.dataStructures {
+        package indexing.dataStructures.suffixtree {
           class Utils {
           }
         }

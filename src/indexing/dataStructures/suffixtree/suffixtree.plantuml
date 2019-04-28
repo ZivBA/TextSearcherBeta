@@ -4,8 +4,8 @@ title __SUFFIXTREE's Class Diagram__\n
 
   package  {
     package indexing {
-      package indexing.algorithms {
-        package indexing.algorithms.suffixtree {
+      package indexing.dataStructures {
+        package indexing.dataStructures.suffixtree {
           class Edge {
               - label : String
               + getLabel()
@@ -22,8 +22,8 @@ title __SUFFIXTREE's Class Diagram__\n
 
   package  {
     package indexing {
-      package indexing.algorithms {
-        package indexing.algorithms.suffixtree {
+      package indexing.dataStructures {
+        package indexing.dataStructures.suffixtree {
           class EdgeBag {
               - chars : byte[]
               - values : Edge[]
@@ -52,8 +52,8 @@ title __SUFFIXTREE's Class Diagram__\n
 
   package  {
     package indexing {
-      package indexing.algorithms {
-        package indexing.algorithms.suffixtree {
+      package indexing.dataStructures {
+        package indexing.dataStructures.suffixtree {
           class GeneralizedSuffixTree {
               - last : int
               + search()
@@ -76,8 +76,8 @@ title __SUFFIXTREE's Class Diagram__\n
 
   package  {
     package indexing {
-      package indexing.algorithms {
-        package indexing.algorithms.suffixtree {
+      package indexing.dataStructures {
+        package indexing.dataStructures.suffixtree {
           class ResultInfo {
               + totalResults : int
               + results : Collection<Integer>
@@ -91,8 +91,8 @@ title __SUFFIXTREE's Class Diagram__\n
 
   package  {
     package indexing {
-      package indexing.algorithms {
-        package indexing.algorithms.suffixtree {
+      package indexing.dataStructures {
+        package indexing.dataStructures.suffixtree {
           class Pair {
               + Pair()
               + getFirst()
@@ -106,8 +106,8 @@ title __SUFFIXTREE's Class Diagram__\n
 
   package  {
     package indexing {
-      package indexing.algorithms {
-        package indexing.algorithms.suffixtree {
+      package indexing.dataStructures {
+        package indexing.dataStructures.suffixtree {
           class Node {
               - data : int[]
               - lastIdx : int
@@ -138,8 +138,8 @@ title __SUFFIXTREE's Class Diagram__\n
 
   package  {
     package indexing {
-      package indexing.algorithms {
-        package indexing.algorithms.suffixtree {
+      package indexing.dataStructures {
+        package indexing.dataStructures.suffixtree {
           class Utils {
               {static} + normalize()
               {static} + getSubstrings()

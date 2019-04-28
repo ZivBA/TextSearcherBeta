@@ -1,8 +1,8 @@
 unnamed package
 indexing
-indexing.algorithms
-indexing.algorithms.dictionarySearch
-indexing.algorithms.suffixtree
+indexing.dataStructures
+indexing.dataStructures.dictionarySearch
+indexing.dataStructures.suffixtree
 rules
 textStructure
 utils

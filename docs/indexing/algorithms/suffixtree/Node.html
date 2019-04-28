@@ -116,7 +116,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <!-- ======== START OF CLASS DATA ======== -->
 <main role="main">
 <div class="header">
-<div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">indexing.algorithms.suffixtree</a></div>
+<div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">indexing.dataStructures.suffixtree</a></div>
 <h2 title="Class Node" class="title">Class Node</h2>
 </div>
 <div class="contentContainer">
@@ -124,7 +124,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
-<li>indexing.algorithms.suffixtree.Node</li>
+<li>indexing.dataStructures.suffixtree.Node</li>
 </ul>
 </li>
 </ul>
@@ -137,7 +137,7 @@ extends java.lang.Object</pre>
 <div class="block">Represents a node of the generalized suffix tree graph</div>
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="GeneralizedSuffixTree.html" title="class in indexing.algorithms.suffixtree"><code>GeneralizedSuffixTree</code></a></dd>
+<dd><a href="GeneralizedSuffixTree.html" title="class in indexing.dataStructures.suffixtree"><code>GeneralizedSuffixTree</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -167,7 +167,7 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code>private java.util.Map&lt;java.lang.Character,&#8203;<a href="Edge.html" title="class in indexing.algorithms.suffixtree">Edge</a>&gt;</code></td>
+<td class="colFirst"><code>private java.util.Map&lt;java.lang.Character,&#8203;<a href="Edge.html" title="class in indexing.dataStructures.suffixtree">Edge</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#edges">edges</a></span></code></th>
 <td class="colLast">
 <div class="block">The set of edges starting from this node</div>
@@ -203,7 +203,7 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>private <a href="Node.html" title="class in indexing.algorithms.suffixtree">Node</a></code></td>
+<td class="colFirst"><code>private <a href="Node.html" title="class in indexing.dataStructures.suffixtree">Node</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#suffix">suffix</a></span></code></th>
 <td class="colLast">
 <div class="block">The suffix link as described in Ukkonen's paper.</div>
@@ -253,7 +253,7 @@ extends java.lang.Object</pre>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>(package private) void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addEdge(char,indexing.algorithms.suffixtree.Edge)">addEdge</a></span>&#8203;(char&nbsp;ch,
-       <a href="Edge.html" title="class in indexing.algorithms.suffixtree">Edge</a>&nbsp;e)</code></th>
+       <a href="Edge.html" title="class in indexing.dataStructures.suffixtree">Edge</a>&nbsp;e)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
@@ -303,12 +303,12 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i8" class="altColor">
-<td class="colFirst"><code>(package private) <a href="Edge.html" title="class in indexing.algorithms.suffixtree">Edge</a></code></td>
+<td class="colFirst"><code>(package private) <a href="Edge.html" title="class in indexing.dataStructures.suffixtree">Edge</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getEdge(char)">getEdge</a></span>&#8203;(char&nbsp;ch)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i9" class="rowColor">
-<td class="colFirst"><code>(package private) java.util.Map&lt;java.lang.Character,&#8203;<a href="Edge.html" title="class in indexing.algorithms.suffixtree">Edge</a>&gt;</code></td>
+<td class="colFirst"><code>(package private) java.util.Map&lt;java.lang.Character,&#8203;<a href="Edge.html" title="class in indexing.dataStructures.suffixtree">Edge</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getEdges()">getEdges</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
@@ -321,13 +321,13 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i11" class="rowColor">
-<td class="colFirst"><code>(package private) <a href="Node.html" title="class in indexing.algorithms.suffixtree">Node</a></code></td>
+<td class="colFirst"><code>(package private) <a href="Node.html" title="class in indexing.dataStructures.suffixtree">Node</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSuffix()">getSuffix</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i12" class="altColor">
 <td class="colFirst"><code>(package private) void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSuffix(indexing.algorithms.suffixtree.Node)">setSuffix</a></span>&#8203;(<a href="Node.html" title="class in indexing.algorithms.suffixtree">Node</a>&nbsp;suffix)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSuffix(indexing.algorithms.suffixtree.Node)">setSuffix</a></span>&#8203;(<a href="Node.html" title="class in indexing.dataStructures.suffixtree">Node</a>&nbsp;suffix)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -419,7 +419,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>edges</h4>
-<pre>private final&nbsp;java.util.Map&lt;java.lang.Character,&#8203;<a href="Edge.html" title="class in indexing.algorithms.suffixtree">Edge</a>&gt; edges</pre>
+<pre>private final&nbsp;java.util.Map&lt;java.lang.Character,&#8203;<a href="Edge.html" title="class in indexing.dataStructures.suffixtree">Edge</a>&gt; edges</pre>
 <div class="block">The set of edges starting from this node</div>
 </li>
 </ul>
@@ -429,7 +429,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>suffix</h4>
-<pre>private&nbsp;<a href="Node.html" title="class in indexing.algorithms.suffixtree">Node</a> suffix</pre>
+<pre>private&nbsp;<a href="Node.html" title="class in indexing.dataStructures.suffixtree">Node</a> suffix</pre>
 <div class="block">The suffix link as described in Ukkonen's paper.
  if str is the string denoted by the path from the root to this, this.suffix
  is the node denoted by the path that corresponds to str without the first char.</div>
@@ -597,7 +597,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>addEdge</h4>
 <pre class="methodSignature">void&nbsp;addEdge&#8203;(char&nbsp;ch,
-             <a href="Edge.html" title="class in indexing.algorithms.suffixtree">Edge</a>&nbsp;e)</pre>
+             <a href="Edge.html" title="class in indexing.dataStructures.suffixtree">Edge</a>&nbsp;e)</pre>
 </li>
 </ul>
 <a id="getEdge(char)">
@@ -606,7 +606,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getEdge</h4>
-<pre class="methodSignature"><a href="Edge.html" title="class in indexing.algorithms.suffixtree">Edge</a>&nbsp;getEdge&#8203;(char&nbsp;ch)</pre>
+<pre class="methodSignature"><a href="Edge.html" title="class in indexing.dataStructures.suffixtree">Edge</a>&nbsp;getEdge&#8203;(char&nbsp;ch)</pre>
 </li>
 </ul>
 <a id="getEdges()">
@@ -615,7 +615,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getEdges</h4>
-<pre class="methodSignature">java.util.Map&lt;java.lang.Character,&#8203;<a href="Edge.html" title="class in indexing.algorithms.suffixtree">Edge</a>&gt;&nbsp;getEdges()</pre>
+<pre class="methodSignature">java.util.Map&lt;java.lang.Character,&#8203;<a href="Edge.html" title="class in indexing.dataStructures.suffixtree">Edge</a>&gt;&nbsp;getEdges()</pre>
 </li>
 </ul>
 <a id="getSuffix()">
@@ -624,7 +624,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getSuffix</h4>
-<pre class="methodSignature"><a href="Node.html" title="class in indexing.algorithms.suffixtree">Node</a>&nbsp;getSuffix()</pre>
+<pre class="methodSignature"><a href="Node.html" title="class in indexing.dataStructures.suffixtree">Node</a>&nbsp;getSuffix()</pre>
 </li>
 </ul>
 <a id="setSuffix(indexing.algorithms.suffixtree.Node)">
@@ -633,7 +633,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>setSuffix</h4>
-<pre class="methodSignature">void&nbsp;setSuffix&#8203;(<a href="Node.html" title="class in indexing.algorithms.suffixtree">Node</a>&nbsp;suffix)</pre>
+<pre class="methodSignature">void&nbsp;setSuffix&#8203;(<a href="Node.html" title="class in indexing.dataStructures.suffixtree">Node</a>&nbsp;suffix)</pre>
 </li>
 </ul>
 <a id="addIndex(int)">

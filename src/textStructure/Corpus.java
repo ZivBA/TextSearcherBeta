@@ -4,14 +4,14 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-public class Corpus implements Iterable<String>{
+public class Corpus implements Iterable<Entry>{
     private List<Entry> entryList;
 
     public Corpus(Collection<String> inputFiles){
 
     }
     @Override
-    public Iterator<String> iterator() {
-        return null;
+    public Iterator<Entry> iterator() {
+        return this.entryList.iterator();
     }
 }

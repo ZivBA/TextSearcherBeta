@@ -4,7 +4,7 @@ title __ALGORITHMS's Class Diagram__\n
 
   package  {
     package indexing {
-      package indexing.algorithms {
+      package indexing.dataStructures {
         interface IsearchAlgorithm {
             {abstract} + searchWord()
             {abstract} + searchWordList()

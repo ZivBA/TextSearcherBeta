@@ -1,10 +1,8 @@
-package indexing.algorithms.dictionarySearch;
+package indexing.dataStructures.dictionarySearch;
 
-import indexing.Indexer;
-import indexing.algorithms.IsearchAlgorithm;
+import indexing.dataStructures.IdataStructure;
 import textStructure.BlockResult;
 import textStructure.Corpus;
-import textStructure.Entry;
 import textStructure.WordResult;
 import utils.Stemmer;
 import utils.Stopwords;
@@ -17,7 +15,7 @@ import java.util.List;
 
 import static utils.MD5.getMd5;
 
-public class DictionaryIndexer implements IsearchAlgorithm {
+public class DictionaryIndexer implements IdataStructure {
     private String dictFile;
     private String hashCode;
     private HashMap<Integer, List<Long>> dict = new HashMap<>();

@@ -4,8 +4,8 @@ title __DICTIONARYSEARCH's Class Diagram__\n
 
   package  {
     package indexing {
-      package indexing.algorithms {
-        package indexing.algorithms.dictionarySearch {
+      package indexing.dataStructures {
+        package indexing.dataStructures.dictionarySearch {
           class DictionaryIndexer {
               - dictFile : String
               - hashCode : String

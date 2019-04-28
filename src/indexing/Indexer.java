@@ -1,7 +1,7 @@
 package indexing;
 
-import indexing.algorithms.IsearchAlgorithm;
-import indexing.algorithms.dictionarySearch.DictionaryIndexer;
+import indexing.dataStructures.dictionarySearch.DictionaryIndexer;
+import indexing.dataStructures.naiveSearch.NaiveIndexer;
 import rules.IparsingRule;
 import textStructure.Corpus;
 import textStructure.Entry;
@@ -9,19 +9,20 @@ import textStructure.Entry;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class Indexer implements Iindexing{
+public class Indexer extends Aindexer {
 
-    private static final String DICT = "dict";
 
-    private IsearchAlgorithm searchAlg;
     private Corpus origin;
-    private IparsingRule parseRule;
 
-    public Indexer(String indexAlg, IparsingRule parseRule){
+    public Indexer(String dataStrucType, IparsingRule parseRule){
         this.parseRule = parseRule;
-        switch (indexAlg){
+        switch (dataStrucType){
             case DICT:
-                this.searchAlg = new DictionaryIndexer();
+                this.dataStruct = new DictionaryIndexer();
+                break;
+            case NAIVE:
+                this.dataStruct = new NaiveIndexer();
+
         }
     }
 
@@ -31,15 +32,15 @@ public class Indexer implements Iindexing{
 
     public Collection<Entry> indexCorpus(Corpus origin){
         ArrayList<Entry> entries = new ArrayList<Entry>();
-        for (String file : origin){
-            entries.add(this.indexFile(file));
+        for (Entry file : origin){
+            entries.add(this.indexEntry(file));
         }
         return entries;
     }
 
-    public Entry indexFile(String inputFile){
-        this.searchAlg.indexFile(inputFile);
-        return new Entry(this.searchAlg, this.parseRule);
+    public Entry indexEntry(Entry inputEntry){
+        this.dataStruct.indexFile(inputEntry.getFile());
+        return new Entry(this.dataStruct, this.parseRule);
     }
 
 

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package indexing.algorithms.suffixtree;
+package indexing.dataStructures.suffixtree;
 
 import java.util.HashSet;
 import java.util.Set;
