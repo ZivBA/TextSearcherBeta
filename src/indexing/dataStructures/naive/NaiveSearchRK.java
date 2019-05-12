@@ -1,4 +1,4 @@
-package indexing.dataStructures.naiveSearch;
+package indexing.dataStructures.naive;
 
 import textStructure.Block;
 import textStructure.Corpus;
@@ -8,7 +8,7 @@ import java.math.BigInteger;
 import java.util.List;
 import java.util.Random;
 
-public class NaiveSearchRK extends NaiveSearch {
+public class NaiveSearchRK extends NaiveIndexer {
     public NaiveSearchRK(Corpus corpus) {
         super(corpus);
     }

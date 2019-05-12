@@ -37,7 +37,7 @@ title __TEXTSEARCHERBETA's Class Diagram__\n
   package  {
     package indexing {
       package indexing.dataStructures {
-        package indexing.dataStructures.dictionarySearch {
+        package indexing.dataStructures.dictionary {
           class DictionaryIndexer {
           }
         }
@@ -127,7 +127,7 @@ title __TEXTSEARCHERBETA's Class Diagram__\n
   package  {
     package indexing {
       package indexing.dataStructures {
-        package indexing.dataStructures.naiveSearch {
+        package indexing.dataStructures.naive {
           class NaiveSearch {
           }
         }
@@ -139,7 +139,7 @@ title __TEXTSEARCHERBETA's Class Diagram__\n
   package  {
     package indexing {
       package indexing.dataStructures {
-        package indexing.dataStructures.naiveSearch {
+        package indexing.dataStructures.naive {
           class NaiveSearchRK {
           }
         }

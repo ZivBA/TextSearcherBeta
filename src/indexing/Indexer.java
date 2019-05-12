@@ -1,7 +1,7 @@
 package indexing;
 
-import indexing.dataStructures.dictionarySearch.DictionaryIndexer;
-import indexing.dataStructures.naiveSearch.NaiveSearch;
+import indexing.dataStructures.dictionary.DictionaryIndexer;
+import indexing.dataStructures.naive.NaiveIndexer;
 import rules.IparsingRule;
 import textStructure.Corpus;
 import textStructure.Entry;
@@ -14,6 +14,7 @@ import java.util.Collection;
 public class Indexer extends Aindexer {
 
     public Indexer(String dataStrucType, IparsingRule parseRule) {
+        super(origin);
         this.parseRule = parseRule;
         this.dataStructType = dataStrucType;
         switch (dataStrucType) {
@@ -21,8 +22,10 @@ public class Indexer extends Aindexer {
                 this.dataStruct = new DictionaryIndexer();
                 break;
             case NAIVE:
-                this.dataStruct = new NaiveSearch();
-
+                this.dataStruct = new NaiveIndexer();
+                break;
+            default:
+                    throw new RuntimeException("No such indexer " + dataStrucType);
         }
     }
 

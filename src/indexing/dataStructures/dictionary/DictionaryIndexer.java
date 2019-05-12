@@ -1,4 +1,4 @@
-package indexing.dataStructures.dictionarySearch;
+package indexing.dataStructures.dictionary;
 
 import indexing.dataStructures.IdataStructure;
 import textStructure.BlockResult;

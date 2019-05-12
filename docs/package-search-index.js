@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"indexing"},{"l":"indexing.dataStructures"},{"l":"indexing.dataStructures.dictionarySearch"},{"l":"indexing.dataStructures.suffixtree"},{"l":"rules"},{"l":"textStructure"},{"l":"utils"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"indexing"},{"l":"indexing.dataStructures"},{"l":"indexing.dataStructures.dictionary"},{"l":"indexing.dataStructures.suffixtree"},{"l":"rules"},{"l":"textStructure"},{"l":"utils"}]

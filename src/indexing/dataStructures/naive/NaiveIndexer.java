@@ -1,19 +1,18 @@
-package indexing.dataStructures.naiveSearch;
+package indexing.dataStructures.naive;
 
 import indexing.dataStructures.IdataStructure;
 import textStructure.*;
-import utils.Stemmer;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class NaiveSearch implements IdataStructure {
+public class NaiveIndexer implements IdataStructure {
 
     private Corpus corpus;
 
 
-    public NaiveSearch(Corpus corpus){
+    public NaiveIndexer(Corpus corpus){
         this.corpus = corpus;
     }
 
