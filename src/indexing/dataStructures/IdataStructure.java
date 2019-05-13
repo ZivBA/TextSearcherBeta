@@ -14,7 +14,5 @@ public interface IdataStructure {
     public List<WordResult> searchMetaData(String word);
     Corpus getOrigin();
     final Stemmer stemmer = new Stemmer();
-    void writeToFile();
 
-    void indexCorpus(Corpus corpus);
 }

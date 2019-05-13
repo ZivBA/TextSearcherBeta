@@ -3,14 +3,13 @@ public class TextSearcher {
 
     public static void main(String[] args) {
         if(args.length > 3){
-            throw new RuntimeException("Usage: TextSearcher corpusPath indexStrategies ?query")
+            throw new RuntimeException("Usage: TextSearcher corpusPath indexStrategies ?query");
         }
         corpusLocation = args[0];
         indexStrategy = args[1];
         if(args.length == 3){
             query = args[2];
         }
-
 
 
     }

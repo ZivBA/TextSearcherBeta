@@ -1,8 +1,10 @@
 package indexing.dataStructures.dictionary;
 
+import indexing.Aindexer;
 import indexing.dataStructures.IdataStructure;
 import textStructure.BlockResult;
 import textStructure.Corpus;
+import textStructure.Entry;
 import textStructure.WordResult;
 import utils.Stemmer;
 import utils.Stopwords;
@@ -15,7 +17,7 @@ import java.util.List;
 
 import static utils.MD5.getMd5;
 
-public class DictionaryIndexer implements IdataStructure {
+public class DictionaryIndexer extends Aindexer implements IdataStructure {
     private String dictFile;
     private String hashCode;
     private HashMap<Integer, List<Long>> dict = new HashMap<>();
@@ -23,9 +25,10 @@ public class DictionaryIndexer implements IdataStructure {
     private static final Stemmer STEMMER = new Stemmer();
     private Corpus origin;
 
-    public DictionaryIndexer(){
-
+    DictionaryIndexer(Corpus origin) {
+        super(origin);
     }
+
 
     @Override
     public void indexFile(String fileName) {
@@ -35,11 +38,6 @@ public class DictionaryIndexer implements IdataStructure {
     }
 
 
-    public DictionaryIndexer(String fileName){
-        this.fileName = fileName;
-        this.dictFile = this.fileName.substring(0, this.fileName.lastIndexOf('.')) + ".dictObj";
-        this.hashCode = getMd5(this.fileName);
-    }
     public void indexFile() {
 
 
@@ -76,7 +74,7 @@ public class DictionaryIndexer implements IdataStructure {
                     if ((int)rawBytes[k] <=0) { rawBytes[k] = (byte)' ';}
                 }
                 sentence = new String(rawBytes);
-                sentence = sentence.replace('.', ' ').replace('\r',' ').strip();
+                sentence = sentence.replace('.', ' ').replace('\r',' ').trim();
 
                 String[] words = sentence.split("\\s+");
                 updateDict(words, i);
@@ -108,7 +106,7 @@ public class DictionaryIndexer implements IdataStructure {
 
     private void updateDict(String[] words, long i) {
         for (String word : words){
-            word = STEMMER.stem(word.strip());
+            word = STEMMER.stem(word.trim());
 
             if (Stopwords.isStemmedStopword(word) | word.equals("")){
                 continue;
@@ -126,12 +124,12 @@ public class DictionaryIndexer implements IdataStructure {
 
     @Override
     public List<BlockResult> searchWordList(Collection<String> wordList) {
-        return null;
+        //implementation here
     }
 
     @Override
     public List<WordResult> searchMetaData(String word) {
-        return null;
+        //implementation here
     }
 
     @Override
@@ -139,10 +137,20 @@ public class DictionaryIndexer implements IdataStructure {
         return this.origin;
     }
 
-    @Override
-    public void indexCorpus(Corpus corpus) {
 
+    @Override
+    protected String getIndexType() {
+        return "dictionary_indexer";
+    }
+
+    @Override
+    public Collection<Entry>  indexCorpus(Corpus corpus) {
+        //implementation here
     }
 
 
+    @Override
+    public Entry indexEntry(Entry inputEntry) {
+        //implementation here
+    }
 }

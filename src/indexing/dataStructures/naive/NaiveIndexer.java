@@ -1,5 +1,6 @@
 package indexing.dataStructures.naive;
 
+import indexing.Aindexer;
 import indexing.dataStructures.IdataStructure;
 import textStructure.*;
 
@@ -7,13 +8,18 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class NaiveIndexer implements IdataStructure {
+public class NaiveIndexer extends Aindexer implements IdataStructure {
 
     private Corpus corpus;
 
 
+    @Override
+    public Entry indexEntry(Entry inputEntry) {
+        //implementation here
+    }
+
     public NaiveIndexer(Corpus corpus){
-        this.corpus = corpus;
+        super(corpus);
     }
 
     public List<WordResult> searchWord(String word) {
@@ -36,7 +42,7 @@ public class NaiveIndexer implements IdataStructure {
 
     public List<BlockResult> searchWordList(Collection<String> wordList) {
         //TODO implement
-        return null;
+        //implementation here
     }
 
     @Override
@@ -48,14 +54,15 @@ public class NaiveIndexer implements IdataStructure {
         return this.corpus;
     }
 
-    @Override
-    public void writeToFile() {
 
+    @Override
+    protected String getIndexType() {
+        return "naive_indexer";
     }
 
     @Override
-    public void indexCorpus(Corpus corpus) {
-
+    public Collection<Entry> indexCorpus(Corpus corpus) {
+        //implementation here
     }
 
     public void indexFile(String inputFile) {
