@@ -46,7 +46,7 @@ public abstract class Aindexer {
             objectOut.writeObject(getIndexType());
 
             objectOut.close();
-            System.out.println("The Object  was succesfully written to a file");
+            System.out.println("The Object was succesfully written to a file");
 
         } catch (Exception ex) {
             ex.printStackTrace();

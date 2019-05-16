@@ -25,7 +25,7 @@ public class DictionaryIndexer extends Aindexer implements IdataStructure {
     private static final Stemmer STEMMER = new Stemmer();
     private Corpus origin;
 
-    DictionaryIndexer(Corpus origin) {
+    public DictionaryIndexer(Corpus origin) {
         super(origin);
     }
 
