@@ -28,7 +28,7 @@ public class TextSearcher {
         }
         Map<String,String> configuration = parseConfiguration(args[0]);
         readConfiguration(configuration);
-
+	sIndexer.index();
     }
 
     private static void readConfiguration(Map<String, String> configuration) {
@@ -37,9 +37,9 @@ public class TextSearcher {
         }
         Corpus corpus = new Corpus(configuration.get(CORPUS_KEY));
 
-        sIndexer = IndexFactory.createIndexerByName(configuration.get(INDEXER_KEY),corpus);
-
         sParsingRule = ParsingRuleFactory.createRuleByName(configuration.get(PARSING_RULE_KEY));
+        sIndexer = IndexFactory.createIndexerByName(configuration.get(INDEXER_KEY),corpus,sParsingRule);
+
         sQuery = configuration.get(QUERY_KEY);
     }
 

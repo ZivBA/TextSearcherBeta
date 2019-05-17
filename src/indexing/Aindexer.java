@@ -16,22 +16,20 @@ public abstract class Aindexer {
     static final String RK = "naiveRK";
 
     String dataStructType;
-    IparsingRule parseRule;
-    Corpus origin;
+    protected IparsingRule parseRule;
+    protected Corpus origin;
 
     public abstract Entry indexEntry(Entry inputEntry);
     public void setOrigin(Corpus origin){
         this.origin = origin;
+	this.parseRule = rule;
     }
 
-    public Aindexer(Corpus origin){
+    public Aindexer(Corpus origin,IparsingRule rule){
         this.origin = origin;
-//        this.dataStructType = NAIVE;
-//        this.parseRule = new SimpleParsingRule();
-//        this.dataStruct = new NaiveIndexer(this.origin);
     }
 
-    public abstract void indexFile(String indexFile);
+    public abstract void index();
 
     private void writeToFile() {
         try {
