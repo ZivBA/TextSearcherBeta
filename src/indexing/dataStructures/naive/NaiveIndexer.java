@@ -2,6 +2,7 @@ package indexing.dataStructures.naive;
 
 import indexing.Aindexer;
 import indexing.dataStructures.IdataStructure;
+import rules.IparsingRule;
 import textStructure.*;
 
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public class NaiveIndexer extends Aindexer implements IdataStructure {
 
-	public static final TYPE_NAME = "naive_indexer";
+	public static final String TYPE_NAME = "naive_indexer";
 
 	@Override
 	public Entry indexEntry(Entry inputEntry) {

@@ -2,6 +2,7 @@ package indexing.dataStructures.dictionary;
 
 import indexing.Aindexer;
 import indexing.dataStructures.IdataStructure;
+import rules.IparsingRule;
 import textStructure.BlockResult;
 import textStructure.Corpus;
 import textStructure.Entry;
