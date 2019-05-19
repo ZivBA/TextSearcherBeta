@@ -19,7 +19,7 @@ public class SimpleParsingRule implements IparsingRule {
                 inputFile.seek(endIdx);
                 inputFile.read(temp);
                 tempString = new String(temp);
-                if (tempString.matches("\\n\\n")) {
+                if (tempString.matches("\n\n")) {
                     break;
                 }
             }

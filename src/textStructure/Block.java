@@ -16,6 +16,14 @@ public class Block {
         this.endIdx = endIdx;
     }
 
+    public long getStartIndex(){
+        return starIdx;
+    }
+
+    public long getEndIndex(){
+        return endIdx;
+    }
+
     public String asString() {
         try {
             inputFile.seek(starIdx);

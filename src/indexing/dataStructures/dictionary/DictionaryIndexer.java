@@ -89,6 +89,11 @@ public class DictionaryIndexer extends Aindexer implements IdataStructure {
 		writeDictionaryToFile();
 	}
 
+	@Override
+	public void writeDataStructure(ObjectOutputStream out) throws IOException {
+		out.writeObject(dict);
+	}
+
 	private void writeDictionaryToFile() {
 		try {
 

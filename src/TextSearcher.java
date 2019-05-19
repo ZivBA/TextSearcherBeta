@@ -1,3 +1,4 @@
+
 import indexing.Aindexer;
 import indexing.IndexFactory;
 import indexing.dataStructures.naive.NaiveIndexer;
@@ -26,20 +27,26 @@ public class TextSearcher {
         if(args.length != 1){
             handleError("Usage: TextSearcher configuration_file");
         }
-        Map<String,String> configuration = parseConfiguration(args[0]);
-        readConfiguration(configuration);
-	sIndexer.index();
+        try{
+            Map<String,String> configuration = parseConfiguration(args[0]);
+            readConfiguration(configuration);
+            sIndexer.index();
+        }catch (Exception e){
+            handleError(e.getMessage());
+        }
+
     }
 
     private static void readConfiguration(Map<String, String> configuration) {
         if(configuration.get(CORPUS_KEY)==null){
-            handleError("No corpus given");
+            throw new RuntimeException("No corpus given");
         }
-        Corpus corpus = new Corpus(configuration.get(CORPUS_KEY));
+
 
         sParsingRule = ParsingRuleFactory.createRuleByName(configuration.get(PARSING_RULE_KEY));
-        sIndexer = IndexFactory.createIndexerByName(configuration.get(INDEXER_KEY),corpus,sParsingRule);
 
+        Corpus corpus = new Corpus(configuration.get(CORPUS_KEY),sParsingRule);
+        sIndexer = IndexFactory.createIndexerByName(configuration.get(INDEXER_KEY),corpus,sParsingRule);
         sQuery = configuration.get(QUERY_KEY);
     }
 
@@ -62,17 +69,17 @@ public class TextSearcher {
                     case QUERY_KEY:
                         String value = reader.readLine();
                         if(value==null){
-                            handleError("bad configuration value " + line);
+                            throw new RuntimeException("bad configuration value " + line);
                         }
                         configuration.put(line, value);
                         break;
                     default:
-                        handleError("bad configuration key " + line);
+                        throw new RuntimeException("bad configuration key " + line);
                 }
             }
             reader.close();
         } catch (IOException e) {
-            handleError(e.getMessage());
+            throw new RuntimeException(e.getMessage());
         }
         return configuration;
     }

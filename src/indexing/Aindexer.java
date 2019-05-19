@@ -4,7 +4,6 @@ import indexing.dataStructures.IdataStructure;
 import rules.IparsingRule;
 import textStructure.Corpus;
 import textStructure.Entry;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -26,7 +25,7 @@ public abstract class Aindexer {
     protected IparsingRule parseRule;
     protected Corpus origin;
 
-    public abstract Entry indexEntry(Entry inputEntry);
+    public abstract void indexEntry(Entry inputEntry);
     public void setOrigin(Corpus origin){
         this.origin = origin;
 
@@ -76,6 +75,8 @@ public abstract class Aindexer {
             objectOut.writeObject(hashCode);
 
             objectOut.writeObject(getIndexType());
+            objectOut.writeObject(this.origin);
+            writeDataStructure(objectOut);
 
             objectOut.close();
             System.out.println("The Object was succesfully written to a file");
@@ -86,15 +87,12 @@ public abstract class Aindexer {
 
     }
 
+    protected void writeDataStructure(ObjectOutputStream objectOut) throws IOException {
+
+    }
+
     protected abstract String getIndexType();
 
-    public Collection<Entry> indexCorpus(Corpus origin) {
-        ArrayList<Entry> entries = new ArrayList<Entry>();
-        for (Entry file : origin) {
-            entries.add(this.indexEntry(file));
-        }
-        return entries;
-    }
 
 
 }

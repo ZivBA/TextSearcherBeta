@@ -14,7 +14,7 @@ public class NaiveIndexer extends Aindexer implements IdataStructure {
 	public static final String TYPE_NAME = "naive_indexer";
 
 	@Override
-	public Entry indexEntry(Entry inputEntry) {
+	public void indexEntry(Entry inputEntry) {
 		//implementation here
 	}
 
@@ -22,9 +22,16 @@ public class NaiveIndexer extends Aindexer implements IdataStructure {
 		super(corpus,rule);
 	}
 
+	@Override
+	protected void indexCorpus() {
+		for(Entry e: origin){
+			indexEntry(e);
+		}
+	}
+
 	public List<WordResult> searchWord(String word) {
 		List<WordResult> results = new ArrayList<>();
-		for (Entry entry : this.corpus){
+		for (Entry entry : this.origin){
 			for (Block blk : entry){
 				this.searchBlock(blk, results, word);
 			}
@@ -51,7 +58,7 @@ public class NaiveIndexer extends Aindexer implements IdataStructure {
 	}
 
 	public Corpus getOrigin() {
-		return this.corpus;
+		return this.origin;
 	}
 
 
@@ -60,10 +67,6 @@ public class NaiveIndexer extends Aindexer implements IdataStructure {
 		return TYPE_NAME;
 	}
 
-	@Override
-	public Collection<Entry> indexCorpus(Corpus corpus) {
-		//implementation here
-	}
 
 	public void indexFile(String inputFile) {
 		// naive indexer doesn't really index anything! muahahah...
