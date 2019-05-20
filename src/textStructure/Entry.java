@@ -1,7 +1,7 @@
 package textStructure;
 
-import indexing.dataStructures.IdataStructure;
-import rules.IparsingRule;
+import rules.AparsingRule;
+import rules.ParsingRuleFactory;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -10,27 +10,21 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Entry implements Iterable<Block>{
-    private final IparsingRule parseRule;
+    private final AparsingRule parseRule;
     private List<Block> blockList;
     private Corpus origin;
     private String sourceFile;
 
-    public Entry(String filePath, IparsingRule parseRule) {
+    public Entry(String filePath, String parseRule) {
         this.sourceFile = filePath;
-        this.parseRule = parseRule;
+        this.parseRule = ParsingRuleFactory.createRuleByName(parseRule,filePath);
         blockList = new LinkedList<>();
         initBlockList();
     }
 
     private void initBlockList() {
-        try {
-            Block block = parseRule.parseBlock(new RandomAccessFile(getFilePath(),"r"),0);
-            while(block.getStartIndex() != block.getEndIndex()){
-                blockList.add(block);
-                block = parseRule.parseBlock(new RandomAccessFile(getFilePath(),"r"),block.getEndIndex());
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e.getMessage());
+        while(parseRule.hasNext()){
+            blockList.add(parseRule.next());
         }
     }
 

@@ -1,18 +1,21 @@
 package textStructure;
 
-import rules.IparsingRule;
+import rules.AparsingRule;
+import rules.ParsingRuleFactory;
 import utils.MD5;
 
 import java.io.File;
-import java.util.Collection;
+import java.io.RandomAccessFile;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Corpus implements Iterable<Entry>{
     private List<Entry> entryList;
-    private IparsingRule parsingRule;
-    public Corpus(String path, IparsingRule parsingRule){
+    private String parserName;
+    private String corpusPath;
+
+    public Corpus(String path, String parserName){
         /*
         check if the path is a folder or file.
         if file - single entry corpus.
@@ -20,14 +23,18 @@ public class Corpus implements Iterable<Entry>{
         each entry in a corpus should hold the folder from which the file came.
          */
         entryList = new LinkedList<>();
-        File corups = new File(path);
+        corpusPath = path;
+        this.parserName = parserName;
+    }
+
+    public void populate(){
+        File corups = new File(corpusPath);
         populateEntryList(corups);
-        this.parsingRule = parsingRule;
     }
 
     private void populateEntryList(File entryFile) {
         if(entryFile.isFile()){
-            entryList.add(new Entry(entryFile.getAbsolutePath(),parsingRule));
+            entryList.add(new Entry(entryFile.getAbsolutePath(), parserName));
             return;
         }
         if(entryFile.isDirectory()){
@@ -43,6 +50,7 @@ public class Corpus implements Iterable<Entry>{
         /*
         return a string representation of the path.
          */
+        return null;
     }
 
     @Override

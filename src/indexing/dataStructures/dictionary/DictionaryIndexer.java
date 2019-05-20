@@ -2,7 +2,6 @@ package indexing.dataStructures.dictionary;
 
 import indexing.Aindexer;
 import indexing.dataStructures.IdataStructure;
-import rules.IparsingRule;
 import textStructure.BlockResult;
 import textStructure.Corpus;
 import textStructure.Entry;
@@ -25,17 +24,21 @@ public class DictionaryIndexer extends Aindexer implements IdataStructure {
 	private String fileName;
 	private static final Stemmer STEMMER = new Stemmer();
 	public static final String TYPE_NAME = "dictionary_indexer";
-	public DictionaryIndexer(Corpus origin, IparsingRule rule) {
-		super(origin,rule);
-	}
-
 
 	@Override
-	public void indexFile(String fileName) {
-		this.fileName = fileName;
-		this.dictFile = this.fileName.substring(0, this.fileName.lastIndexOf('.')) + ".dictObj";
-		this.hashCode = getMd5(this.fileName);
+	public void indexEntry(Entry inputEntry) {
+
 	}
+
+	public DictionaryIndexer(Corpus origin) {
+		super(origin);
+	}
+
+	@Override
+	protected void indexCorpus() {
+
+	}
+
 
 
 	public void indexFile() {
@@ -129,12 +132,12 @@ public class DictionaryIndexer extends Aindexer implements IdataStructure {
 
 	@Override
 	public List<BlockResult> searchWordList(Collection<String> wordList) {
-		//implementation here
+		return null;
 	}
 
 	@Override
 	public List<WordResult> searchMetaData(String word) {
-		//implementation here
+		return null;
 	}
 
 	@Override
@@ -148,14 +151,6 @@ public class DictionaryIndexer extends Aindexer implements IdataStructure {
 		return TYPE_NAME;
 	}
 
-	@Override
-	public Collection<Entry>  indexCorpus(Corpus corpus) {
-		//implementation here
-	}
 
 
-	@Override
-	public Entry indexEntry(Entry inputEntry) {
-		//implementation here
-	}
 }

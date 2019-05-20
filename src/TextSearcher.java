@@ -1,8 +1,7 @@
 
 import indexing.Aindexer;
 import indexing.IndexFactory;
-import indexing.dataStructures.naive.NaiveIndexer;
-import rules.IparsingRule;
+import rules.AparsingRule;
 import rules.ParsingRuleFactory;
 import textStructure.Corpus;
 
@@ -22,7 +21,6 @@ public class TextSearcher {
     private static Aindexer sIndexer;
     private static Corpus sCorpus;
     private static String sQuery;
-    private static IparsingRule sParsingRule;
     public static void main(String[] args) {
         if(args.length != 1){
             handleError("Usage: TextSearcher configuration_file");
@@ -43,10 +41,10 @@ public class TextSearcher {
         }
 
 
-        sParsingRule = ParsingRuleFactory.createRuleByName(configuration.get(PARSING_RULE_KEY));
 
-        Corpus corpus = new Corpus(configuration.get(CORPUS_KEY),sParsingRule);
-        sIndexer = IndexFactory.createIndexerByName(configuration.get(INDEXER_KEY),corpus,sParsingRule);
+
+        Corpus corpus = new Corpus(configuration.get(CORPUS_KEY),configuration.get(PARSING_RULE_KEY));
+        sIndexer = IndexFactory.createIndexerByName(configuration.get(INDEXER_KEY),corpus);
         sQuery = configuration.get(QUERY_KEY);
     }
 

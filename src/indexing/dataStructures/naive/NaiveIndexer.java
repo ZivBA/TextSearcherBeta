@@ -2,7 +2,6 @@ package indexing.dataStructures.naive;
 
 import indexing.Aindexer;
 import indexing.dataStructures.IdataStructure;
-import rules.IparsingRule;
 import textStructure.*;
 
 import java.util.ArrayList;
@@ -18,8 +17,8 @@ public class NaiveIndexer extends Aindexer implements IdataStructure {
 		//implementation here
 	}
 
-	public NaiveIndexer(Corpus corpus,IparsingRule rule){
-		super(corpus,rule);
+	public NaiveIndexer(Corpus corpus){
+		super(corpus);
 	}
 
 	@Override
@@ -50,6 +49,7 @@ public class NaiveIndexer extends Aindexer implements IdataStructure {
 	public List<BlockResult> searchWordList(Collection<String> wordList) {
 		//TODO implement
 		//implementation here
+		return null;
 	}
 
 	@Override

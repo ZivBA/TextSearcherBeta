@@ -1,7 +1,6 @@
 package indexing;
 
-import indexing.dataStructures.IdataStructure;
-import rules.IparsingRule;
+import rules.AparsingRule;
 import textStructure.Corpus;
 import textStructure.Entry;
 import java.io.File;
@@ -11,8 +10,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,7 +19,6 @@ public abstract class Aindexer {
     static final String RK = "naiveRK";
 
     String dataStructType;
-    protected IparsingRule parseRule;
     protected Corpus origin;
 
     public abstract void indexEntry(Entry inputEntry);
@@ -31,15 +27,15 @@ public abstract class Aindexer {
 
     }
 
-    public Aindexer(Corpus origin,IparsingRule rule){
+    public Aindexer(Corpus origin){
         this.origin = origin;
-    	this.parseRule = rule;
     }
 
     public void index() {
     	try {
 			readIndexedFile();
 		} catch (FileNotFoundException e) {
+    	    origin.populate();
 			indexCorpus();
 			writeToFile();
 		}
@@ -62,8 +58,9 @@ public abstract class Aindexer {
 		
 	}
 	private String getIndexedPath() {
-		// return some connvention
+		return null;
 	}
+
 	private void writeToFile() {
         try {
             String indexPath = getIndexedPath();

@@ -6,8 +6,12 @@ import textStructure.WordResult;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
-public class STtvSeriesParsingRule implements IparsingRule {
-    @Override
+public class STtvSeriesParsingRule extends AparsingRule {
+
+    public STtvSeriesParsingRule(RandomAccessFile randomAccessFile) {
+        super(randomAccessFile);
+    }
+
     public Block parseBlock(RandomAccessFile inputFile, long startIdx) throws IOException {
         //TODO implement regex parsing using the following rules:
         /*
@@ -23,6 +27,7 @@ public class STtvSeriesParsingRule implements IparsingRule {
 
             The indexer must store, efficiently, the characters' names and scene locations within the block MD for pretty printing the results.
             */
+        return null;
     }
 
     @Override
@@ -30,5 +35,16 @@ public class STtvSeriesParsingRule implements IparsingRule {
         // this should actually be a comparator for wordResults, where two word results are considered equal if they come from the same block
         // if they come from different blocks, then either both blocks contain all the query words, in which case the order is according to scene number
         // otherwise, whichever block has more queryWords gets a higher score (is grater than the other)
+        return -1;
+    }
+
+    @Override
+    public boolean hasNext() {
+        return false;
+    }
+
+    @Override
+    public Block next() {
+        return null;
     }
 }

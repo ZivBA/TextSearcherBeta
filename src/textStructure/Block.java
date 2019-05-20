@@ -1,7 +1,5 @@
 package textStructure;
 
-import rules.IparsingRule;
-
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
