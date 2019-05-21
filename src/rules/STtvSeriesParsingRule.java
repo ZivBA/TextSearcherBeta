@@ -12,6 +12,11 @@ public class STtvSeriesParsingRule extends AparsingRule {
         super(randomAccessFile);
     }
 
+    @Override
+    protected BlockLocation getNewBlockLocation(long startIndex) {
+        return null;
+    }
+
     public Block parseBlock(RandomAccessFile inputFile, long startIdx) throws IOException {
         //TODO implement regex parsing using the following rules:
         /*

@@ -1,5 +1,6 @@
 package indexing.dataStructures.naive;
 
+import textStructure.*;
 import indexing.Aindexer;
 import indexing.dataStructures.IdataStructure;
 import textStructure.*;

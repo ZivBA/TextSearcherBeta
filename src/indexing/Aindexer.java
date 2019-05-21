@@ -1,6 +1,5 @@
 package indexing;
 
-import rules.AparsingRule;
 import textStructure.Corpus;
 import textStructure.Entry;
 import java.io.File;
@@ -37,7 +36,7 @@ public abstract class Aindexer {
 		} catch (FileNotFoundException e) {
     	    origin.populate();
 			indexCorpus();
-			writeToFile();
+			//writeToFile();
 		}
     	
     }
@@ -58,7 +57,7 @@ public abstract class Aindexer {
 		
 	}
 	private String getIndexedPath() {
-		return null;
+		return "some_convention";
 	}
 
 	private void writeToFile() {

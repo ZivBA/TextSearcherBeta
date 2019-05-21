@@ -34,7 +34,7 @@ class EdgeBag implements Map<Character, Edge> {
     public Edge put(Character character, Edge e) {
         char c = character.charValue();
         if (c != (char) (byte) c) {
-            throw new IllegalArgumentException("Illegal input character " + c + ".");
+            throw new IllegalArgumentException("Illegal input character " + c + "");
         }
         
         if (chars == null) {
@@ -72,7 +72,7 @@ class EdgeBag implements Map<Character, Edge> {
 
     public Edge get(char c) {
         if (c != (char) (byte) c) {
-            throw new IllegalArgumentException("Illegal input character " + c + ".");
+            throw new IllegalArgumentException("Illegal input character " + c + "");
         }
         
         int idx = search(c);

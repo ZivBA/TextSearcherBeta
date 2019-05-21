@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 
 public class STmovieParsingRule extends AparsingRule {
+    static final private String START_BLOCK_REGEX = "^[0-9]+.*";
     public STmovieParsingRule(RandomAccessFile file) {
         super(file);
     }
@@ -41,13 +42,44 @@ public class STmovieParsingRule extends AparsingRule {
         return -1;
     }
 
+
     @Override
-    public boolean hasNext() {
-        return false;
+    protected BlockLocation getNewBlockLocation(long startIndex) {
+//        long index = startIndex;
+//
+//        try {
+//
+//            inputFile.seek(index);
+//            String line = inputFile.readLine();
+//            while(line!=null){
+//                if(line.trim().matches(START_BLOCK_REGEX)){
+//                    return index;
+//
+//                }
+//                index += line.length();
+//            }
+//
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//        return index;
+        return null;
     }
 
     @Override
     public Block next() {
-        return null;
+//        long start = getNewBlockLocation(nextIndex);
+//
+//        try {
+//            inputFile.seek(start);
+//            String line = inputFile.readLine();
+//            nextIndex = getNewBlockLocation(start + line.length());
+//            nextBlock = new Block(inputFile,start,nextIndex - 1);
+//
+//
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+        return nextBlock;
     }
 }

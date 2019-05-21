@@ -9,9 +9,12 @@ import java.io.RandomAccessFile;
 public class SimpleParsingRule extends AparsingRule {
 
 
-
+    private String lines[];
+    private int currLine;
     public SimpleParsingRule(RandomAccessFile file) {
         super(file);
+        lines = fileAsString.split("\n\n|^\n");
+        currLine = 0;
     }
 
     @Override
@@ -19,40 +22,34 @@ public class SimpleParsingRule extends AparsingRule {
         return 0;
     }
 
-    @Override
-    public boolean hasNext() {
-        nextBlock = null;
-        byte[] temp = new byte[MAX_LINE_LENGTH];
-        int prevIndex = nextIndex;
-        try {
-            while(nextIndex<inputFile.length()){
-
-                inputFile.seek(nextIndex);
-
-                if(inputFile.read(temp) == -1){
-                    break;
-                }
-                String tempString = new String(temp);
-                if(tempString.startsWith("\n")){
-                    int start = prevIndex;
-                    int end = nextIndex;
-                    nextIndex++;
-                    nextBlock = new Block(inputFile,start,end);
-                }
-                prevIndex = nextIndex;
-                nextIndex = tempString.indexOf("\n")==-1 ? nextIndex + MAX_LINE_LENGTH : nextIndex + 1;
-            }
-
-
-
-        } catch (IOException e) {
-            throw new RuntimeException(e.getMessage());
-        }
-        return nextBlock != null;
-    }
 
     @Override
     public Block next() {
+        BlockLocation loc = getNewBlockLocation(nextIndex);
+
+        nextBlock = new Block(inputFile,loc.getStart(),loc.getEnd()-1);
+        nextIndex = loc.getEnd();
+        currLine++;
         return nextBlock;
+    }
+
+    @Override
+    protected BlockLocation getNewBlockLocation(long fromIndex) {
+        String line;
+        try{
+            line = lines[currLine];
+            while(line.equals("")){
+                currLine++;
+                line = lines[currLine];
+            }
+        }catch (ArrayIndexOutOfBoundsException e){
+            return null;
+        }
+
+
+        long start = fileAsString.indexOf(line,(int)fromIndex);
+
+        return new BlockLocation(start,start + line.length());
+
     }
 }

@@ -15,7 +15,7 @@ public class NaiveSearchRK extends NaiveIndexer {
 
     private void searchBlock(Block blk, List<WordResult> results, String word) {
         char[] pattern = word.toCharArray();
-        char[] text = blk.asString().toCharArray();
+        char[] text = blk.toString().toCharArray();
 
         int patternSize = pattern.length;
         int textSize = text.length;

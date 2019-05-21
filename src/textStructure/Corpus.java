@@ -1,11 +1,8 @@
 package textStructure;
 
-import rules.AparsingRule;
-import rules.ParsingRuleFactory;
 import utils.MD5;
 
 import java.io.File;
-import java.io.RandomAccessFile;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;

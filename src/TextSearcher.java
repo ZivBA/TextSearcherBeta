@@ -1,8 +1,5 @@
-
 import indexing.Aindexer;
 import indexing.IndexFactory;
-import rules.AparsingRule;
-import rules.ParsingRuleFactory;
 import textStructure.Corpus;
 
 import java.io.BufferedReader;
@@ -16,21 +13,21 @@ public class TextSearcher {
     private static String corpusLocation, query, indexStrategy;
     private static final String CORPUS_KEY = "CORPUS";
     private static final String INDEXER_KEY = "INDEXER";
-    private static final String PARSING_RULE_KEY = "PARSING_RULE";
+    private static final String PARSING_RULE_KEY = "PARSE_RULE";
     private static final String QUERY_KEY = "QUERY";
     private static Aindexer sIndexer;
     private static Corpus sCorpus;
     private static String sQuery;
     public static void main(String[] args) {
         if(args.length != 1){
-            handleError("Usage: TextSearcher configuration_file");
+            handleError(new Exception("Usage: TextSearcher configuration_file"));
         }
         try{
             Map<String,String> configuration = parseConfiguration(args[0]);
             readConfiguration(configuration);
             sIndexer.index();
         }catch (Exception e){
-            handleError(e.getMessage());
+            handleError(e);
         }
 
     }
@@ -48,8 +45,8 @@ public class TextSearcher {
         sQuery = configuration.get(QUERY_KEY);
     }
 
-    private static void handleError(String err) {
-        throw new RuntimeException(err);
+    private static void handleError(Exception e) {
+        throw new RuntimeException(e);
     }
 
     private static Map<String, String> parseConfiguration(String configurationPath) {
@@ -60,6 +57,7 @@ public class TextSearcher {
                     configurationPath));
             String line = reader.readLine();
             while (line != null) {
+
                 switch (line){
                     case CORPUS_KEY:
                     case INDEXER_KEY:
@@ -67,13 +65,14 @@ public class TextSearcher {
                     case QUERY_KEY:
                         String value = reader.readLine();
                         if(value==null){
-                            throw new RuntimeException("bad configuration value " + line);
+                            throw new RuntimeException("bad configuration value for key" + line);
                         }
                         configuration.put(line, value);
                         break;
                     default:
                         throw new RuntimeException("bad configuration key " + line);
                 }
+                line = reader.readLine();
             }
             reader.close();
         } catch (IOException e) {

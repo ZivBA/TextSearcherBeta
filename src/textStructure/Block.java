@@ -6,26 +6,28 @@ import java.io.RandomAccessFile;
 public class Block {
     private final long endIdx;
     private final RandomAccessFile inputFile;
-    private final long starIdx;
+    private final long startIdx;
 
     public Block(RandomAccessFile inputFile, long startIdx, long endIdx) {
         this.inputFile = inputFile;
-        this.starIdx = startIdx;
+        this.startIdx = startIdx;
         this.endIdx = endIdx;
+
     }
 
     public long getStartIndex(){
-        return starIdx;
+        return startIdx;
     }
 
     public long getEndIndex(){
         return endIdx;
     }
 
-    public String asString() {
+    @Override
+    public String toString() {
         try {
-            inputFile.seek(starIdx);
-            byte[] resultBytes = new byte[Math.toIntExact(endIdx - starIdx + 1)];
+            inputFile.seek(startIdx);
+            byte[] resultBytes = new byte[Math.toIntExact(endIdx - startIdx + 1)];
             inputFile.read(resultBytes);
             return new String(resultBytes);
         } catch (IOException e) {

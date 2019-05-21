@@ -2,7 +2,6 @@ package indexing;
 
 import indexing.dataStructures.dictionary.DictionaryIndexer;
 import indexing.dataStructures.naive.NaiveIndexer;
-import rules.AparsingRule;
 import textStructure.Corpus;
 
 public class IndexFactory {
