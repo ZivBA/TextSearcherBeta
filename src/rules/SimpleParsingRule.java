@@ -1,6 +1,7 @@
 package rules;
 
 import textStructure.Block;
+import textStructure.LineBlock;
 import textStructure.WordResult;
 
 import java.io.IOException;
@@ -8,13 +9,8 @@ import java.io.RandomAccessFile;
 
 public class SimpleParsingRule extends AparsingRule {
 
-
-    private String lines[];
-    private int currLine;
     public SimpleParsingRule(RandomAccessFile file) {
         super(file);
-        lines = fileAsString.split("\n\n|^\n");
-        currLine = 0;
     }
 
     @Override
@@ -23,33 +19,24 @@ public class SimpleParsingRule extends AparsingRule {
     }
 
 
-    @Override
-    public Block next() {
-        BlockLocation loc = getNewBlockLocation(nextIndex);
+    
+	@Override
+	protected String getSplitRegex() {
+		return "((\\r?\\n){2})|(^\\r?\\n)";
+	}
 
-        nextBlock = new Block(inputFile,loc.getStart(),loc.getEnd()-1);
-        nextIndex = loc.getEnd();
-        currLine++;
-        return nextBlock;
-    }
+	@Override
+	protected boolean isStartOfBlock(String line) {
+		return !line.trim().equals("");
+	}
+	
+	@Override
+    protected void setBlockEndIndex(int lineStartIndex, LineBlock b) {
+    	
+		long end = b.getStartIndex() + lines[lineStartIndex].length();
+        		
+		b.setLineEnd(lineStartIndex + 1).setEnd(end);
+		
+	}
 
-    @Override
-    protected BlockLocation getNewBlockLocation(long fromIndex) {
-        String line;
-        try{
-            line = lines[currLine];
-            while(line.equals("")){
-                currLine++;
-                line = lines[currLine];
-            }
-        }catch (ArrayIndexOutOfBoundsException e){
-            return null;
-        }
-
-
-        long start = fileAsString.indexOf(line,(int)fromIndex);
-
-        return new BlockLocation(start,start + line.length());
-
-    }
 }

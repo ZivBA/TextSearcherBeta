@@ -12,10 +12,6 @@ public class STtvSeriesParsingRule extends AparsingRule {
         super(randomAccessFile);
     }
 
-    @Override
-    protected BlockLocation getNewBlockLocation(long startIndex) {
-        return null;
-    }
 
     public Block parseBlock(RandomAccessFile inputFile, long startIdx) throws IOException {
         //TODO implement regex parsing using the following rules:
@@ -52,4 +48,22 @@ public class STtvSeriesParsingRule extends AparsingRule {
     public Block next() {
         return null;
     }
+
+	@Override
+	protected String getSplitRegex() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected int getNextBlockLineStartIndex(int fromLine) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	protected boolean isStartOfBlock(String line) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

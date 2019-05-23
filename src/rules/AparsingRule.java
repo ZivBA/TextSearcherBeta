@@ -1,6 +1,7 @@
 package rules;
 
 import textStructure.Block;
+import textStructure.LineBlock;
 import textStructure.WordResult;
 
 import java.io.IOException;
@@ -9,17 +10,30 @@ import java.util.Iterator;
 
 public abstract class AparsingRule implements Iterator<Block> {
     protected static final int MAX_LINE_LENGTH = 256;
-
-    public abstract int getWordDistance(WordResult first, WordResult second, String[] queryWords);
+    protected String lines[];
     protected long nextIndex;
     protected Block nextBlock;
+    protected int currLine;
     protected RandomAccessFile inputFile;
     protected String fileAsString;
+    
     public AparsingRule(RandomAccessFile file){
         inputFile = file;
         nextIndex = 0;
         fileAsString = readFileToString();
+        lines = fileAsString.split(getSplitRegex());
+        System.out.print(lines.length);
+        for(String line : lines) {
+        	System.out.println(line);
+        	System.out.println("___");
+        }
+        currLine = 0;
     }
+    
+    protected abstract String getSplitRegex();
+
+	public abstract int getWordDistance(WordResult first, WordResult second, String[] queryWords);
+
 
     private String readFileToString() {
         try{
@@ -31,29 +45,66 @@ public abstract class AparsingRule implements Iterator<Block> {
         }
 
     }
-
-    protected abstract BlockLocation getNewBlockLocation(long startIndex);
-
+    
     @Override
+    public Block next() {
+        LineBlock b = getNewBlockLocation(currLine);
+
+        nextBlock = new Block(inputFile,b.getStartIndex(),b.getEndIndex()-1);
+        nextIndex = b.getEndIndex();
+        currLine = b.getLastLine();
+        return nextBlock;
+    }
+    
+    protected LineBlock getNewBlockLocation(int lineStartIndex) {
+    	LineBlock b = new LineBlock(inputFile);
+    	lineStartIndex = getNextBlockLineStartIndex(lineStartIndex);
+        
+        long start = -1;
+        try {
+        	start = fileAsString.indexOf(lines[lineStartIndex],(int)nextIndex);
+        	b.setStart(start);
+            setBlockEndIndex(lineStartIndex, b);
+            
+        }catch(ArrayIndexOutOfBoundsException e) {
+        	return null;
+        }
+        
+        return b;
+    }
+
+    protected void setBlockEndIndex(int lineStartIndex, LineBlock b) {
+    	int blockLineEnd = getNextBlockLineStartIndex(lineStartIndex + 1);
+		long end = blockLineEnd < lines.length ? 
+        		fileAsString.indexOf(lines[blockLineEnd],(int)nextIndex + lines[lineStartIndex].length()) : fileAsString.length();
+        		
+		b.setLineEnd(blockLineEnd).setEnd(end);
+		
+	}
+
+	protected int getNextBlockLineStartIndex(int fromLine) {
+    	
+    	String line;
+        try{
+            line = lines[fromLine];
+
+            while(!isStartOfBlock(line)){
+            	fromLine++;
+                line = lines[fromLine];
+            }
+        }catch (ArrayIndexOutOfBoundsException e){
+
+        }
+        return fromLine;
+    }
+    
+	protected abstract boolean isStartOfBlock(String line);
+
+
+	@Override
     public boolean hasNext() {
-        BlockLocation loc = getNewBlockLocation(nextIndex);
+        Block loc = getNewBlockLocation((int)currLine);
         return loc != null;
     }
 
-    protected class BlockLocation{
-        private long start;
-        private long end;
-        public BlockLocation(long start, long end){
-            this.start = start;
-            this.end = end;
-        }
-
-        public long getStart(){
-            return start;
-        }
-
-        public long getEnd(){
-            return end;
-        }
-    }
 }

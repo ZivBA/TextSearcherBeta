@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 
 public class Block {
-    private final long endIdx;
-    private final RandomAccessFile inputFile;
-    private final long startIdx;
+    private long endIdx;
+    private RandomAccessFile inputFile;
+    private long startIdx;
 
     public Block(RandomAccessFile inputFile, long startIdx, long endIdx) {
         this.inputFile = inputFile;
@@ -15,7 +15,11 @@ public class Block {
 
     }
 
-    public long getStartIndex(){
+    public Block(RandomAccessFile inputFile) {
+		this(inputFile,-1,-1);
+	}
+
+	public long getStartIndex(){
         return startIdx;
     }
 
@@ -36,5 +40,18 @@ public class Block {
         }
 
     }
+
+	public Block setStart(long start) {
+		this.startIdx = start;
+		return this;
+		
+	}
+
+	public Block setEnd(long end) {
+		endIdx = end;
+		return this;
+	}
+
+	
 
 }

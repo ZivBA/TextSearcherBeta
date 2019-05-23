@@ -6,10 +6,15 @@ import textStructure.WordResult;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
+import javax.management.RuntimeErrorException;
+
 public class STmovieParsingRule extends AparsingRule {
-    static final private String START_BLOCK_REGEX = "^[0-9]+.*";
+    static final private String START_BLOCK_REGEX = "^\\s{5,15}[0-9]+.*$";
+
+
     public STmovieParsingRule(RandomAccessFile file) {
         super(file);
+
     }
 
     public Block parseBlock(RandomAccessFile inputFile, long startIdx) throws IOException {
@@ -43,43 +48,22 @@ public class STmovieParsingRule extends AparsingRule {
     }
 
 
-    @Override
-    protected BlockLocation getNewBlockLocation(long startIndex) {
-//        long index = startIndex;
-//
-//        try {
-//
-//            inputFile.seek(index);
-//            String line = inputFile.readLine();
-//            while(line!=null){
-//                if(line.trim().matches(START_BLOCK_REGEX)){
-//                    return index;
-//
-//                }
-//                index += line.length();
-//            }
-//
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//        return index;
-        return null;
-    }
+    
 
-    @Override
-    public Block next() {
-//        long start = getNewBlockLocation(nextIndex);
-//
-//        try {
-//            inputFile.seek(start);
-//            String line = inputFile.readLine();
-//            nextIndex = getNewBlockLocation(start + line.length());
-//            nextBlock = new Block(inputFile,start,nextIndex - 1);
-//
-//
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-        return nextBlock;
-    }
+    
+
+
+	@Override
+	protected String getSplitRegex() {
+		return "\\r?\\n";
+	}
+
+	@Override
+	protected boolean isStartOfBlock(String line) {
+		// TODO Auto-generated method stub
+		return line.matches(START_BLOCK_REGEX);
+	}
+
+
+
 }
