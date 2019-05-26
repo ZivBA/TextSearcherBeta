@@ -1,10 +1,11 @@
 package rules;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.RandomAccessFile;
 
 public class ParsingRuleFactory {
-    public static AparsingRule createRuleByName(String name, String filePath) throws FileNotFoundException {
+    public static LineParsingRule createRuleByName(String name, String filePath) throws IOException {
         if(name == null){
             throw new RuntimeException("no parsing rule given");
         }
@@ -17,6 +18,7 @@ public class ParsingRuleFactory {
             case "st_tv":
                 return new STtvSeriesParsingRule(randomAccessFile);
             default:
+            	randomAccessFile.close();
                 throw new RuntimeException("invalid parsing rule name");
         }
 

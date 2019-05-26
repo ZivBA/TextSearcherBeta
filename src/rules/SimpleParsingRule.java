@@ -1,13 +1,13 @@
 package rules;
 
 import textStructure.Block;
-import textStructure.LineBlock;
+import textStructure.LinesBlock;
 import textStructure.WordResult;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
-public class SimpleParsingRule extends AparsingRule {
+public class SimpleParsingRule extends LineParsingRule {
 
     public SimpleParsingRule(RandomAccessFile file) {
         super(file);
@@ -31,7 +31,7 @@ public class SimpleParsingRule extends AparsingRule {
 	}
 	
 	@Override
-    protected void setBlockEndIndex(int lineStartIndex, LineBlock b) {
+    protected void setBlockEndIndex(int lineStartIndex, LinesBlock b) {
     	
 		long end = b.getStartIndex() + lines[lineStartIndex].length();
         		

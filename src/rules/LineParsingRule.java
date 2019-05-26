@@ -1,14 +1,14 @@
 package rules;
 
 import textStructure.Block;
-import textStructure.LineBlock;
+import textStructure.LinesBlock;
 import textStructure.WordResult;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Iterator;
 
-public abstract class AparsingRule implements Iterator<Block> {
+public abstract class LineParsingRule implements IparsingRule {
     protected static final int MAX_LINE_LENGTH = 256;
     protected String lines[];
     protected long nextIndex;
@@ -17,7 +17,7 @@ public abstract class AparsingRule implements Iterator<Block> {
     protected RandomAccessFile inputFile;
     protected String fileAsString;
     
-    public AparsingRule(RandomAccessFile file){
+    public LineParsingRule(RandomAccessFile file){
         inputFile = file;
         nextIndex = 0;
         fileAsString = readFileToString();
@@ -32,7 +32,6 @@ public abstract class AparsingRule implements Iterator<Block> {
     
     protected abstract String getSplitRegex();
 
-	public abstract int getWordDistance(WordResult first, WordResult second, String[] queryWords);
 
 
     private String readFileToString() {
@@ -48,7 +47,7 @@ public abstract class AparsingRule implements Iterator<Block> {
     
     @Override
     public Block next() {
-        LineBlock b = getNewBlockLocation(currLine);
+        LinesBlock b = getNewBlockLocation(currLine);
 
         nextBlock = new Block(inputFile,b.getStartIndex(),b.getEndIndex()-1);
         nextIndex = b.getEndIndex();
@@ -56,8 +55,8 @@ public abstract class AparsingRule implements Iterator<Block> {
         return nextBlock;
     }
     
-    protected LineBlock getNewBlockLocation(int lineStartIndex) {
-    	LineBlock b = new LineBlock(inputFile);
+    protected LinesBlock getNewBlockLocation(int lineStartIndex) {
+    	LinesBlock b = new LinesBlock(inputFile);
     	lineStartIndex = getNextBlockLineStartIndex(lineStartIndex);
         
         long start = -1;
@@ -73,7 +72,7 @@ public abstract class AparsingRule implements Iterator<Block> {
         return b;
     }
 
-    protected void setBlockEndIndex(int lineStartIndex, LineBlock b) {
+    protected void setBlockEndIndex(int lineStartIndex, LinesBlock b) {
     	int blockLineEnd = getNextBlockLineStartIndex(lineStartIndex + 1);
 		long end = blockLineEnd < lines.length ? 
         		fileAsString.indexOf(lines[blockLineEnd],(int)nextIndex + lines[lineStartIndex].length()) : fileAsString.length();

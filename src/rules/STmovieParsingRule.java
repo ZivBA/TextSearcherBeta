@@ -8,7 +8,7 @@ import java.io.RandomAccessFile;
 
 import javax.management.RuntimeErrorException;
 
-public class STmovieParsingRule extends AparsingRule {
+public class STmovieParsingRule extends LineParsingRule {
     static final private String START_BLOCK_REGEX = "^\\s{5,15}[0-9]+.*$";
 
 

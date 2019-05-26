@@ -2,14 +2,14 @@ package textStructure;
 
 import java.io.RandomAccessFile;
 
-public class LineBlock extends Block {
+public class LinesBlock extends Block {
 	private int lineEndIndex;
-	public LineBlock(RandomAccessFile inputFile) {
+	public LinesBlock(RandomAccessFile inputFile) {
 		super(inputFile);
 		lineEndIndex = -1;
 	}
 	
-	public LineBlock setLineEnd(int blockLineEnd) {
+	public LinesBlock setLineEnd(int blockLineEnd) {
 		lineEndIndex = blockLineEnd;
 		return this;
 	}

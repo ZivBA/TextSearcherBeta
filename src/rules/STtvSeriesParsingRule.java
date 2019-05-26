@@ -6,7 +6,7 @@ import textStructure.WordResult;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
-public class STtvSeriesParsingRule extends AparsingRule {
+public class STtvSeriesParsingRule extends LineParsingRule {
 
     public STtvSeriesParsingRule(RandomAccessFile randomAccessFile) {
         super(randomAccessFile);

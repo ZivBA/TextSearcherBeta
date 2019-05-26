@@ -1,17 +1,17 @@
 package textStructure;
 
-import rules.AparsingRule;
+import rules.LineParsingRule;
 import rules.ParsingRuleFactory;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Entry implements Iterable<Block>{
-    private final AparsingRule parseRule;
+    private final LineParsingRule parseRule;
     private List<Block> blockList;
-    private Corpus origin;
     private String sourceFile;
 
     public Entry(String filePath, String parseRule) {
@@ -19,7 +19,7 @@ public class Entry implements Iterable<Block>{
 
         try {
             this.parseRule = ParsingRuleFactory.createRuleByName(parseRule,filePath);
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
         }
         blockList = new LinkedList<>();
@@ -29,7 +29,7 @@ public class Entry implements Iterable<Block>{
     private void initBlockList() {
         while(parseRule.hasNext()){
             Block next = parseRule.next();
-            System.out.println(next.toString());
+            System.out.println((int)next.toString().charAt(9));
             System.out.println(next.toString().length());
 
             blockList.add(next);
