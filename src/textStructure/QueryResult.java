@@ -1,16 +1,16 @@
 package textStructure;
 
-public class WordResult {
+public class QueryResult {
     private int idxInBlk;
     private Block location;
     private String content;
 
-    public WordResult(Block loc, String word){
+    private QueryResult(Block loc, String word){
         this.content = word;
         this.location = loc;
     }
 
-    public WordResult(Block blk, String word, int idx) {
+    public QueryResult(Block blk, String word, int idx) {
         this(blk, word);
         this.idxInBlk = idx;
     }

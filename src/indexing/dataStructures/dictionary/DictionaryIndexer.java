@@ -2,10 +2,11 @@ package indexing.dataStructures.dictionary;
 
 import indexing.Aindexer;
 import indexing.dataStructures.IdataStructure;
+import search.IQuerySearch;
 import textStructure.BlockResult;
 import textStructure.Corpus;
 import textStructure.Entry;
-import textStructure.WordResult;
+import textStructure.QueryResult;
 import utils.Stemmer;
 import utils.Stopwords;
 
@@ -17,7 +18,7 @@ import java.util.List;
 
 import static utils.MD5.getMd5;
 
-public class DictionaryIndexer extends Aindexer implements IdataStructure {
+public class DictionaryIndexer extends Aindexer {
 	private String dictFile;
 	private String hashCode;
 	private HashMap<Integer, List<Long>> dict = new HashMap<>();
@@ -25,7 +26,6 @@ public class DictionaryIndexer extends Aindexer implements IdataStructure {
 	private static final Stemmer STEMMER = new Stemmer();
 	public static final String TYPE_NAME = "dictionary_indexer";
 
-	@Override
 	public void indexEntry(Entry inputEntry) {
 
 	}
@@ -36,7 +36,9 @@ public class DictionaryIndexer extends Aindexer implements IdataStructure {
 
 	@Override
 	protected void indexCorpus() {
-
+		for(Entry e: origin){
+			indexEntry(e);
+		}
 	}
 
 
@@ -93,10 +95,10 @@ public class DictionaryIndexer extends Aindexer implements IdataStructure {
 	}
 
 	@Override
-	public void writeDataStructure(ObjectOutputStream out) throws IOException {
-		out.writeObject(dict);
+    protected void writeParams( ObjectOutputStream objectOut) throws IOException {
+		super.writeParams(objectOut);
+		objectOut.writeObject(dict);
 	}
-
 	private void writeDictionaryToFile() {
 		try {
 
@@ -116,7 +118,7 @@ public class DictionaryIndexer extends Aindexer implements IdataStructure {
 		for (String word : words){
 			word = STEMMER.stem(word.trim());
 
-			if (Stopwords.isStemmedStopword(word) | word.equals("")){
+			if (Stopwords.isStemmedStopword(word) || word.equals("")){
 				continue;
 			}
 			List<Long> curList = this.dict.computeIfAbsent(word.hashCode(), k -> new ArrayList<>());
@@ -125,30 +127,18 @@ public class DictionaryIndexer extends Aindexer implements IdataStructure {
 		}
 		//        System.out.println();
 	}
-	@Override
-	public List<WordResult> searchWord(String word) {
-		return null;
-	}
 
-	@Override
-	public List<BlockResult> searchWordList(Collection<String> wordList) {
-		return null;
-	}
-
-	@Override
-	public List<WordResult> searchMetaData(String word) {
-		return null;
-	}
-
-	@Override
-	public Corpus getOrigin() {
-		return this.origin;
-	}
 
 
 	@Override
 	protected String getIndexType() {
 		return TYPE_NAME;
+	}
+
+	@Override
+	public IQuerySearch asSearchInterface() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

@@ -3,10 +3,10 @@ package rules;
 import java.util.Iterator;
 
 import textStructure.Block;
-import textStructure.WordResult;
+import textStructure.QueryResult;
 
 
 public interface IparsingRule extends Iterator<Block> {
-	public int getWordDistance(WordResult first, WordResult second, String[] queryWords);
+	public int getWordDistance(QueryResult first, QueryResult second, String[] queryWords);
 
 }

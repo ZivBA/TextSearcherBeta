@@ -2,7 +2,7 @@ package indexing.dataStructures.naive;
 
 import textStructure.Block;
 import textStructure.Corpus;
-import textStructure.WordResult;
+import textStructure.QueryResult;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -13,7 +13,7 @@ public class NaiveSearchRK extends NaiveIndexer {
         super(corpus);
     }
 
-    private void searchBlock(Block blk, List<WordResult> results, String word) {
+    private void searchBlock(Block blk, List<QueryResult> results, String word) {
         char[] pattern = word.toCharArray();
         char[] text = blk.toString().toCharArray();
 
@@ -53,7 +53,7 @@ public class NaiveSearchRK extends NaiveIndexer {
                 }
 
                 if (passed) {
-                    results.add(new WordResult(blk, word, i));
+                    results.add(new QueryResult(blk, word, i));
                 }
             }
 

@@ -12,18 +12,18 @@ import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.List;
 
-public abstract class Aindexer {
+import search.IQuerySearch;
+
+public abstract class Aindexer<T extends IQuerySearch> {
     static final String DICT = "dict";
     static final String NAIVE = "naive";
     static final String RK = "naiveRK";
-
     String dataStructType;
     protected Corpus origin;
 
-    public abstract void indexEntry(Entry inputEntry);
     public void setOrigin(Corpus origin){
         this.origin = origin;
-
+        
     }
 
     public Aindexer(Corpus origin){
@@ -40,6 +40,8 @@ public abstract class Aindexer {
 		}
     	
     }
+    
+    public abstract T asSearchInterface();
 
     protected abstract void indexCorpus();
 	
@@ -57,23 +59,15 @@ public abstract class Aindexer {
 		
 	}
 	private String getIndexedPath() {
-		return "some_convention";
+		return origin.getPath() + "_cache";
 	}
 
-	private void writeToFile() {
+	private void writeIndexFile() {
         try {
             String indexPath = getIndexedPath();
-            String hashCode = this.origin.getChecksum();
             FileOutputStream fileOut = new FileOutputStream(indexPath);
-
             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-
-            objectOut.writeObject(hashCode);
-
-            objectOut.writeObject(getIndexType());
-            objectOut.writeObject(this.origin);
-            writeDataStructure(objectOut);
-
+            writeParams(objectOut);
             objectOut.close();
             System.out.println("The Object was succesfully written to a file");
 
@@ -83,11 +77,19 @@ public abstract class Aindexer {
 
     }
 
-    protected void writeDataStructure(ObjectOutputStream objectOut) throws IOException {
+    protected void writeParams( ObjectOutputStream objectOut) throws IOException {
+    	String hashCode = this.origin.getChecksum();
+        objectOut.writeObject(hashCode);
+
+        objectOut.writeObject(getIndexType());
+        objectOut.writeObject(this.origin);
+    }
+	protected void writeDataStructure(ObjectOutputStream objectOut) throws IOException {
 
     }
 
     protected abstract String getIndexType();
+    
 
 
 

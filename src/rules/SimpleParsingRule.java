@@ -2,7 +2,7 @@ package rules;
 
 import textStructure.Block;
 import textStructure.LinesBlock;
-import textStructure.WordResult;
+import textStructure.QueryResult;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -14,7 +14,7 @@ public class SimpleParsingRule extends LineParsingRule {
     }
 
     @Override
-    public int getWordDistance(WordResult first, WordResult second, String[] queryWords) {
+    public int getWordDistance(QueryResult first, QueryResult second, String[] queryWords) {
         return 0;
     }
 

@@ -43,11 +43,11 @@ public class Corpus implements Iterable<Entry>{
         throw new RuntimeException("Bad file path " + entryFile.getAbsolutePath());
     }
 
-    public static String getPath() {
+    public String getPath() {
         /*
         return a string representation of the path.
          */
-        return null;
+        return corpusPath;
     }
 
     @Override

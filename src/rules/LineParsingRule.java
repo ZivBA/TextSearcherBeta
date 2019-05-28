@@ -2,7 +2,7 @@ package rules;
 
 import textStructure.Block;
 import textStructure.LinesBlock;
-import textStructure.WordResult;
+import textStructure.QueryResult;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;

@@ -26,6 +26,9 @@ public class TextSearcher {
             Map<String,String> configuration = parseConfiguration(args[0]);
             readConfiguration(configuration);
             sIndexer.index();
+            if(sQuery!=null) {
+            	sIndexer.asSearchInterface().search(query);
+            }
         }catch (Exception e){
             handleError(e);
         }
