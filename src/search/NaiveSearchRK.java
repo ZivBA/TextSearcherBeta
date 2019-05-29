@@ -1,4 +1,4 @@
-package indexing.dataStructures.naive;
+package search;
 
 import textStructure.Block;
 import textStructure.Corpus;
@@ -8,13 +8,14 @@ import java.math.BigInteger;
 import java.util.List;
 import java.util.Random;
 
-public class NaiveSearchRK extends NaiveIndexer {
-    public NaiveSearchRK(Corpus corpus) {
-        super(corpus);
+public class NaiveSearchRK extends NaiveSearch {
+    public NaiveSearchRK(Corpus origin) {
+        super(origin);
     }
 
-    private void searchBlock(Block blk, List<QueryResult> results, String word) {
-        char[] pattern = word.toCharArray();
+    private void searchBlock(Block blk, List<QueryResult> results, String query) {
+
+        char[] pattern = query.toCharArray();
         char[] text = blk.toString().toCharArray();
 
         int patternSize = pattern.length;
@@ -38,8 +39,8 @@ public class NaiveSearchRK extends NaiveIndexer {
             pattenFP = (2 * pattenFP + pattern[j]) % prime;
         }
 
-        int i = 0;
-        boolean passed = false;
+        int i;  // = 0
+        boolean passed; // = false
 
         int diff = textSize - patternSize;
         for (i = 0; i <= diff; i++) {
@@ -53,7 +54,7 @@ public class NaiveSearchRK extends NaiveIndexer {
                 }
 
                 if (passed) {
-                    results.add(new QueryResult(blk, word, i));
+                    results.add(new QueryResult(blk, query, i));
                 }
             }
 
@@ -74,5 +75,4 @@ public class NaiveSearchRK extends NaiveIndexer {
     private static int getNumberOfBits(int number) {
         return Integer.SIZE - Integer.numberOfLeadingZeros(number);
     }
-
 }

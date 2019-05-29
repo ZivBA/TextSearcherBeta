@@ -18,6 +18,7 @@ public class TextSearcher {
     private static Aindexer sIndexer;
     private static Corpus sCorpus;
     private static String sQuery;
+
     public static void main(String[] args) {
         if(args.length != 1){
             handleError(new Exception("Usage: TextSearcher configuration_file"));
@@ -36,12 +37,10 @@ public class TextSearcher {
     }
 
     private static void readConfiguration(Map<String, String> configuration) {
+
         if(configuration.get(CORPUS_KEY)==null){
             throw new RuntimeException("No corpus given");
         }
-
-
-
 
         Corpus corpus = new Corpus(configuration.get(CORPUS_KEY),configuration.get(PARSING_RULE_KEY));
         sIndexer = IndexFactory.createIndexerByName(configuration.get(INDEXER_KEY),corpus);

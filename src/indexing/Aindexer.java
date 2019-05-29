@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import search.IQuerySearch;
+import utils.WrongMD5ChecksumException;
 
 public abstract class Aindexer<T extends IQuerySearch> {
     static final String DICT = "dict";
@@ -33,7 +34,7 @@ public abstract class Aindexer<T extends IQuerySearch> {
     public void index() {
     	try {
 			readIndexedFile();
-		} catch (FileNotFoundException e) {
+		} catch (FileNotFoundException | WrongMD5ChecksumException e) {
     	    origin.populate();
 			indexCorpus();
 			//writeToFile();
@@ -45,12 +46,16 @@ public abstract class Aindexer<T extends IQuerySearch> {
 
     protected abstract void indexCorpus();
 	
-	private void readIndexedFile() throws FileNotFoundException {
+	private void readIndexedFile() throws FileNotFoundException, WrongMD5ChecksumException {
     	FileInputStream fi = new FileInputStream(new File(getIndexedPath()));
     	try {
     		ObjectInputStream oi = new ObjectInputStream(fi);
     		String oldHashCode = (String) oi.readObject();
-    		HashMap<Integer, List<Long>> oldMap = (HashMap<Integer, List<Long>>) oi.readObject();
+    		if (oldHashCode.equals(this.origin.getChecksum())) {
+                this.castRawData(oi.readObject());
+            } else{
+    		    throw new WrongMD5ChecksumException();
+            }
     	}catch(IOException | ClassNotFoundException e) {
     		throw new RuntimeException(e.getMessage());
     	}
@@ -58,7 +63,10 @@ public abstract class Aindexer<T extends IQuerySearch> {
 
 		
 	}
-	private String getIndexedPath() {
+
+    protected abstract void castRawData(Object readObject);
+
+    private String getIndexedPath() {
 		return origin.getPath() + "_cache";
 	}
 
@@ -89,7 +97,7 @@ public abstract class Aindexer<T extends IQuerySearch> {
     }
 
     protected abstract String getIndexType();
-    
+
 
 
 

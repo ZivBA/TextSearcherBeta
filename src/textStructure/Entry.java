@@ -3,7 +3,6 @@ package textStructure;
 import rules.LineParsingRule;
 import rules.ParsingRuleFactory;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -22,18 +21,19 @@ public class Entry implements Iterable<Block>{
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
         }
-        blockList = new LinkedList<>();
-        initBlockList();
+        this.blockList = initBlockList();
     }
 
-    private void initBlockList() {
+    private List<Block> initBlockList() {
+        List<Block> newList = new LinkedList<>();
         while(parseRule.hasNext()){
             Block next = parseRule.next();
             System.out.println((int)next.toString().charAt(9));
             System.out.println(next.toString().length());
 
-            blockList.add(next);
+            newList.add(next);
         }
+        return newList;
     }
 
     @Override

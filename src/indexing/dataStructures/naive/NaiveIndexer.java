@@ -1,5 +1,6 @@
 package indexing.dataStructures.naive;
 
+import search.NaiveSearchRK;
 import textStructure.*;
 import indexing.Aindexer;
 import indexing.dataStructures.IdataStructure;
@@ -14,14 +15,26 @@ import java.util.List;
 public class NaiveIndexer extends Aindexer<NaiveSearch> {
 
 	public static final String TYPE_NAME = "naive_indexer";
+	private final boolean isRK;
 
 
-	public NaiveIndexer(Corpus corpus){
+	public NaiveIndexer(Corpus corpus, boolean RK){
 		super(corpus);
+		this.isRK = RK;
+	}
+
+	public NaiveIndexer(Corpus corpus) {
+		super(corpus);
+		this.isRK = false;
 	}
 
 	@Override
 	protected void indexCorpus() {
+		// does nothing
+	}
+
+	@Override
+	protected void castRawData(Object readObject) {
 		// does nothing
 	}
 
@@ -44,15 +57,11 @@ public class NaiveIndexer extends Aindexer<NaiveSearch> {
 	}
 
 
-	public void indexFile(String inputFile) {
-		// naive indexer doesn't really index anything! muahahah...
-	}
-
 
 	@Override
 	public NaiveSearch asSearchInterface() {
 		// TODO Auto-generated method stub
-		return new NaiveSearch(this.origin);
+		return this.isRK ? new NaiveSearch(this.origin) : new NaiveSearchRK(this.origin);
 	}
 
 

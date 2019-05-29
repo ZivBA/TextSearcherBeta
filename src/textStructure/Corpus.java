@@ -3,6 +3,8 @@ package textStructure;
 import utils.MD5;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,8 +21,8 @@ public class Corpus implements Iterable<Entry>{
         otherwise, recursively scan the directory for all subdirectories and files.
         each entry in a corpus should hold the folder from which the file came.
          */
-        entryList = new LinkedList<>();
-        corpusPath = path;
+        this.entryList = new LinkedList<>();
+        this.corpusPath = path;
         this.parserName = parserName;
     }
 
@@ -31,7 +33,7 @@ public class Corpus implements Iterable<Entry>{
 
     private void populateEntryList(File entryFile) {
         if(entryFile.isFile()){
-            entryList.add(new Entry(entryFile.getAbsolutePath(), parserName));
+            this.entryList.add(new Entry(entryFile.getAbsolutePath(), parserName));
             return;
         }
         if(entryFile.isDirectory()){
@@ -43,6 +45,20 @@ public class Corpus implements Iterable<Entry>{
         throw new RuntimeException("Bad file path " + entryFile.getAbsolutePath());
     }
 
+    private List<File> getAllFiles(File root){
+        List<File> curList = new LinkedList<>();
+        if(root.isFile()){
+            curList.add(root);
+            return curList;
+        }
+        if(root.isDirectory()){
+            for(File f: root.listFiles()){
+                curList.addAll(getAllFiles(f));
+            }
+
+        }
+        return curList;
+    }
     public String getPath() {
         /*
         return a string representation of the path.
@@ -55,11 +71,12 @@ public class Corpus implements Iterable<Entry>{
         return this.entryList.iterator();
     }
 
-    public String getChecksum() {
-        String result = "";
-        for (Entry ent : entryList){
-            result+= MD5.getMd5(ent.getBytes());
+    public String getChecksum() throws IOException {
+        List<File> corpusFiles = getAllFiles(new File(this.corpusPath));
+        StringBuilder result = new StringBuilder();
+        for (File f : corpusFiles){
+            result.append(MD5.getMd5(Files.readAllBytes(f.toPath())));
         }
-        return MD5.getMd5(result);
+        return MD5.getMd5(result.toString());
     }
 }

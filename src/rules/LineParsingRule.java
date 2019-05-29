@@ -11,30 +11,21 @@ import java.util.Iterator;
 public abstract class LineParsingRule implements IparsingRule {
     protected static final int MAX_LINE_LENGTH = 256;
     protected String lines[];
-    protected long nextIndex;
-    protected Block nextBlock;
-    protected int currLine;
+    long nextIndex;
+    private Block nextBlock;
+    int currLine;
     protected RandomAccessFile inputFile;
-    protected String fileAsString;
+    String fileAsString;
     
     public LineParsingRule(RandomAccessFile file){
-        inputFile = file;
-        nextIndex = 0;
-        fileAsString = readFileToString();
-        lines = fileAsString.split(getSplitRegex());
-        System.out.print(lines.length);
-        for(String line : lines) {
-        	System.out.println(line);
-        	System.out.println("___");
-        }
-        currLine = 0;
+       this.inputFile = file;
     }
     
     protected abstract String getSplitRegex();
 
 
 
-    private String readFileToString() {
+    String readFileToString() {
         try{
             byte b[] = new byte[(int) inputFile.length()];
             inputFile.readFully(b);
@@ -54,8 +45,14 @@ public abstract class LineParsingRule implements IparsingRule {
         currLine = b.getLastLine();
         return nextBlock;
     }
+
+    @Override
+    public boolean hasNext() {
+        Block loc = getNewBlockLocation(currLine);
+        return loc != null;
+    }
     
-    protected LinesBlock getNewBlockLocation(int lineStartIndex) {
+    private LinesBlock getNewBlockLocation(int lineStartIndex) {
     	LinesBlock b = new LinesBlock(inputFile);
     	lineStartIndex = getNextBlockLineStartIndex(lineStartIndex);
         
@@ -91,7 +88,7 @@ public abstract class LineParsingRule implements IparsingRule {
             	fromLine++;
                 line = lines[fromLine];
             }
-        }catch (ArrayIndexOutOfBoundsException e){
+        }catch (ArrayIndexOutOfBoundsException ignored){
 
         }
         return fromLine;
@@ -100,10 +97,6 @@ public abstract class LineParsingRule implements IparsingRule {
 	protected abstract boolean isStartOfBlock(String line);
 
 
-	@Override
-    public boolean hasNext() {
-        Block loc = getNewBlockLocation((int)currLine);
-        return loc != null;
-    }
+
 
 }

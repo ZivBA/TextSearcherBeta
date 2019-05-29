@@ -41,30 +41,11 @@ public class DictionaryIndexer extends Aindexer {
 		}
 	}
 
-
-
-	public void indexFile() {
-
-
-		boolean retry = false;
-		try {
-			FileInputStream fi = new FileInputStream(new File(dictFile));
-			ObjectInputStream oi = new ObjectInputStream(fi);
-			String oldHashCode = (String) oi.readObject();
-			HashMap<Integer, List<Long>> oldMap = (HashMap<Integer, List<Long>>) oi.readObject();
-			if (oldHashCode.equals(this.hashCode)) {
-				this.dict = oldMap;
-			}
-
-		} catch (IOException | ClassNotFoundException e) {
-			e.printStackTrace();
-			retry = true;
-		}
-
-		if (retry) {
-			processSourceFile();
-		}
+	@Override
+	protected void castRawData(Object readObject) {
+		this.dict = (HashMap<Integer, List<Long>>) readObject;
 	}
+
 
 	private void processSourceFile() {
 		byte[] rawBytes = new byte[256];

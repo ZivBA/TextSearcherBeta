@@ -11,6 +11,16 @@ public class SimpleParsingRule extends LineParsingRule {
 
     public SimpleParsingRule(RandomAccessFile file) {
         super(file);
+		inputFile = file;
+		nextIndex = 0;
+		fileAsString = readFileToString();
+		lines = fileAsString.split(getSplitRegex());
+		System.out.print(lines.length);
+		for(String line : lines) {
+			System.out.println(line);
+			System.out.println("___");
+		}
+		currLine = 0;
     }
 
     @Override
