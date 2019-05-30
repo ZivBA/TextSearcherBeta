@@ -1,15 +1,17 @@
 package textStructure;
 
-import rules.LineParsingRule;
+import rules.IparsingRule;
 import rules.ParsingRuleFactory;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Entry implements Iterable<Block>{
-    private final LineParsingRule parseRule;
+    private final IparsingRule parseRule;
     private List<Block> blockList;
     private String sourceFile;
 
@@ -18,23 +20,12 @@ public class Entry implements Iterable<Block>{
 
         try {
             this.parseRule = ParsingRuleFactory.createRuleByName(parseRule,filePath);
+            this.blockList = this.parseRule.parseFile(new RandomAccessFile(sourceFile, "r"));
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
         }
-        this.blockList = initBlockList();
     }
 
-    private List<Block> initBlockList() {
-        List<Block> newList = new LinkedList<>();
-        while(parseRule.hasNext()){
-            Block next = parseRule.next();
-            System.out.println((int)next.toString().charAt(9));
-            System.out.println(next.toString().length());
-
-            newList.add(next);
-        }
-        return newList;
-    }
 
     @Override
     public Iterator<Block> iterator() {

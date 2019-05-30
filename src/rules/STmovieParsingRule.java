@@ -10,20 +10,17 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.management.RuntimeErrorException;
-
 public class STmovieParsingRule implements IparsingRule {
 	static final private String START_BLOCK_REGEX = "^\\s{5,15}([0-9])+(.*$)\\1";
 	static final private String CHARACHTOR_NAMES = "^[^\\S\\r\\n]+([A-Z]+)[^\\S\\r\\n]*\\n";
 
 
 	private final RandomAccessFile inputFile;
-	private long curIndex;
-	private long lastIndex;
+	private long fileLength;
 
 	public STmovieParsingRule(RandomAccessFile file) throws IOException {
 		this.inputFile = file;
-		this.lastIndex = file.length();
+		this.fileLength = file.length();
 	}
 
 	public Block parseBlock(RandomAccessFile inputFile, long startIdx) throws IOException {
@@ -58,12 +55,37 @@ public class STmovieParsingRule implements IparsingRule {
 
 	@Override
 	public Block parseRawBlock(RandomAccessFile inputFile, long startPos, long endPos) {
-		byte[] rawBytes = new byte[Math.toIntExact(endPos - startPos + 1)];
 		try {
+			byte[] rawBytes = new byte[Math.toIntExact(endPos - startPos + 1)];
 			inputFile.read(rawBytes);
+			String scene = new String(rawBytes);
+			// scene title
+			Pattern titlePattern = Pattern.compile(START_BLOCK_REGEX);
+			Matcher titleMatcher = titlePattern.matcher(scene);
+			if (!titleMatcher.matches()){
+				throw new UnsupportedOperationException("Just a temporary exception since this cannot happen");
+			}
+
+			List<String> metaData = new LinkedList<>();
+
+			// scene charachters
+			Pattern charachterPattern = Pattern.compile(CHARACHTOR_NAMES);
+			Matcher charachterMatcher = charachterPattern.matcher(scene);
+
+			metaData.add(titleMatcher.group(2).strip());
+
+			while (charachterMatcher.find()){
+				metaData.add(scene.substring(charachterMatcher.start(), charachterMatcher.end()));
+			}
+			Block resBlock = new Block(inputFile, startPos, endPos);
+			resBlock.setMetadata(metaData);
+			return resBlock;
+
 		} catch (IOException e) {
 			e.printStackTrace();
+			return null; //TODO change this behavior
 		}
+
 	}
 
 	@Override
@@ -78,7 +100,8 @@ public class STmovieParsingRule implements IparsingRule {
 		try {
 			long curBlockStart = 0, curBlockEnd;
 			boolean endBlock = false;
-			for (Long i = curIndex; i < lastIndex; i += rawChunkSize) {
+			Long curIndex = 0L;
+			for (Long i = curIndex; i < fileLength; i += rawChunkSize) {
 				this.inputFile.seek(i);
 				int bytesRead = this.inputFile.read(rawBytes);
 				m.reset(new String(rawBytes));
@@ -98,50 +121,10 @@ public class STmovieParsingRule implements IparsingRule {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return entryBlocks;
 	}
 
 
-	public Block next() {
-		byte[] rawBytes = new byte[256];
-		String sentence = "";
-		try {
-			long curBlockStart = 0, curBlockEnd;
-			boolean endBlock = false;
-			for (Long i = curIndex; i < lastIndex; i += 256) {
-				this.inputFile.seek(i);
-				int bytesRead = this.inputFile.read(rawBytes);
-				m.reset(new String(rawBytes));
-				if (m.find()) {
-					if (!endBlock) {
-						curBlockStart = i;
-						endBlock = true;
-					} else {
-						curBlockEnd = i;
-						this.nextBlock = new Block(this.inputFile, curBlockStart, curBlockEnd)
-					}
-				} else
-					sentence = new String(rawBytes);
-				sentence = sentence.replace('.', ' ').replace('\r', ' ').trim();
-
-
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	@Override
-	public boolean hasNext() {
-
-	}
-
-
-	@Override
-	protected boolean isStartOfBlock(String line) {
-		// TODO Auto-generated method stub
-		return line.matches(START_BLOCK_REGEX);
-	}
 
 
 }

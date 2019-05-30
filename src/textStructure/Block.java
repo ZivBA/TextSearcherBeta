@@ -2,13 +2,15 @@ package textStructure;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.List;
 
 public class Block {
     private long endIdx;
     private RandomAccessFile inputFile;
     private long startIdx;
+	private List<String> metaData;
 
-    public Block(RandomAccessFile inputFile, long startIdx, long endIdx) {
+	public Block(RandomAccessFile inputFile, long startIdx, long endIdx) {
         this.inputFile = inputFile;
         this.startIdx = startIdx;
         this.endIdx = endIdx;
@@ -52,6 +54,8 @@ public class Block {
 		return this;
 	}
 
-	
 
+	public void setMetadata(List<String> metaData) {
+		this.metaData = metaData;
+	}
 }

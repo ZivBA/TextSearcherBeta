@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 
 public class ParsingRuleFactory {
-    public static LineParsingRule createRuleByName(String name, String filePath) throws IOException {
+    public static IparsingRule createRuleByName(String name, String filePath) throws IOException {
         if(name == null){
             throw new RuntimeException("no parsing rule given");
         }

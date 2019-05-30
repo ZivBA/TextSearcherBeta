@@ -5,11 +5,14 @@ import textStructure.QueryResult;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.List;
 
-public class STtvSeriesParsingRule extends LineParsingRule {
+public class STtvSeriesParsingRule implements IparsingRule {
 
-    public STtvSeriesParsingRule(RandomAccessFile randomAccessFile) {
-        super(randomAccessFile);
+	private final RandomAccessFile inputFile;
+
+	public STtvSeriesParsingRule(RandomAccessFile randomAccessFile) {
+        this.inputFile = randomAccessFile;
     }
 
 
@@ -39,31 +42,14 @@ public class STtvSeriesParsingRule extends LineParsingRule {
         return -1;
     }
 
-    @Override
-    public boolean hasNext() {
-        return false;
-    }
-
-    @Override
-    public Block next() {
-        return null;
-    }
-
 	@Override
-	protected String getSplitRegex() {
-		// TODO Auto-generated method stub
+	public Block parseRawBlock(RandomAccessFile inputFile, long startPos, long endPos) {
 		return null;
 	}
 
 	@Override
-	protected int getNextBlockLineStartIndex(int fromLine) {
-		// TODO Auto-generated method stub
-		return 0;
+	public List<Block> parseFile(RandomAccessFile inputFile) {
+		return null;
 	}
 
-	@Override
-	protected boolean isStartOfBlock(String line) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 }
