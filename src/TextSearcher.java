@@ -1,16 +1,17 @@
 import indexing.Aindexer;
 import indexing.IndexFactory;
 import textStructure.Corpus;
+import textStructure.QueryResult;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 public class TextSearcher {
     public static final String ERROR = "ERROR";
-    private static String corpusLocation, query, indexStrategy;
     private static final String CORPUS_KEY = "CORPUS";
     private static final String INDEXER_KEY = "INDEXER";
     private static final String PARSING_RULE_KEY = "PARSE_RULE";
@@ -23,15 +24,20 @@ public class TextSearcher {
         if(args.length != 1){
             handleError(new Exception("Usage: TextSearcher configuration_file"));
         }
+	    Collection<QueryResult> results = null;
         try{
             Map<String,String> configuration = parseConfiguration(args[0]);
             readConfiguration(configuration);
             sIndexer.index();
+
             if(sQuery!=null) {
-            	sIndexer.asSearchInterface().search(query);
+                results = sIndexer.asSearchInterface().search(sQuery);
             }
         }catch (Exception e){
             handleError(e);
+        }
+        if (results != null){
+	        System.out.println("You got "+ results.size() + " results! congratulations.");
         }
 
     }

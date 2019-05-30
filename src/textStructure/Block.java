@@ -34,6 +34,7 @@ public class Block {
         try {
             inputFile.seek(startIdx);
             byte[] resultBytes = new byte[Math.toIntExact(endIdx - startIdx + 1)];
+            inputFile.seek(startIdx);
             inputFile.read(resultBytes);
             return new String(resultBytes);
         } catch (IOException e) {

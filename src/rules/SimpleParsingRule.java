@@ -56,23 +56,19 @@ public class SimpleParsingRule implements IparsingRule{
 		byte[] rawBytes = new byte[rawChunkSize];
 		String sentence = "";
 		try {
-			long curBlockStart = 0, curBlockEnd;
-			boolean endBlock = false;
+			long endOfBlockOffset = 0, curBlockEnd;
 			Long lastIndex = inputFile.length();
-			Long curIndex = 0L;
-			for (Long i = curIndex; i < lastIndex; i += rawChunkSize) {
+			for (long i = endOfBlockOffset; i < lastIndex-rawChunkSize; i += rawChunkSize) {
 				this.inputFile.seek(i);
 				int bytesRead = this.inputFile.read(rawBytes);
-				m.reset(new String(rawBytes));
+				String rawBlock = new String(rawBytes);
+				m.reset(rawBlock);
 				while (m.find()) {
-					if (!endBlock) {
-						curBlockStart = i;
-						endBlock = true;
-					} else {
-						curBlockEnd = i;
-						entryBlocks.add(parseRawBlock(this.inputFile, curBlockStart, curBlockEnd));
-					}
+//					String curMatch = rawBlock.substring(m.start(), m.end());
+					entryBlocks.add(parseRawBlock(this.inputFile, m.start(), m.end()));
+					endOfBlockOffset = m.end();
 				}
+				i -= (rawChunkSize - endOfBlockOffset);
 
 
 			}
@@ -86,7 +82,7 @@ public class SimpleParsingRule implements IparsingRule{
 
 
 	private String getSplitRegex() {
-		return "((\\r?\\n){2})|(^\\r?\\n)";
+		return "(.*\\n){5,15}\\n";
 	}
 
 
