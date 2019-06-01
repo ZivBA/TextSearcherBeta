@@ -8,5 +8,5 @@ import utils.Stemmer;
 
 public interface IQuerySearch {
     final Stemmer stemmer = new Stemmer();
-	public Collection<QueryResult> search(String query);
+	public Collection<? extends QueryResult> search(String query);
 }

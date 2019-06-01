@@ -4,6 +4,7 @@ import rules.IparsingRule;
 import rules.ParsingRuleFactory;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Iterator;
@@ -39,4 +40,20 @@ public class Entry implements Iterable<Block>{
     public byte[] getBytes() {
         return new byte[0];
     }
+    
+//    @Override
+//    public String toString(){
+//    	try {
+//    		File file = new File("a.txt");
+//        	FileInputStream fis = new FileInputStream(sourceFile);
+//        	byte[] data = new byte[(int) file.length()];
+//        	fis.read(data);
+//        	fis.close();
+//        	String str = new String(data, "UTF-8"); 
+//        	return str;
+//    	}catch(IOException e) {
+//    		throw new RuntimeException(e);
+//    	}
+//    	
+//    }
 }

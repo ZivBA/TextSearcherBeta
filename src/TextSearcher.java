@@ -24,7 +24,7 @@ public class TextSearcher {
         if(args.length != 1){
             handleError(new Exception("Usage: TextSearcher configuration_file"));
         }
-	    Collection<QueryResult> results = null;
+	    Collection<? extends QueryResult> results = null;
         try{
             Map<String,String> configuration = parseConfiguration(args[0]);
             readConfiguration(configuration);
