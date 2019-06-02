@@ -1,6 +1,8 @@
-package textStructure;
+package indexing.textStructure;
 
-import utils.MD5;
+import processing.parsingRules.IparsingRule;
+import processing.parsingRules.ParsingRuleFactory;
+import processing.utils.MD5;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,10 +13,10 @@ import java.util.List;
 
 public class Corpus implements Iterable<Entry>{
     private List<Entry> entryList;
-    private String parserName;
+    private IparsingRule parsingRule;
     private String corpusPath;
 
-    public Corpus(String path, String parserName){
+    public Corpus(String path, String parserName) throws IOException {
         /*
         check if the path is a folder or file.
         if file - single entry corpus.
@@ -23,7 +25,7 @@ public class Corpus implements Iterable<Entry>{
          */
         this.entryList = new LinkedList<>();
         this.corpusPath = path;
-        this.parserName = parserName;
+        this.parsingRule = ParsingRuleFactory.createRuleByName(parserName,path);
     }
 
     public void populate(){
@@ -33,7 +35,7 @@ public class Corpus implements Iterable<Entry>{
 
     private void populateEntryList(File entryFile) {
         if(entryFile.isFile()){
-            this.entryList.add(new Entry(entryFile.getAbsolutePath(), parserName));
+            this.entryList.add(new Entry(entryFile.getAbsolutePath(), parsingRule));
             return;
         }
         if(entryFile.isDirectory()){
@@ -78,5 +80,9 @@ public class Corpus implements Iterable<Entry>{
             result.append(MD5.getMd5(Files.readAllBytes(f.toPath())));
         }
         return MD5.getMd5(result.toString());
+    }
+
+    public IparsingRule getParsingRule() {
+        return this.parsingRule;
     }
 }

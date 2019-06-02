@@ -3,7 +3,7 @@ package indexing;
 import indexing.dataStructures.dictionary.DictionaryIndexer;
 import indexing.dataStructures.naive.NaiveIndexer;
 import indexing.dataStructures.naive.NaiveIndexerRK;
-import textStructure.Corpus;
+import indexing.textStructure.Corpus;
 
 public class IndexFactory {
 	public static Aindexer createIndexerByName(String name, Corpus corpus){

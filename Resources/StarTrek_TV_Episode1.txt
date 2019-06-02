@@ -622,7 +622,7 @@ destroyed, please notify the Script Department.
 22   CONTINUED:
 
 					PICARD
-			Records search, Data. Results
+			Records processing.searchStrategies, Data. Results
 			of detaching the Saucer Section
 			at high warp speeds.
 
@@ -1380,7 +1380,7 @@ destroyed, please notify the Script Department.
 			Just a moment ago, you promised
 			"the prisoners will not be
 			harmed." We plead nothing so long
-			as you break your own rules.
+			as you break your own processing.parsingRules.
 
 	LOUDER GRUMBLING from the Spectators now.
 
@@ -2759,7 +2759,7 @@ destroyed, please notify the Script Department.
 			that responsibility must, by
 			definition, include the safety
 			of the captain. I have no problem
-			with following the rules you lay
+			with following the processing.parsingRules you lay
 			down. But under no circumstances
 			will I compromise your safety.
 			If you have a problem with that,
@@ -4822,7 +4822,7 @@ destroyed, please notify the Script Department.
 					"Q" (JUDGE)
 			Typical, so typical. Savage
 			lifeforms never follow even their
-			own rules.
+			own processing.parsingRules.
 
 									FADE OUT.
 

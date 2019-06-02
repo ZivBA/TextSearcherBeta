@@ -1,7 +1,9 @@
 package indexing;
 
-import textStructure.Corpus;
-import textStructure.Entry;
+import processing.parsingRules.IparsingRule;
+import indexing.textStructure.Block;
+import indexing.textStructure.Corpus;
+import indexing.textStructure.Entry;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -9,11 +11,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.HashMap;
-import java.util.List;
 
-import search.IQuerySearch;
-import utils.WrongMD5ChecksumException;
+import processing.searchStrategies.IQuerySearch;
+import processing.utils.WrongMD5ChecksumException;
 
 public abstract class Aindexer<T extends IQuerySearch> {
     static final String DICT = "dict";
@@ -95,10 +95,9 @@ public abstract class Aindexer<T extends IQuerySearch> {
 	protected void writeDataStructure(ObjectOutputStream objectOut) throws IOException {
 
     }
+	public abstract IparsingRule getParseRule();
 
     protected abstract String getIndexType();
 
-
-
-
+	public Corpus getCorpus(){return  this.origin;}
 }

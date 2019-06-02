@@ -1,7 +1,7 @@
-package rules;
+package processing.parsingRules;
 
-import textStructure.Block;
-import textStructure.QueryResult;
+import indexing.textStructure.Block;
+import indexing.textStructure.WordResult;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -17,7 +17,7 @@ public class STtvSeriesParsingRule implements IparsingRule {
 
 
     public Block parseBlock(RandomAccessFile inputFile, long startIdx) throws IOException {
-        //TODO implement regex parsing using the following rules:
+        //TODO implement regex parsing using the following processing.parsingRules:
         /*
             each scene starts with a line like "1    EXT. SPACE - STARSHIP (OPTICAL)" (no tabs)
             where the first number represent the scene number.
@@ -35,7 +35,7 @@ public class STtvSeriesParsingRule implements IparsingRule {
     }
 
     @Override
-    public int getWordDistance(QueryResult first, QueryResult second, String[] queryWords) {
+    public int getWordDistance(WordResult first, WordResult second, String[] queryWords) {
         // this should actually be a comparator for wordResults, where two word results are considered equal if they come from the same block
         // if they come from different blocks, then either both blocks contain all the query words, in which case the order is according to scene number
         // otherwise, whichever block has more queryWords gets a higher score (is grater than the other)
@@ -50,6 +50,16 @@ public class STtvSeriesParsingRule implements IparsingRule {
 	@Override
 	public List<Block> parseFile(RandomAccessFile inputFile) {
 		return null;
+	}
+
+	@Override
+	public String getMatcherRegex(String[] qWords) {
+		return null;
+	}
+
+	@Override
+	public void printResult(WordResult wordResult) throws IOException {
+		System.out.println("MISSING IMPLEMENTATION");
 	}
 
 }

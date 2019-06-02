@@ -1,40 +1,33 @@
 package indexing.dataStructures.dictionary;
 
 import indexing.Aindexer;
-import indexing.dataStructures.IdataStructure;
-import search.DictionarySearch;
-import search.IQuerySearch;
-import textStructure.Block;
-import textStructure.BlockResult;
-import textStructure.Corpus;
-import textStructure.Entry;
-import textStructure.QueryResult;
-import utils.Stemmer;
-import utils.Stopwords;
+import processing.parsingRules.IparsingRule;
+import processing.searchStrategies.DictionarySearch;
+import indexing.textStructure.*;
+import processing.utils.Stemmer;
+import processing.utils.Stopwords;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import static utils.MD5.getMd5;
+import static processing.utils.MD5.getMd5;
 
 public class DictionaryIndexer extends Aindexer<DictionarySearch> {
 	private String dictFile;
 	private String hashCode;
-	private List<BlockDict> dicts;
 	private String fileName;
 	private static final Stemmer STEMMER = new Stemmer();
 	public static final String TYPE_NAME = "dictionary_indexer";
-
+	private HashMap<Integer, List<Word>> dict;
 
 
 	public DictionaryIndexer(Corpus origin) {
 		super(origin);
-		dicts = new LinkedList<>();
+		dict = new HashMap<>();
 	}
 
 	@Override
@@ -46,69 +39,69 @@ public class DictionaryIndexer extends Aindexer<DictionarySearch> {
 
 	@Override
 	protected void castRawData(Object readObject) {
-		this.dicts = (List<BlockDict>) readObject;
+		this.dict = (HashMap<Integer, List<Word>>) readObject;
 	}
-	
+
+
 	public void indexEntry(Entry inputEntry) {
-		for(Block b: inputEntry) {
-			processBlock(b);
-		}
-				
-	}
+		Pattern p = Pattern.compile("\\w+");
+		Matcher m = p.matcher("");
+		int chunkSize = 2048;
+		for (Block blk : inputEntry){
+			byte[] rawBytes = new byte[chunkSize];
+			String sentence = "";
 
-	private void processBlock(Block b) {
-		BlockDict dict = new BlockDict(b);
-		dicts.add(dict);
-		String blockString = b.toString();
-		String[] words = blockString.split("\\s+");
-		long currIndex = 0;
-		for(String word: words) {
-			updateDict(dict,word, blockString.indexOf(word, (int)currIndex));
-			currIndex += word.length();
-		}
-	}
+			try {
+				RandomAccessFile file = blk.getRAF();
 
+				Long fileLength = file.length();
+				for (long i = blk.getStartIndex(); i < blk.getEndIndex(); i+=chunkSize){
+					long blkOffset = i - blk.getStartIndex();
+					file.seek(i);
+					int bytesRead = file.read(rawBytes);
+//					for (int k =0; k < 256; k++){
+//						if ((int)rawBytes[k] <=0) { rawBytes[k] = (byte)' ';}
+//					}
+					sentence = new String(rawBytes);
+					m.reset(sentence);
+					long lastMatch = 0;
+					while (m.find()){
+						String word = sentence.substring(m.start(),m.end());
+						updateDict(word, m.start()+blkOffset, m.end()+blkOffset, blk);
+						lastMatch = m.end();
+					}
+					i -= (chunkSize-lastMatch);
 
-	private void processSourceFile() {
-		byte[] rawBytes = new byte[256];
-		String sentence = "";
-		try {
-			RandomAccessFile file = new RandomAccessFile(this.fileName, "r");
-			Long fileLength = file.length();
-			for (Long i = 0l; i < fileLength; i+=256){
-				file.seek(i);
-				int bytesRead = file.read(rawBytes);
-				for (int k =0; k < 256; k++){
-					if ((int)rawBytes[k] <=0) { rawBytes[k] = (byte)' ';}
 				}
-				sentence = new String(rawBytes);
-				sentence = sentence.replace('.', ' ').replace('\r',' ').trim();
 
-				String[] words = sentence.split("\\s+");
-//				updateDict(words, i);
-
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.out.println("problem with line: "+ sentence);
 			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.out.println("problem word: "+ sentence.split("\\s+"));
 		}
 
-		writeDictionaryToFile();
+
 	}
+
 
 	@Override
     protected void writeParams( ObjectOutputStream objectOut) throws IOException {
 		super.writeParams(objectOut);
-		objectOut.writeObject(dicts);
+		objectOut.writeObject(dict);
 	}
+
+	@Override
+	public IparsingRule getParseRule() {
+		return origin.getParsingRule();
+	}
+
 	private void writeDictionaryToFile() {
 		try {
 
 			FileOutputStream fileOut = new FileOutputStream(this.dictFile);
 			ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
 			objectOut.writeObject(this.hashCode);
-			objectOut.writeObject(this.dicts);
+			objectOut.writeObject(this.dict);
 			objectOut.close();
 			System.out.println("The Object  was succesfully written to a file");
 
@@ -117,16 +110,16 @@ public class DictionaryIndexer extends Aindexer<DictionarySearch> {
 		}
 	}
 
-	private void updateDict(BlockDict blockDict, String word, long i) {
-		Map<Integer, List<Long>> dict = blockDict.getDict();
-		word = STEMMER.stem(word.trim()); // trim should be a step inside the stemmer
-
-		if (Stopwords.isStemmedStopword(word) || word.equals("")){
+	private void updateDict(String word, long start, long end, Block blk) {
+		word = STEMMER.stem(word);
+		if (Stopwords.isStemmedStopword(word)){
 			return;
 		}
-		List<Long> curList = dict.computeIfAbsent(word.hashCode(), k -> new ArrayList<>());
-		curList.add(i);
-
+		if (this.dict.containsKey(word.hashCode())){
+			this.dict.get(word.hashCode()).add(new Word(blk,start, end));
+		}else{
+			this.dict.put(word.hashCode(), new LinkedList<>(List.of(new Word(blk,start, end))));
+		}
 	}
 
 
@@ -139,7 +132,7 @@ public class DictionaryIndexer extends Aindexer<DictionarySearch> {
 	@Override
 	public DictionarySearch asSearchInterface() {
 		// TODO Auto-generated method stub
-		return new DictionarySearch(dicts);
+		return new DictionarySearch(dict);
 	}
 
 

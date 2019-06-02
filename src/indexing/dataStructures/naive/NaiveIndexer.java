@@ -1,16 +1,10 @@
 package indexing.dataStructures.naive;
 
-import search.NaiveSearchRK;
-import textStructure.*;
+import processing.parsingRules.IparsingRule;
+import processing.searchStrategies.NaiveSearchRK;
+import indexing.textStructure.*;
 import indexing.Aindexer;
-import indexing.dataStructures.IdataStructure;
-import search.IQuerySearch;
-import search.NaiveSearch;
-import textStructure.*;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import processing.searchStrategies.NaiveSearch;
 
 public class NaiveIndexer extends Aindexer<NaiveSearch> {
 
@@ -38,14 +32,6 @@ public class NaiveIndexer extends Aindexer<NaiveSearch> {
 		// does nothing
 	}
 
-
-	public List<BlockResult> searchWordList(Collection<String> wordList) {
-		//TODO implement
-		//implementation here
-		return null;
-	}
-
-
 	public Corpus getOrigin() {
 		return this.origin;
 	}
@@ -56,6 +42,10 @@ public class NaiveIndexer extends Aindexer<NaiveSearch> {
 		return TYPE_NAME;
 	}
 
+	@Override
+	public IparsingRule getParseRule() {
+		return this.origin.getParsingRule();
+	}
 
 
 	@Override

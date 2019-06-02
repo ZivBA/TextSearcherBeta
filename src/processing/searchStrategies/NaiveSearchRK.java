@@ -1,8 +1,8 @@
-package search;
+package processing.searchStrategies;
 
-import textStructure.Block;
-import textStructure.Corpus;
-import textStructure.QueryResult;
+import indexing.textStructure.Block;
+import indexing.textStructure.Corpus;
+import indexing.textStructure.WordResult;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -13,7 +13,7 @@ public class NaiveSearchRK extends NaiveSearch {
         super(origin);
     }
 
-    private void searchBlock(Block blk, List<QueryResult> results, String query) {
+    private void searchBlock(Block blk, List<WordResult> results, String query) {
 
         char[] pattern = query.toCharArray();
         char[] text = blk.toString().toCharArray();
@@ -54,7 +54,7 @@ public class NaiveSearchRK extends NaiveSearch {
                 }
 
                 if (passed) {
-                    results.add(new QueryResult(blk, query, i));
+                    results.add(new WordResult(blk, new String[]{query}, i));
                 }
             }
 

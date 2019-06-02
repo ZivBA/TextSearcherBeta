@@ -1,6 +1,6 @@
 package indexing.dataStructures.naive;
 
-import textStructure.Corpus;
+import indexing.textStructure.Corpus;
 
 public class NaiveIndexerRK extends NaiveIndexer {
 

@@ -1,8 +1,7 @@
-package rules;
+package processing.parsingRules;
 
-import textStructure.Block;
-import textStructure.LinesBlock;
-import textStructure.QueryResult;
+import indexing.textStructure.Block;
+import indexing.textStructure.WordResult;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -23,32 +22,33 @@ public class SimpleParsingRule implements IparsingRule{
 
     }
 
-	private String readFileToString() {
-		try {
-			byte[] rawFile = new byte[Math.toIntExact(inputFile.length())];
-			inputFile.readFully(rawFile);
-			return new String(rawFile);
-		} catch (IOException e) {
-			e.printStackTrace();
-			return "";
-		}
-	}
+//	private String readFileToString() {
+//		try {
+//			byte[] rawFile = new byte[Math.toIntExact(inputFile.length())];
+//			inputFile.readFully(rawFile);
+//			return new String(rawFile);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//			return "";
+//		}
+//	}
 
 
 	@Override
-	public int getWordDistance(QueryResult first, QueryResult second, String[] queryWords) {
+	public int getWordDistance(WordResult first, WordResult second, String[] queryWords) {
 		return 0;
 	}
 
 	@Override
 	public Block parseRawBlock(RandomAccessFile inputFile, long startPos, long endPos) {
+
 		return new Block(inputFile, startPos, endPos);
 	}
 
 	@Override
 	public List<Block> parseFile(RandomAccessFile inputFile) {
 
-		final Pattern p = Pattern.compile(getSplitRegex());
+		final Pattern p = Pattern.compile(getSplitRegex(), Pattern.DOTALL);
 		final Matcher m = p.matcher("");
 
 		List<Block> entryBlocks = new LinkedList<>();
@@ -65,9 +65,13 @@ public class SimpleParsingRule implements IparsingRule{
 				m.reset(rawBlock);
 				while (m.find()) {
 //					String curMatch = rawBlock.substring(m.start(), m.end());
-					entryBlocks.add(parseRawBlock(this.inputFile, m.start(), m.end()));
+					if (m.end()-m.start() > 5) {
+						entryBlocks.add(parseRawBlock(this.inputFile, m.start() + i, m.end() + i));
+					}
 					endOfBlockOffset = m.end();
 				}
+//				if (endOfBlockOffset != rawChunkSize)
+//					entryBlocks.add(parseRawBlock(this.inputFile, endOfBlockOffset+i, rawChunkSize+i));
 				i -= (rawChunkSize - endOfBlockOffset);
 
 
@@ -80,9 +84,14 @@ public class SimpleParsingRule implements IparsingRule{
 
 	}
 
+	@Override
+	public void printResult(WordResult wordResult) throws IOException {
+		System.out.println("The result: \n" +wordResult.resultToString());
+//		System.out.println("From the block with the metadata: \n"+wordResult.getBlock().getMeta());
+	}
 
 	private String getSplitRegex() {
-		return "(.*\\n){5,15}\\n";
+		return "(.*\\n\\n){1,5}";
 	}
 
 

@@ -26,13 +26,13 @@ import java.util.Collections;
  * Unlike common suffix trees, which are generally used to build an index out of one (very) long string,
  * a Generalized Suffix Tree can be used to build an index over many strings.
  *
- * Its main operations are put and search:
+ * Its main operations are put and processing.searchStrategies:
  * Put adds the given key to the index, allowing for later retrieval of the given value.
  * Search can be used to retrieve the set of all the values that were put in the index with keys that contain a given input.
  *
- * In particular, after put(K, V), search(H) will return a set containing V for any string H that is substring of K.
+ * In particular, after put(K, V), processing.searchStrategies(H) will return a set containing V for any string H that is substring of K.
  *
- * The overall complexity of the retrieval operation (search) is O(m) where m is the length of the string to search within the index.
+ * The overall complexity of the retrieval operation (processing.searchStrategies) is O(m) where m is the length of the string to processing.searchStrategies within the index.
  *
  * Although the implementation is based on the original design by Ukkonen, there are a few aspects where it differs significantly.
  * 
@@ -42,7 +42,7 @@ import java.util.Collections;
  * Because of this, a given (startNode, stringSuffix) pair can denote a unique path within the tree, and it is the path (if any) that can be
  * composed by sequentially traversing all the edges (e1, e2, ...) starting from startNode such that (e1.label + e2.label + ...) is equal
  * to the stringSuffix.
- * See the search method for details.
+ * See the processing.searchStrategies method for details.
  * 
  * The union of all the edge labels from the root to a given leaf node denotes the set of the strings explicitly contained within the GST.
  * In addition to those Strings, there are a set of different strings that are implicitly contained within the GST, and it is composed of
@@ -73,7 +73,7 @@ public class GeneralizedSuffixTree {
      * Returns all the indexes for which the key contains the <tt>word</tt> that was
      * supplied as input.
      *
-     * @param word the key to search for
+     * @param word the key to processing.searchStrategies for
      * @return the collection of indexes associated with the input <tt>word</tt>
      */
     public Collection<Integer> search(String word) {
@@ -83,7 +83,7 @@ public class GeneralizedSuffixTree {
     /**
      * Searches for the given word within the GST and returns at most the given number of matches.
      *
-     * @param word the key to search for
+     * @param word the key to processing.searchStrategies for
      * @param results the max number of results to return
      * @return at most <tt>results</tt> values for the given word
      */
@@ -98,7 +98,7 @@ public class GeneralizedSuffixTree {
     /**
      * Searches for the given word within the GST and returns at most the given number of matches.
      *
-     * @param word the key to search for
+     * @param word the key to processing.searchStrategies for
      * @param to the max number of results to return
      * @return at most <tt>results</tt> values for the given word
      * @see GeneralizedSuffixTree ResultInfo
@@ -135,7 +135,7 @@ public class GeneralizedSuffixTree {
                 String label = currentEdge.getLabel();
                 int lenToMatch = Math.min(word.length() - i, label.length());
                 if (!word.regionMatches(i, label, 0, lenToMatch)) {
-                    // the label on the edge does not correspond to the one in the string to search
+                    // the label on the edge does not correspond to the one in the string to processing.searchStrategies
                     return null;
                 }
 
@@ -212,7 +212,7 @@ public class GeneralizedSuffixTree {
      * having rest as label.
      *
      * @param inputs the starting node
-     * @param stringPart the string to search
+     * @param stringPart the string to processing.searchStrategies
      * @param t the following character
      * @param remainder the remainder of the string to add to the index
      * @param value the value to add to the index

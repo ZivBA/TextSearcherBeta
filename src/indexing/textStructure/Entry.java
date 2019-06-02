@@ -1,14 +1,10 @@
-package textStructure;
+package indexing.textStructure;
 
-import rules.IparsingRule;
-import rules.ParsingRuleFactory;
+import processing.parsingRules.IparsingRule;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Entry implements Iterable<Block>{
@@ -16,11 +12,11 @@ public class Entry implements Iterable<Block>{
     private List<Block> blockList;
     private String sourceFile;
 
-    public Entry(String filePath, String parseRule) {
+    public Entry(String filePath, IparsingRule parseRule) {
         this.sourceFile = filePath;
 
         try {
-            this.parseRule = ParsingRuleFactory.createRuleByName(parseRule,filePath);
+            this.parseRule = parseRule;
             this.blockList = this.parseRule.parseFile(new RandomAccessFile(sourceFile, "r"));
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());

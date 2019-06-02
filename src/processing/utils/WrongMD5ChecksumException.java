@@ -1,4 +1,4 @@
-package utils;
+package processing.utils;
 
 public class WrongMD5ChecksumException extends Throwable {
     public WrongMD5ChecksumException(){

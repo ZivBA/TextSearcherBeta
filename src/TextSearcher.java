@@ -1,13 +1,13 @@
 import indexing.Aindexer;
 import indexing.IndexFactory;
-import textStructure.Corpus;
-import textStructure.QueryResult;
+import indexing.textStructure.Corpus;
+import indexing.textStructure.WordResult;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class TextSearcher {
@@ -24,7 +24,7 @@ public class TextSearcher {
         if(args.length != 1){
             handleError(new Exception("Usage: TextSearcher configuration_file"));
         }
-	    Collection<? extends QueryResult> results = null;
+	    List<? extends WordResult> results = null;
         try{
             Map<String,String> configuration = parseConfiguration(args[0]);
             readConfiguration(configuration);
@@ -37,12 +37,19 @@ public class TextSearcher {
             handleError(e);
         }
         if (results != null){
+            for (int i =0; i < 10; i++){
+                try {
+                    sIndexer.getParseRule().printResult(results.get(i));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
 	        System.out.println("You got "+ results.size() + " results! congratulations.");
         }
 
     }
 
-    private static void readConfiguration(Map<String, String> configuration) {
+    private static void readConfiguration(Map<String, String> configuration) throws IOException {
 
         if(configuration.get(CORPUS_KEY)==null){
             throw new RuntimeException("No corpus given");
