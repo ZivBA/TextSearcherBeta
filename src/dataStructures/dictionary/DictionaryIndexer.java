@@ -45,6 +45,7 @@ public class DictionaryIndexer extends Aindexer<DictionarySearch> {
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	protected void castRawData(Object readObject) {
 		this.dict = (HashMap<Integer, List<Word>>) readObject;
 	}
