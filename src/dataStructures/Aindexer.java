@@ -3,6 +3,9 @@ package dataStructures;
 import processing.parsingRules.IparsingRule;
 import processing.searchStrategies.IsearchStrategy;
 import processing.textStructure.Corpus;
+import utils.WrongMD5ChecksumException;
+
+import java.io.FileNotFoundException;
 
 /**
  * The abstract class describing the necessary methods and common implementations of all indexing data structures.
@@ -28,7 +31,12 @@ public abstract class Aindexer<T extends IsearchStrategy> {
 	 * Main indexing method. Common implementation trying to read indexed cache file
 	 */
 	public void index() {
-		//TODO implement me!!!
+		try {
+			readIndexedFile();
+		} catch (FileNotFoundException | WrongMD5ChecksumException e) {
+			indexCorpus();
+			writeIndexFile();
+		}
     }
 
 	/**
@@ -46,7 +54,7 @@ public abstract class Aindexer<T extends IsearchStrategy> {
 	 * Try to read a cached index file if one already exists.
 	 * NOTE! you may make this method not abstract if you wish.
 	 */
-	protected abstract void readIndexedFile();
+	protected abstract void readIndexedFile() throws FileNotFoundException, WrongMD5ChecksumException;
 
 	/**
 	 * Convert a read object file into the indexer's specific data type.
