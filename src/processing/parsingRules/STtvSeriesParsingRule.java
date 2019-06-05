@@ -12,12 +12,12 @@ public class STtvSeriesParsingRule implements IparsingRule {
 	private final RandomAccessFile inputFile;
 
 	public STtvSeriesParsingRule(RandomAccessFile randomAccessFile) {
-
+		//TODO implement me!!!
     }
 
 
     public Block parseBlock(RandomAccessFile inputFile, long startIdx) throws IOException {
-
+	    //TODO implement me!!!
     }
 
     @Override
@@ -30,22 +30,22 @@ public class STtvSeriesParsingRule implements IparsingRule {
 
 	@Override
 	public Block parseRawBlock(RandomAccessFile inputFile, long startPos, long endPos) {
-		return null;
+		//TODO implement me!!!
 	}
 
 	@Override
 	public List<Block> parseFile(RandomAccessFile inputFile) {
-		return null;
+		//TODO implement me!!!
 	}
 
 	@Override
 	public String getMatcherRegex(String[] qWords) {
-		return null;
+		//TODO implement me!!!
 	}
 
 	@Override
-	public void printResult(WordResult wordResult) throws IOException {
-
+	public void printResult(WordResult wordResult)  {
+		//TODO implement me!!!
 	}
 
 }

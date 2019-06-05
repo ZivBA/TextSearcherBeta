@@ -23,7 +23,7 @@ public class NaiveSearch implements IsearchStrategy {
 		    lastIndex = toSearch.indexOf(query,lastIndex);
 
 		    if(lastIndex != -1){
-		    	results.add(new WordResult(blk, new String[]{query},lastIndex));
+		    	results.add(new WordResult(blk, query,lastIndex));
 		        lastIndex += query.length();
 		    }
 		}

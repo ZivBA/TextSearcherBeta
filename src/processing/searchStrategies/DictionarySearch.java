@@ -1,10 +1,7 @@
 package processing.searchStrategies;
 
-import processing.textStructure.Block;
-import processing.textStructure.ComplexQueryResult;
 import processing.textStructure.Word;
 import processing.textStructure.WordResult;
-import utils.Stopwords;
 
 import java.util.*;
 
@@ -24,7 +21,7 @@ public class DictionarySearch implements IsearchStrategy {
 	 */
 	@Override
 	public List<? extends WordResult> search(String query) {
-
+		//TODO implement me!!!
 	}
 
 

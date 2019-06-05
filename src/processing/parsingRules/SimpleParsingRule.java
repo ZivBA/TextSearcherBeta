@@ -10,18 +10,33 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * This class represents a basic parsing rule which splits a text file to blocks of lines.
+ * It will try to get anywhere between 1 and 10 lines of text, as long as the last line it grabs is an empty line.
+ */
 public class SimpleParsingRule implements IparsingRule{
 
-	private final RandomAccessFile inputFile;
+	private final RandomAccessFile inputFile;       // The source RAF for this parser
 
-
+	/**
+	 * Basic constructor
+	 * @param file  The RAF used for this parser
+	 */
 	public SimpleParsingRule(RandomAccessFile file) {
 		inputFile = file;
     }
 
+	/**
+	 * A distance measure between two words according to this parsing rule. Will return the distance between the two words
+	 * @param first     First WordResult object
+	 * @param second    Second WordResult object
+	 * @param queryWords    The actual query sent to the indexer
+	 * @return
+	 */
 	@Override
 	public int getWordDistance(WordResult first, WordResult second, String[] queryWords) {
-		return 0;
+		//TODO implement me!
+
 	}
 
 	@Override
@@ -73,7 +88,7 @@ public class SimpleParsingRule implements IparsingRule{
 	}
 
 	private String getSplitRegex() {
-		return "(.*\\n\\n){1,5}";
+		return "(.*\\n\\n){1,10}";
 	}
 
 

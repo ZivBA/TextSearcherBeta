@@ -15,28 +15,28 @@ public class STmovieParsingRule implements IparsingRule {
 	private final RandomAccessFile inputFile;
 
 	public STmovieParsingRule(RandomAccessFile file) throws IOException {
-
+		//TODO implement me!!!
 	}
 
 
 
 	@Override
 	public int getWordDistance(WordResult first, WordResult second, String[] queryWords) {
-
+		//TODO implement me!!!
 	}
 
 	@Override
 	public Block parseRawBlock(RandomAccessFile inputFile, long startPos, long endPos) {
-
+		//TODO implement me!!!
 	}
 
 	@Override
 	public List<Block> parseFile(RandomAccessFile inputFile) {
-
+		//TODO implement me!!!
 	}
 
 	@Override
 	public void printResult(WordResult wordResult) throws IOException {
-
+		//TODO implement me!!!
 	}
 }

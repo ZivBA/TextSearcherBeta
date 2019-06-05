@@ -17,46 +17,40 @@ public class Word {
 
 	/**
 	 * The constructor.
-	 * @param source    The Block where this word resides.
-	 * @param startIdx  The offset within the block where the word starts.
-	 * @param endIdx    The  offset within the block where the word ends.
+	 *
+	 * @param source   The Block where this word resides.
+	 * @param startIdx The offset within the block where the word starts.
+	 * @param endIdx   The  offset within the block where the word ends.
 	 */
-	public Word(Block source, long startIdx, long endIdx){
+	public Word(Block source, long startIdx, long endIdx) {
 		this.srcBlk = source;
 		this.srcBlkOffset = startIdx;
-		this.length = (int) (endIdx-startIdx);
+		this.length = (int) (endIdx - startIdx);
 		this.wordHash = extractWord().hashCode();
 	}
 
 	/**
 	 * Simple getter
-	 * @return  The source block
+	 *
+	 * @return The source block
 	 */
-	public Block getSrcBlk(){
+	public Block getSrcBlk() {
 		return this.srcBlk;
 	}
 
 	/**
 	 * Get the actual string of the word from within the block.
-	 * @return  The word in String format.
+	 *
+	 * @return The word in String format.
 	 */
-	protected String extractWord(){
-		byte[] rawWord = new byte[length];
-		RandomAccessFile theFile = this.srcBlk.getRAF();
-		try {
-			theFile.seek(srcBlk.getStartIndex()+srcBlkOffset);
-			theFile.read(rawWord);
-			return new String(rawWord);
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		}
-
+	protected String extractWord() {
+		//TODO implement me!!!
 	}
 
 	/**
 	 * Get the hashCode of the word
-	 * @return  The wordHash.
+	 *
+	 * @return The wordHash.
 	 */
 	public int getHash() {
 		return this.wordHash;
@@ -64,9 +58,10 @@ public class Word {
 
 	/**
 	 * The source block offset within the file + the offset of the word within the block = offset within an entry!
+	 *
 	 * @return offset within the entire FILE where the word resides.
 	 */
-	public long getEntryIndex(){
-		return this.srcBlk.getStartIndex()+this.srcBlkOffset;
+	public long getEntryIndex() {
+		return this.srcBlk.getStartIndex() + this.srcBlkOffset;
 	}
 }

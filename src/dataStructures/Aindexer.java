@@ -4,20 +4,10 @@ import processing.parsingRules.IparsingRule;
 import processing.searchStrategies.IsearchStrategy;
 import processing.textStructure.Corpus;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
-import utils.WrongMD5ChecksumException;
-
 /**
  * The abstract class describing the necessary methods and common implementations of all indexing data structures.
  * @param <T>   The search stratagy used by this indexing engine. Can be any class that implements the
- *           IsearchStrategy interface.
+ *                  IsearchStrategy interface.
  */
 public abstract class Aindexer<T extends IsearchStrategy> {
 	public static enum IndexTypes {DICT, NAIVE, NAIVE_RK, SUFFIX_TREE, CUSTOM}
@@ -37,7 +27,7 @@ public abstract class Aindexer<T extends IsearchStrategy> {
 	 * Main indexing method. Common implementation trying to read indexed cache file
 	 */
 	public void index() {
-
+		//TODO implement me!!!
     }
 
 	/**
@@ -53,12 +43,9 @@ public abstract class Aindexer<T extends IsearchStrategy> {
 
 	/**
 	 * Try to read a cached index file if one already exists.
-	 * @throws FileNotFoundException
-	 * @throws WrongMD5ChecksumException
+	 * NOTE! you may make this method not abstract if you wish.
 	 */
-	private void readIndexedFile() throws FileNotFoundException, WrongMD5ChecksumException {
-		
-	}
+	protected abstract void readIndexedFile();
 
 	/**
 	 * Convert a read object file into the indexer's specific data type.
@@ -71,17 +58,14 @@ public abstract class Aindexer<T extends IsearchStrategy> {
 	 * @return  the path to the cached index file.
 	 */
 	private String getIndexedPath() {
-		return origin.getPath() + "_cache";
+		//TODO implement me!!!
 	}
 
 	/**
 	 * Write the indernal index into file.
+	 * NOTE! you may make this method not abstract if you wish.
 	 */
-	private void writeIndexFile() {
-
-
-    }
-
+	protected abstract void writeIndexFile();
 
 	/**
 	 * Extract the parsing rule used for indexing this data structure.

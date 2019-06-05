@@ -40,6 +40,10 @@ public class NaiveIndexer extends Aindexer<NaiveSearch> {
 		// does nothing
 	}
 
+	/**
+	 * Get the source Corpus of this indexer
+	 * @return
+	 */
 	public Corpus getOrigin() {
 		return this.origin;
 	}

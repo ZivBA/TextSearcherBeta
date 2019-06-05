@@ -14,7 +14,7 @@ public class Entry implements Iterable<Block>{
 	 * @param parseRule The parsing rule to be used for this entry
 	 */
     public Entry(String filePath, IparsingRule parseRule) {
-
+	    //TODO implement me!!!
     }
 
     /**
@@ -23,7 +23,7 @@ public class Entry implements Iterable<Block>{
      */
     @Override
     public Iterator<Block> iterator() {
-
+	    //TODO implement me!!!
     }
 
 }
