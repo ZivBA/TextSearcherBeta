@@ -39,7 +39,7 @@ public class ComplexQueryResult extends WordResult implements Comparable<Complex
 	@Override
 	public String resultToString() throws IOException {
 		Arrays.sort(wordPositions);
-		String temp = this.location.extractFromBlock(wordPositions[0]-50, wordPositions[wordPositions.length-1]+70);
+		String temp = this.sourceBlock.extractFromBlock(wordPositions[0]-50, wordPositions[wordPositions.length-1]+70);
 		int startIdx = temp.indexOf('\n');
 		int endIdx = temp.lastIndexOf('\n');
 		return temp.substring(Math.max(startIdx,0),endIdx);

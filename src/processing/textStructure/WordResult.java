@@ -2,10 +2,11 @@ package processing.textStructure;
 
 import java.io.IOException;
 
-public class WordResult {
-    private long idxInBlk;
-    Block location;
-    protected String[] content;
+public class WordResult implements Comparable<WordResult> {
+    private long idxInBlk;  // The offset of the word within the block
+    Block sourceBlock;       // The block in which this word was found
+    protected String[] content; // The word(s) that were found
+
 
     private WordResult(Block loc, String[] word){
 
@@ -16,11 +17,11 @@ public class WordResult {
         this.idxInBlk = idx;
     }
     public Block getBlock(){
-        return this.location;
+        return this.sourceBlock;
     }
 
-    public String[] getWord(){
-        return this.content;
+    public String getWord(){
+        return this.content[0];
     }
 
     public String resultToString() throws IOException {
@@ -28,6 +29,11 @@ public class WordResult {
     }
 
     public String getSourceEntry() {
-        return this.location.getEntryName();
+        return this.sourceBlock.getEntryName();
     }
+
+	@Override
+	public int compareTo(WordResult wordResult) {
+
+	}
 }
