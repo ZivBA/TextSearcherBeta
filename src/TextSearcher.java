@@ -1,7 +1,7 @@
-import indexing.Aindexer;
-import indexing.IndexFactory;
-import indexing.textStructure.Corpus;
-import indexing.textStructure.WordResult;
+import dataStructures.Aindexer;
+import dataStructures.IndexFactory;
+import processing.textStructure.Corpus;
+import processing.textStructure.WordResult;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -10,6 +10,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The main program - A text searching module that indexes and queries large corpuses for strings or word groups
+ */
 public class TextSearcher {
     public static final String ERROR = "ERROR";
     private static final String CORPUS_KEY = "CORPUS";
@@ -17,9 +20,12 @@ public class TextSearcher {
     private static final String PARSING_RULE_KEY = "PARSE_RULE";
     private static final String QUERY_KEY = "QUERY";
     private static Aindexer sIndexer;
-    private static Corpus sCorpus;
     private static String sQuery;
 
+    /**
+     * Main method. Reads and parses a command file and if a query exists, prints the results.
+     * @param args
+     */
     public static void main(String[] args) {
         if(args.length != 1){
             handleError(new Exception("Usage: TextSearcher configuration_file"));
@@ -40,8 +46,8 @@ public class TextSearcher {
             for (int i =0; i < 10; i++){
                 try {
                     sIndexer.getParseRule().printResult(results.get(i));
-                } catch (IOException e) {
-                    e.printStackTrace();
+                } catch (IOException | IndexOutOfBoundsException e) {
+                    break;
                 }
             }
 	        System.out.println("You got "+ results.size() + " results! congratulations.");

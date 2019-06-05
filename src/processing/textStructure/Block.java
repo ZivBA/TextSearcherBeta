@@ -1,4 +1,4 @@
-package indexing.textStructure;
+package processing.textStructure;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;

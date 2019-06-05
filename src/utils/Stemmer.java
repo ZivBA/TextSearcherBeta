@@ -1,4 +1,4 @@
-package processing.utils;/*
+package utils;/*
 
    Porter stemmer in Java. The original paper is in
 
@@ -33,9 +33,9 @@ package processing.utils;/*
 */
 
 /**
- * processing.utils.Stemmer, implementing the Porter Stemming Algorithm
+ * utils.Stemmer, implementing the Porter Stemming Algorithm
  * <p>
- * The processing.utils.Stemmer class transforms a word into its root form.  The input
+ * The utils.Stemmer class transforms a word into its root form.  The input
  * word can be provided a character at time (by calling add()), or at once
  * by calling one of the various stem(something) methods.
  */
@@ -482,7 +482,7 @@ public class Stemmer {
     }
 
     /**
-     * Stem the word placed into the processing.utils.Stemmer buffer through calls to add().
+     * Stem the word placed into the utils.Stemmer buffer through calls to add().
      * Returns true if the stemming process resulted in a word different
      * from the input.  You can retrieve the result with
      * getResultLength()/getResultBuffer() or toString().

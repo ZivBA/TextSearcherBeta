@@ -1,4 +1,4 @@
-package processing.utils;
+package utils;
 
 import java.util.Arrays;
 import java.util.HashSet;

@@ -1,4 +1,4 @@
-package indexing.textStructure;
+package processing.textStructure;
 
 import processing.parsingRules.IparsingRule;
 

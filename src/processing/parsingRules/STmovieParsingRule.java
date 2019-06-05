@@ -1,7 +1,7 @@
 package processing.parsingRules;
 
-import indexing.textStructure.Block;
-import indexing.textStructure.WordResult;
+import processing.textStructure.Block;
+import processing.textStructure.WordResult;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;

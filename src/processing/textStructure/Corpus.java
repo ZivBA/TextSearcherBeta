@@ -1,8 +1,8 @@
-package indexing.textStructure;
+package processing.textStructure;
 
 import processing.parsingRules.IparsingRule;
 import processing.parsingRules.ParsingRuleFactory;
-import processing.utils.MD5;
+import utils.MD5;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,8 +1,8 @@
 package processing.searchStrategies;
 
-import indexing.textStructure.Block;
-import indexing.textStructure.Corpus;
-import indexing.textStructure.WordResult;
+import processing.textStructure.Block;
+import processing.textStructure.Corpus;
+import processing.textStructure.WordResult;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -24,7 +24,10 @@ public class NaiveSearchRK extends NaiveSearch {
         long prime = getBiggerPrime(patternSize);
 
         long base = 1;
-        for (int i = 0; i < patternSize - 1; i++) {
+	    /**
+	     * Implement the base calculation?
+	     */
+	    for (int i = 0; i < patternSize - 1; i++) {
             base *= 2;
             base = base % prime;
         }
@@ -34,10 +37,14 @@ public class NaiveSearchRK extends NaiveSearch {
 
         long pattenFP = 0;
 
-        for (int j = 0; j < patternSize; j++) {
+	    /**
+	     * Implement the fingerprint calculation?
+	     */
+	    for (int j = 0; j < patternSize; j++) {
             rolLHashArr[0] = (2 * rolLHashArr[0] + text[j]) % prime;
             pattenFP = (2 * pattenFP + pattern[j]) % prime;
         }
+
 
         int i;  // = 0
         boolean passed; // = false

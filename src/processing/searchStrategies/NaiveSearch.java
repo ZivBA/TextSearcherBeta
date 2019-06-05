@@ -3,12 +3,12 @@ package processing.searchStrategies;
 import java.util.ArrayList;
 import java.util.List;
 
-import indexing.textStructure.Block;
-import indexing.textStructure.Corpus;
-import indexing.textStructure.Entry;
-import indexing.textStructure.WordResult;
+import processing.textStructure.Block;
+import processing.textStructure.Corpus;
+import processing.textStructure.Entry;
+import processing.textStructure.WordResult;
 
-public class NaiveSearch implements IQuerySearch {
+public class NaiveSearch implements IsearchStrategy {
 	private Corpus origin;
 	public NaiveSearch(Corpus origin) {
 		this.origin = origin;

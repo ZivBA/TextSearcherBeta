@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package indexing.dataStructures.suffixtree;
+package dataStructures.suffixtree;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -73,7 +73,7 @@ public class GeneralizedSuffixTree {
      * Returns all the indexes for which the key contains the <tt>word</tt> that was
      * supplied as input.
      *
-     * @param word the key to processing.searchStrategies for
+     * @param word the key to search for
      * @return the collection of indexes associated with the input <tt>word</tt>
      */
     public Collection<Integer> search(String word) {

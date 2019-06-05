@@ -1,21 +1,29 @@
-package indexing.dataStructures.naive;
+package dataStructures.naive;
 
 import processing.parsingRules.IparsingRule;
 import processing.searchStrategies.NaiveSearchRK;
-import indexing.textStructure.*;
-import indexing.Aindexer;
+import processing.textStructure.*;
+import dataStructures.Aindexer;
 import processing.searchStrategies.NaiveSearch;
 
+/**
+ * A "naive" indexer. This approach forgoes actually preprocessing the file, and simply loads the text and searches directly on it.
+ */
 public class NaiveIndexer extends Aindexer<NaiveSearch> {
 
-	public static final String TYPE_NAME = "naive_indexer";
+	public static final IndexTypes TYPE_NAME = IndexTypes.NAIVE;
 	private final boolean isRK;
 
-
+	/**
+	 * Basic constructor
+	 * @param corpus    The corpus to search over
+	 * @param RK        Whether or not to use Rabin-Karp search strategy
+	 */
 	public NaiveIndexer(Corpus corpus, boolean RK){
 		super(corpus);
 		this.isRK = RK;
 	}
+
 
 	public NaiveIndexer(Corpus corpus) {
 		super(corpus);
@@ -38,7 +46,7 @@ public class NaiveIndexer extends Aindexer<NaiveSearch> {
 
 
 	@Override
-	protected String getIndexType() {
+	protected IndexTypes getIndexType() {
 		return TYPE_NAME;
 	}
 
