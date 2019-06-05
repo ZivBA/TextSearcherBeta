@@ -1,11 +1,10 @@
 package dataStructures.naive;
 
-import processing.parsingRules.IparsingRule;
-import processing.searchStrategies.IsearchStrategy;
-import processing.searchStrategies.NaiveSearchRK;
-import processing.textStructure.*;
 import dataStructures.Aindexer;
+import processing.parsingRules.IparsingRule;
 import processing.searchStrategies.NaiveSearch;
+import processing.searchStrategies.NaiveSearchRK;
+import processing.textStructure.Corpus;
 
 /**
  * A "naive" indexer. This approach forgoes actually preprocessing the file, and simply loads the text and searches directly on it.

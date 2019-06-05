@@ -3,7 +3,8 @@ package processing.searchStrategies;
 import processing.textStructure.Word;
 import processing.textStructure.WordResult;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
 
 public class DictionarySearch implements IsearchStrategy {
 

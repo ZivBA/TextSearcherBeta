@@ -5,6 +5,9 @@ import processing.parsingRules.IparsingRule;
 import java.io.IOException;
 import java.util.Iterator;
 
+/**
+ * This class represents a body of works - anywhere between one and thousands of documents sharing the same structure and that can be parsed by the same parsing rule.
+ */
 public class Corpus implements Iterable<Entry>{
 
     public Corpus(String path, String parserName) throws IOException {

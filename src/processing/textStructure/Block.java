@@ -1,11 +1,6 @@
 package processing.textStructure;
 
-import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * This class represents an arbitrary block of text within a file

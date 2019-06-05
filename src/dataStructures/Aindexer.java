@@ -10,6 +10,7 @@ import processing.textStructure.Corpus;
  *                  IsearchStrategy interface.
  */
 public abstract class Aindexer<T extends IsearchStrategy> {
+
 	public static enum IndexTypes {DICT, NAIVE, NAIVE_RK, SUFFIX_TREE, CUSTOM}
     IndexTypes dataStructType;
     protected Corpus origin;

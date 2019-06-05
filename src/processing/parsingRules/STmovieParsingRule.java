@@ -5,9 +5,7 @@ import processing.textStructure.WordResult;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.List;
 
 
 public class STmovieParsingRule implements IparsingRule {

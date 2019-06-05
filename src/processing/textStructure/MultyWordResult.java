@@ -1,7 +1,5 @@
 package processing.textStructure;
 
-import java.io.IOException;
-
 /**
  * This class defines a query result for multiple non-consecutive words.
  */

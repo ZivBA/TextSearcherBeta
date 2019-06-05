@@ -1,8 +1,5 @@
 package processing.textStructure;
 
-import java.io.IOException;
-import java.io.RandomAccessFile;
-
 /**
  * Wrapper class for a single word containing relevant attributes for distance calculation and string extraction from
  * the containing block or file.

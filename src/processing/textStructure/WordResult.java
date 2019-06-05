@@ -2,6 +2,9 @@ package processing.textStructure;
 
 import java.io.IOException;
 
+/**
+ * This wrapper class describes a query result for a single word.
+ */
 public class WordResult implements Comparable<WordResult> {
 	private long idxInBlk;  // The offset of the word within the block
 	Block sourceBlock;       // The block in which this word was found
@@ -27,7 +30,7 @@ public class WordResult implements Comparable<WordResult> {
 	}
 
 	public String resultToString() throws IOException {
-
+		//TODO implement me!!
 	}
 
 	public String getSourceEntry() {
@@ -36,6 +39,6 @@ public class WordResult implements Comparable<WordResult> {
 
 	@Override
 	public int compareTo(WordResult wordResult) {
-
+		//TODO implement me!!!
 	}
 }

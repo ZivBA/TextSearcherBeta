@@ -2,11 +2,11 @@ package processing.textStructure;
 
 import processing.parsingRules.IparsingRule;
 
-import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.util.Iterator;
-import java.util.List;
 
+/**
+ * This class represents a single file within a Corpus
+ */
 public class Entry implements Iterable<Block>{
 	/**
 	 * Main constructor

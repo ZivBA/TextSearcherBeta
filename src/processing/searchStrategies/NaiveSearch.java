@@ -1,12 +1,12 @@
 package processing.searchStrategies;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import processing.textStructure.Block;
 import processing.textStructure.Corpus;
 import processing.textStructure.Entry;
 import processing.textStructure.WordResult;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class NaiveSearch implements IsearchStrategy {
 	private Corpus origin;
