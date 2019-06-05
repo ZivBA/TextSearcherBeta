@@ -1,7 +1,8 @@
 unnamed package
 indexing
 indexing.dataStructures
-indexing.dataStructures.dictionary
+indexing.dataStructures.dictionarySearch
+indexing.dataStructures.naiveSearch
 indexing.dataStructures.suffixtree
 rules
 textStructure
