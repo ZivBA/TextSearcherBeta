@@ -13,63 +13,69 @@ public class NaiveSearchRK extends NaiveSearch {
         super(origin);
     }
 
-    private void searchBlock(Block blk, List<WordResult> results, String query) {
+	/**
+	 * Override the naive search with this implementation of the RabinKarp search!
+	 * @param query The query string to search for.
+	 * @return  List of WordResults!
+	 */
+	@Override
+	public List<WordResult> search(String query){
+    	//TODO implement me!
+    }
 
-        char[] pattern = query.toCharArray();
-        char[] text = blk.toString().toCharArray();
+	/**
+	 * Implementation of the RK search algorithm.
+	 * @param pattern   The pattern to search for
+	 * @param text      The text to search against.
+	 * @return          Position of the pattern in the text or -1 if not found.
+	 */
+	private static int RabinKarpMethod(char[] pattern, char[] text) {
+	    int patternSize = pattern.length;
+	    int textSize = text.length;
 
-        int patternSize = pattern.length;
-        int textSize = text.length;
+	    long prime = getBiggerPrime(patternSize);
 
-        long prime = getBiggerPrime(patternSize);
-
-        long base = 1;
-	    /**
-	     * Implement the base calculation?
-	     */
+	    long r = 1;
 	    for (int i = 0; i < patternSize - 1; i++) {
-            base *= 2;
-            base = base % prime;
-        }
+		    r *= 2;
+		    r = r % prime;
+	    }
 
-        long[] rolLHashArr = new long[textSize];
-        rolLHashArr[0] = 0;
+	    long[] t = new long[textSize];
+	    t[0] = 0;
 
-        long pattenFP = 0;
+	    long pfinger = 0;
 
-	    /**
-	     * Implement the fingerprint calculation?
-	     */
 	    for (int j = 0; j < patternSize; j++) {
-            rolLHashArr[0] = (2 * rolLHashArr[0] + text[j]) % prime;
-            pattenFP = (2 * pattenFP + pattern[j]) % prime;
-        }
+		    t[0] = (2 * t[0] + text[j]) % prime;
+		    pfinger = (2 * pfinger + pattern[j]) % prime;
+	    }
 
+	    int i = 0;
+	    boolean passed = false;
 
-        int i;  // = 0
-        boolean passed; // = false
+	    int diff = textSize - patternSize;
+	    for (i = 0; i <= diff; i++) {
+		    if (t[i] == pfinger) {
+			    passed = true;
+			    for (int k = 0; k < patternSize; k++) {
+				    if (text[i + k] != pattern[k]) {
+					    passed = false;
+					    break;
+				    }
+			    }
 
-        int diff = textSize - patternSize;
-        for (i = 0; i <= diff; i++) {
-            if (rolLHashArr[i] == pattenFP) {
-                passed = true;
-                for (int k = 0; k < patternSize; k++) {
-                    if (text[i + k] != pattern[k]) {
-                        passed = false;
-                        break;
-                    }
-                }
+			    if (passed) {
+				    return i;
+			    }
+		    }
 
-                if (passed) {
-                    results.add(new WordResult(blk, new String[]{query}, i));
-                }
-            }
-
-            if (i < diff) {
-                long value = 2 * (rolLHashArr[i] - base * text[i]) + text[i + patternSize];
-                rolLHashArr[i + 1] = ((value % prime) + prime) % prime;
-            }
-        }
+		    if (i < diff) {
+			    long value = 2 * (t[i] - r * text[i]) + text[i + patternSize];
+			    t[i + 1] = ((value % prime) + prime) % prime;
+		    }
+	    }
+	    return -1;
 
     }
 

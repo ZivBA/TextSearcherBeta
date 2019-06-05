@@ -5,6 +5,9 @@ import processing.parsingRules.IparsingRule;
 import processing.searchStrategies.NaiveSearch;
 import processing.searchStrategies.NaiveSearchRK;
 import processing.textStructure.Corpus;
+import utils.WrongMD5ChecksumException;
+
+import java.io.FileNotFoundException;
 
 /**
  * A "naive" indexer. This approach forgoes actually preprocessing the file, and simply loads the text and searches directly on it.
@@ -35,7 +38,17 @@ public class NaiveIndexer extends Aindexer<NaiveSearch> {
 	}
 
 	@Override
+	protected void readIndexedFile() throws FileNotFoundException, WrongMD5ChecksumException {
+		// does nothing
+	}
+
+	@Override
 	protected void castRawData(Object readObject) {
+		// does nothing
+	}
+
+	@Override
+	protected void writeIndexFile() {
 		// does nothing
 	}
 

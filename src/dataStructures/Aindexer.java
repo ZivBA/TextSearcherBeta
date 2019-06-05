@@ -29,6 +29,10 @@ public abstract class Aindexer<T extends IsearchStrategy> {
 
 	/**
 	 * Main indexing method. Common implementation trying to read indexed cache file
+	 * This method must:
+	 * 1) Try and reada a cached index file if one exists, and if so - populate the entire span of the program from the serialized data
+	 * 2) If a cache file does not exist, or if the checksum stored in the file does not match the checksum of the current corpus,
+	 *    you must reindex the corpus and then store the cache file to disk (replacing any older file that may exist).
 	 */
 	public void index() {
 		try {
