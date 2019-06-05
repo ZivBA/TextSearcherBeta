@@ -20,7 +20,7 @@ import utils.WrongMD5ChecksumException;
  *           IsearchStrategy interface.
  */
 public abstract class Aindexer<T extends IsearchStrategy> {
-	public static enum IndexTypes {DICT, NAIVE, NAIVE_RK, SUFFIX_TREE}
+	public static enum IndexTypes {DICT, NAIVE, NAIVE_RK, SUFFIX_TREE, CUSTOM}
     IndexTypes dataStructType;
     protected Corpus origin;
 
@@ -37,14 +37,7 @@ public abstract class Aindexer<T extends IsearchStrategy> {
 	 * Main indexing method. Common implementation trying to read indexed cache file
 	 */
 	public void index() {
-    	try {
-			readIndexedFile();
-		} catch (FileNotFoundException | WrongMD5ChecksumException e) {
-    	    origin.populate();
-			indexCorpus();
-			//writeToFile();
-		}
-    	
+
     }
 
 	/**
@@ -64,20 +57,6 @@ public abstract class Aindexer<T extends IsearchStrategy> {
 	 * @throws WrongMD5ChecksumException
 	 */
 	private void readIndexedFile() throws FileNotFoundException, WrongMD5ChecksumException {
-    	FileInputStream fi = new FileInputStream(new File(getIndexedPath()));
-    	try {
-    		ObjectInputStream oi = new ObjectInputStream(fi);
-    		String oldHashCode = (String) oi.readObject();
-    		if (oldHashCode.equals(this.origin.getChecksum())) {
-                this.castRawData(oi.readObject());
-            } else{
-    		    throw new WrongMD5ChecksumException();
-            }
-    	}catch(IOException | ClassNotFoundException e) {
-    		throw new RuntimeException(e.getMessage());
-    	}
-
-
 		
 	}
 
@@ -99,32 +78,10 @@ public abstract class Aindexer<T extends IsearchStrategy> {
 	 * Write the indernal index into file.
 	 */
 	private void writeIndexFile() {
-        try {
-            String indexPath = getIndexedPath();
-            FileOutputStream fileOut = new FileOutputStream(indexPath);
-            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-            writeParams(objectOut);
-            objectOut.close();
-            System.out.println("The Object was succesfully written to a file");
 
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
 
     }
 
-	/**
-	 * write the parameters of the indexer
-	 * @param objectOut the output stream to write into
-	 * @throws IOException  If the object stream misbehaves
-	 */
-    protected void writeParams( ObjectOutputStream objectOut) throws IOException {
-    	String hashCode = this.origin.getChecksum();
-        objectOut.writeObject(hashCode);
-
-        objectOut.writeObject(getIndexType());
-        objectOut.writeObject(this.origin);
-    }
 
 	/**
 	 * Extract the parsing rule used for indexing this data structure.

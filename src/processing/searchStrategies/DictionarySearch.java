@@ -13,6 +13,7 @@ public class DictionarySearch implements IsearchStrategy {
 	private HashMap<Integer, List<Word>> dict;
 
 	public DictionarySearch(HashMap<Integer, List<Word>> dict) {
+
 		this.dict = dict;
 	}
 

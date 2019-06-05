@@ -29,9 +29,13 @@ public class NaiveSearch implements IsearchStrategy {
 		}
 	}
 
+	/**
+	 * The main search method to comply with the IsearchStrategy interface
+	 * @param query The query string to search for.
+	 * @return  A list of wordResults
+	 */
 	@Override
 	public List<WordResult> search(String query) {
-		// TODO Auto-generated method stub
 		List<WordResult> results = new ArrayList<>();
 		for (Entry entry : this.origin){
 			for (Block blk : entry){

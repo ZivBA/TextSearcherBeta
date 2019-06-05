@@ -8,8 +8,7 @@ public class WordResult {
     protected String[] content;
 
     private WordResult(Block loc, String[] word){
-        this.content = word;
-        this.location = loc;
+
     }
 
     public WordResult(Block blk, String[] words, long idx) {
@@ -25,6 +24,10 @@ public class WordResult {
     }
 
     public String resultToString() throws IOException {
-        return content[0];
+
+    }
+
+    public String getSourceEntry() {
+        return this.location.getEntryName();
     }
 }

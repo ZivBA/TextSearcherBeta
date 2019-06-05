@@ -16,23 +16,8 @@ public class SimpleParsingRule implements IparsingRule{
 
 
 	public SimpleParsingRule(RandomAccessFile file) {
-
 		inputFile = file;
-
-
     }
-
-//	private String readFileToString() {
-//		try {
-//			byte[] rawFile = new byte[Math.toIntExact(inputFile.length())];
-//			inputFile.readFully(rawFile);
-//			return new String(rawFile);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//			return "";
-//		}
-//	}
-
 
 	@Override
 	public int getWordDistance(WordResult first, WordResult second, String[] queryWords) {
@@ -64,14 +49,11 @@ public class SimpleParsingRule implements IparsingRule{
 				String rawBlock = new String(rawBytes);
 				m.reset(rawBlock);
 				while (m.find()) {
-//					String curMatch = rawBlock.substring(m.start(), m.end());
 					if (m.end()-m.start() > 5) {
 						entryBlocks.add(parseRawBlock(this.inputFile, m.start() + i, m.end() + i));
 					}
 					endOfBlockOffset = m.end();
 				}
-//				if (endOfBlockOffset != rawChunkSize)
-//					entryBlocks.add(parseRawBlock(this.inputFile, endOfBlockOffset+i, rawChunkSize+i));
 				i -= (rawChunkSize - endOfBlockOffset);
 
 
@@ -87,7 +69,7 @@ public class SimpleParsingRule implements IparsingRule{
 	@Override
 	public void printResult(WordResult wordResult) throws IOException {
 		System.out.println("The result: \n" +wordResult.resultToString());
-//		System.out.println("From the block with the metadata: \n"+wordResult.getBlock().getMeta());
+		System.out.println("Appears in the file: "+wordResult.getSourceEntry());
 	}
 
 	private String getSplitRegex() {

@@ -8,22 +8,12 @@ import java.io.RandomAccessFile;
  * the containing block or file.
  */
 public class Word {
-	/**
-	 * A reference for the contaning Block object.
-	 */
-	private final Block srcBlk;
-	/**
-	 * The offset of the word within the block
-	 */
-	private final long srcBlkOffset;
-	/**
-	 * Length of the word
-	 */
-	private final int length;
-	/**
-	 * Hash of the word - for quick dictionary querying without unnecessary extraction and conversion.
-	 */
-	private final int wordHash;
+	private final Block srcBlk;             //A reference for the contaning Block object.
+	private final long srcBlkOffset;       //The offset of the word within the block
+	private final int length;               //Length of the word
+
+	private final int wordHash;             //Hash of the word - for quick dictionary querying without
+												//unnecessary extraction and conversion.
 
 	/**
 	 * The constructor.

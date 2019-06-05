@@ -1,6 +1,7 @@
 package dataStructures.naive;
 
 import processing.parsingRules.IparsingRule;
+import processing.searchStrategies.IsearchStrategy;
 import processing.searchStrategies.NaiveSearchRK;
 import processing.textStructure.*;
 import dataStructures.Aindexer;
@@ -12,7 +13,7 @@ import processing.searchStrategies.NaiveSearch;
 public class NaiveIndexer extends Aindexer<NaiveSearch> {
 
 	public static final IndexTypes TYPE_NAME = IndexTypes.NAIVE;
-	private final boolean isRK;
+	private final NaiveSearch searchStratagy;
 
 	/**
 	 * Basic constructor
@@ -21,13 +22,12 @@ public class NaiveIndexer extends Aindexer<NaiveSearch> {
 	 */
 	public NaiveIndexer(Corpus corpus, boolean RK){
 		super(corpus);
-		this.isRK = RK;
+		this.searchStratagy = RK? new NaiveSearchRK(this.origin) : new NaiveSearch(this.origin);
 	}
 
 
 	public NaiveIndexer(Corpus corpus) {
-		super(corpus);
-		this.isRK = false;
+		this(corpus, false);
 	}
 
 	@Override
@@ -58,8 +58,7 @@ public class NaiveIndexer extends Aindexer<NaiveSearch> {
 
 	@Override
 	public NaiveSearch asSearchInterface() {
-		// TODO Auto-generated method stub
-		return this.isRK ? new NaiveSearch(this.origin) : new NaiveSearchRK(this.origin);
+		return this.searchStratagy;
 	}
 
 
