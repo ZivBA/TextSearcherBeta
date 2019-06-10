@@ -10,7 +10,7 @@ import java.util.Iterator;
  */
 public class Corpus implements Iterable<Entry>{
 
-    public Corpus(String path, String parserName) throws IOException {
+    public Corpus(String path, IparsingRule parsingRule) throws IOException {
         /*
         check if the path is a folder or file.
         if file - single entry corpus.

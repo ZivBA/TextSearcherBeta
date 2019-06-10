@@ -16,15 +16,6 @@ import java.util.regex.Pattern;
  */
 public class SimpleParsingRule implements IparsingRule{
 
-	private final RandomAccessFile inputFile;       // The source RAF for this parser
-
-	/**
-	 * Basic constructor
-	 * @param file  The RAF used for this parser
-	 */
-	public SimpleParsingRule(RandomAccessFile file) {
-		inputFile = file;
-    }
 
 	/**
 	 * A distance measure between two words according to this parsing rule. Will return the distance between the two words
@@ -59,13 +50,13 @@ public class SimpleParsingRule implements IparsingRule{
 			long endOfBlockOffset = 0, curBlockEnd;
 			Long lastIndex = inputFile.length();
 			for (long i = endOfBlockOffset; i < lastIndex-rawChunkSize; i += rawChunkSize) {
-				this.inputFile.seek(i);
-				int bytesRead = this.inputFile.read(rawBytes);
+				inputFile.seek(i);
+				int bytesRead = inputFile.read(rawBytes);
 				String rawBlock = new String(rawBytes);
 				m.reset(rawBlock);
 				while (m.find()) {
 					if (m.end()-m.start() > 5) {
-						entryBlocks.add(parseRawBlock(this.inputFile, m.start() + i, m.end() + i));
+						entryBlocks.add(parseRawBlock(inputFile, m.start() + i, m.end() + i));
 					}
 					endOfBlockOffset = m.end();
 				}

@@ -8,9 +8,9 @@ import java.util.List;
 
 public class DictionarySearch implements IsearchStrategy {
 
-	private HashMap<Integer, List<Word>> dict;
+	private HashMap<?, List<Word>> dict;
 
-	public DictionarySearch(HashMap<Integer, List<Word>> dict) {
+	public DictionarySearch(HashMap<?, List<Word>> dict) {
 
 		this.dict = dict;
 	}

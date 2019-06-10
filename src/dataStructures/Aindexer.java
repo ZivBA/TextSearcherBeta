@@ -60,11 +60,6 @@ public abstract class Aindexer<T extends IsearchStrategy> {
 	 */
 	protected abstract void readIndexedFile() throws FileNotFoundException, WrongMD5ChecksumException;
 
-	/**
-	 * Convert a read object file into the indexer's specific data type.
-	 * @param readObject    the input object to cast
-	 */
-    protected abstract void castRawData(Object readObject);
 
 	/**
 	 * Getter for the cached index file.

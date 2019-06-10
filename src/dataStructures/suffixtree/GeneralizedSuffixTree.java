@@ -83,7 +83,7 @@ public class GeneralizedSuffixTree {
     /**
      * Searches for the given word within the GST and returns at most the given number of matches.
      *
-     * @param word the key to processing.searchStrategies for
+     * @param word the key to search for
      * @param results the max number of results to return
      * @return at most <tt>results</tt> values for the given word
      */

@@ -10,12 +10,6 @@ import java.util.List;
 
 public class STmovieParsingRule implements IparsingRule {
 
-	private final RandomAccessFile inputFile;
-
-	public STmovieParsingRule(RandomAccessFile file) throws IOException {
-		//TODO implement me!!!
-	}
-
 
 
 	@Override

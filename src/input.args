@@ -1,9 +1,0 @@
-CORPUS
-/cs/usr/zivben/Documents/OOP2019/ex6/Corpuses/Scripts_ST_Movies
-INDEXER
-Dictionary
-PARSE_RULE
-st_movies
-QUERY
-to boldly go
-where no man has gone before
