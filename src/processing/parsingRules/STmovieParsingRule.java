@@ -15,12 +15,8 @@ public class STmovieParsingRule implements IparsingRule {
 	static final private String CHARACHTOR_NAMES = "^[^\\S\\r\\n]+([A-Z]+)[^\\S\\r\\n]*\\n";
 	static final private Pattern charachterPattern = Pattern.compile(CHARACHTOR_NAMES);
 
-	private final RandomAccessFile inputFile;
-	private long fileLength;
 
-	public STmovieParsingRule(RandomAccessFile file) throws IOException {
-		this.inputFile = file;
-		this.fileLength = file.length();
+	public STmovieParsingRule() throws IOException {
 	}
 
 //	public Block parseBlock(RandomAccessFile inputFile, long startIdx) throws IOException {
@@ -55,6 +51,7 @@ public class STmovieParsingRule implements IparsingRule {
 
 	@Override
 	public Block parseRawBlock(RandomAccessFile inputFile, long startPos, long endPos) {
+//		System.out.println("start " + startPos + " end " + endPos);
 		try {
 			byte[] rawBytes = new byte[Math.toIntExact(endPos - startPos + 1)];
 			inputFile.seek(startPos);
@@ -74,11 +71,11 @@ public class STmovieParsingRule implements IparsingRule {
 			Pattern charachterPattern = Pattern.compile(CHARACHTOR_NAMES, Pattern.MULTILINE);
 			Matcher charachterMatcher = charachterPattern.matcher(scene);
 
-			metaData.add("Scene Title: " + titleMatcher.group(2).strip());
+			metaData.add("Scene Title: " + titleMatcher.group(2).trim());
 			metaData.add("Charachters: ");
 
 			while (charachterMatcher.find()) {
-				String charName = scene.substring(charachterMatcher.start(), charachterMatcher.end()).strip();
+				String charName = scene.substring(charachterMatcher.start(), charachterMatcher.end()).trim();
 				if (!metaData.contains(charName)) {
 					metaData.add(charName);
 				}
@@ -98,26 +95,27 @@ public class STmovieParsingRule implements IparsingRule {
 	public List<Block> parseFile(RandomAccessFile inputFile) {
 		final Pattern p = Pattern.compile(START_BLOCK_REGEX, Pattern.MULTILINE);
 		final Matcher m = p.matcher("");
-
 		List<Block> entryBlocks = new LinkedList<>();
 		int rawChunkSize = MAXLINELENGTH * 15;
 		byte[] rawBytes = new byte[rawChunkSize];
 		String sentence = "";
 		try {
+			final long fileLength = inputFile.length();
 			long curBlockStart = 0, curBlockEnd;
 			boolean endBlock = false;
 			Long curIndex = 0L;
 			for (Long i = curIndex; i < fileLength; i += rawChunkSize) {
-				this.inputFile.seek(i);
-				int bytesRead = this.inputFile.read(rawBytes);
+				inputFile.seek(i);
+				int bytesRead = inputFile.read(rawBytes);
 				m.reset(new String(rawBytes));
 				while (m.find()) {
 					if (!endBlock) {
 						curBlockStart = m.start() + i;
 						endBlock = true;
 					} else {
-						curBlockEnd = m.start() + i;
-						entryBlocks.add(parseRawBlock(this.inputFile, curBlockStart, curBlockEnd));
+						curBlockEnd = Math.min(m.start() + i,fileLength);
+						if(curBlockEnd >= fileLength) break;
+						entryBlocks.add(parseRawBlock(inputFile, curBlockStart, curBlockEnd));
 						curBlockStart = m.start() + i;
 					}
 				}
@@ -125,7 +123,7 @@ public class STmovieParsingRule implements IparsingRule {
 
 			}
 			if (endBlock) {
-				entryBlocks.add(parseRawBlock(this.inputFile, curBlockStart, fileLength));
+				entryBlocks.add(parseRawBlock(inputFile, curBlockStart, fileLength));
 			}
 
 		} catch (IOException e) {
@@ -140,6 +138,6 @@ public class STmovieParsingRule implements IparsingRule {
 		Matcher m = resultPat.matcher(wordResult.getBlock().toString());
 		System.out.println("The query was matched at the line: ");
 		System.out.println(m.find() ? m.group() : "ERROR");
-		System.out.println("In the scene with the metadata: " + wordResult.getBlock().getMeta());
+		System.out.println("In the scene with the metadata: " + wordResult.getBlock().getMeta() + "\n");
 	}
 }

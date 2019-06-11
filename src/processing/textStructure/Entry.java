@@ -17,6 +17,7 @@ public class Entry implements Iterable<Block>{
 
         try {
             this.parseRule = parseRule;
+            System.out.println(filePath);
             this.blockList = this.parseRule.parseFile(new RandomAccessFile(sourceFile, "r"));
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());

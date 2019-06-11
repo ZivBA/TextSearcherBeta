@@ -25,7 +25,7 @@ public class Corpus implements Iterable<Entry>{
          */
         this.entryList = new LinkedList<>();
         this.corpusPath = path;
-        this.parsingRule = ParsingRuleFactory.createRuleByName(parserName,path);
+        this.parsingRule = ParsingRuleFactory.createRuleByName(parserName);
     }
 
     public void populate(){

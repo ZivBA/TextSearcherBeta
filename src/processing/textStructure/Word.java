@@ -79,4 +79,9 @@ public class Word {
 	public long getEntryIndex(){
 		return this.srcBlk.getStartIndex()+this.srcBlkOffset;
 	}
+
+	@Override
+	public String toString(){
+		return extractWord();
+	}
 }

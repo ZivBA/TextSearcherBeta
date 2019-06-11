@@ -3,16 +3,16 @@ package processing.textStructure;
 import java.io.IOException;
 import java.util.Arrays;
 
-public class ComplexQueryResult extends WordResult implements Comparable<ComplexQueryResult> {
+public class MultyWordResult extends WordResult implements Comparable<MultyWordResult> {
 	private long[] wordPositions;
 	private int confidence;
 	
-	public ComplexQueryResult(Block blk, String[] query, long idx) {
+	private MultyWordResult(Block blk, String[] query, long idx) {
 		super(blk, query, idx);
 		// TODO Auto-generated constructor stub
 	}
 
-	public ComplexQueryResult(String[] query, Block block, long[] locs) {
+	public MultyWordResult(String[] query, Block block, long[] locs) {
 		this(block,query,locs[0]);
 		wordPositions = locs;
 		confidence = calcConfidence(locs);
@@ -27,7 +27,7 @@ public class ComplexQueryResult extends WordResult implements Comparable<Complex
 	}
 
 	@Override
-	public int compareTo(ComplexQueryResult o) {
+	public int compareTo(MultyWordResult o) {
 		if(o.confidence > this.confidence) {
 			return 1;
 		}else if(o.confidence< this.confidence) {

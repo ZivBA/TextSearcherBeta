@@ -12,12 +12,10 @@ import java.util.regex.Pattern;
 
 public class SimpleParsingRule implements IparsingRule{
 
-	private final RandomAccessFile inputFile;
 
 
-	public SimpleParsingRule(RandomAccessFile file) {
+	public SimpleParsingRule() {
 
-		inputFile = file;
 
 
     }
@@ -59,14 +57,14 @@ public class SimpleParsingRule implements IparsingRule{
 			long endOfBlockOffset = 0, curBlockEnd;
 			Long lastIndex = inputFile.length();
 			for (long i = endOfBlockOffset; i < lastIndex-rawChunkSize; i += rawChunkSize) {
-				this.inputFile.seek(i);
-				int bytesRead = this.inputFile.read(rawBytes);
+				inputFile.seek(i);
+				int bytesRead = inputFile.read(rawBytes);
 				String rawBlock = new String(rawBytes);
 				m.reset(rawBlock);
 				while (m.find()) {
 //					String curMatch = rawBlock.substring(m.start(), m.end());
 					if (m.end()-m.start() > 5) {
-						entryBlocks.add(parseRawBlock(this.inputFile, m.start() + i, m.end() + i));
+						entryBlocks.add(parseRawBlock(inputFile, m.start() + i, m.end() + i));
 					}
 					endOfBlockOffset = m.end();
 				}

@@ -9,10 +9,8 @@ import java.util.List;
 
 public class STtvSeriesParsingRule implements IparsingRule {
 
-	private final RandomAccessFile inputFile;
 
-	public STtvSeriesParsingRule(RandomAccessFile randomAccessFile) {
-        this.inputFile = randomAccessFile;
+	public STtvSeriesParsingRule() {
     }
 
 

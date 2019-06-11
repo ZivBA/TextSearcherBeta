@@ -56,7 +56,7 @@ public class DictionaryIndexer extends Aindexer<DictionarySearch> {
 		Matcher m = p.matcher("");
 		int chunkSize = 2048;
 		for (Block blk : inputEntry){
-			byte[] rawBytes = new byte[chunkSize];
+
 			String sentence = "";
 
 			try {
@@ -66,6 +66,9 @@ public class DictionaryIndexer extends Aindexer<DictionarySearch> {
 				for (long i = blk.getStartIndex(); i < blk.getEndIndex(); i+=chunkSize){
 					long blkOffset = i - blk.getStartIndex();
 					file.seek(i);
+					long bytesToRead = Math.min(chunkSize,blk.getEndIndex()-i);
+					byte[] rawBytes = new byte[(int) bytesToRead];
+
 					int bytesRead = file.read(rawBytes);
 //					for (int k =0; k < 256; k++){
 //						if ((int)rawBytes[k] <=0) { rawBytes[k] = (byte)' ';}
@@ -78,7 +81,7 @@ public class DictionaryIndexer extends Aindexer<DictionarySearch> {
 						updateDict(word, m.start()+blkOffset, m.end()+blkOffset, blk);
 						lastMatch = m.end();
 					}
-					i -= (chunkSize-lastMatch);
+					i -= (bytesToRead-lastMatch);
 
 				}
 
@@ -123,6 +126,7 @@ public class DictionaryIndexer extends Aindexer<DictionarySearch> {
 		if (Stopwords.isStemmedStopword(word)){
 			return;
 		}
+//		if(word.equals("cruiser")) System.out.println("Found cruiser at \n" + blk.toString());
 		if (this.dict.containsKey(word.hashCode())){
 			this.dict.get(word.hashCode()).add(new Word(blk,start, end));
 		}else{

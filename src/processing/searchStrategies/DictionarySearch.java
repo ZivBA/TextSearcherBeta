@@ -1,7 +1,7 @@
 package processing.searchStrategies;
 
 import processing.textStructure.Block;
-import processing.textStructure.ComplexQueryResult;
+import processing.textStructure.MultyWordResult;
 import processing.textStructure.Word;
 import processing.textStructure.WordResult;
 import utils.Stopwords;
@@ -18,7 +18,7 @@ public class DictionarySearch implements IsearchStrategy {
 
 	@Override
 	public List<? extends WordResult> search(String query) {
-		PriorityQueue<ComplexQueryResult> results = new PriorityQueue<>();
+		PriorityQueue<MultyWordResult> results = new PriorityQueue<>();
 		String[] words = Arrays.stream(query.split("\\s+"))
 				.filter(s-> !Stopwords.isStopword(s))
 				.toArray(String[]::new);
@@ -29,7 +29,10 @@ public class DictionarySearch implements IsearchStrategy {
 				locs[0] = word.getEntryIndex();
 				boolean success = setWordLocsStartingFrom(locs,words,1, word.getSrcBlk());
 				if(success) {
-					results.add(new ComplexQueryResult(words,word.getSrcBlk(),locs));
+					System.out.println("found block");
+					System.out.println(word.getSrcBlk().toString());
+					System.out.println("-----");
+					results.add(new MultyWordResult(words,word.getSrcBlk(),locs));
 				}
 		}
 		
@@ -40,13 +43,19 @@ public class DictionarySearch implements IsearchStrategy {
 
 	private boolean setWordLocsStartingFrom(long[] locs, String[] words, int nextWordIndex, Block srcBlk) {
 		if(nextWordIndex==words.length) {
+//			System.out.println("found words");
+//			System.out.println(srcBlk.toString());
+//			System.out.println("-----");
 			return true;
 		}
 		String stemmed = stemmer.stem(words[nextWordIndex]);
 		List<Word> newWords = dict.get(stemmed.hashCode());
 		for(Word word : newWords) {
+//			System.out.println(word.toString());
 			long loc = word.getEntryIndex();
 			if(word.getSrcBlk() == srcBlk) {
+//				System.out.println("found word " + word.toString() + " at:");
+//				System.out.println(srcBlk.toString());
 				locs[nextWordIndex] = loc;
 				return setWordLocsStartingFrom(locs,words,nextWordIndex + 1, word.getSrcBlk());
 			}
