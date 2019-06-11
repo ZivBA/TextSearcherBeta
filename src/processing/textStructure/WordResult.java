@@ -27,4 +27,21 @@ public class WordResult {
     public String resultToString() throws IOException {
         return content[0];
     }
+
+    public long[] getOffsets() {
+        long[] locs = new long[1];
+        locs[0] = idxInBlk;
+        return locs;
+    }
+
+    @Override
+    public String toString(){
+        String offsets = "offsets : ";
+        for(long offset: getOffsets()){
+            offsets += " " + offset;
+        }
+        return offsets;
+    }
+
+
 }

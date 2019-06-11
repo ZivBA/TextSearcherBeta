@@ -43,9 +43,9 @@ public class TextSearcher {
             handleError(e);
         }
         if (results != null){
-            for (int i =0; i < results.size(); i++){
+            for (WordResult result: results){
                 try {
-                    sIndexer.getParseRule().printResult(results.get(i));
+                    sIndexer.getParseRule().printResult(result);
                 } catch (IOException | IndexOutOfBoundsException e) {
                     break;
                 }

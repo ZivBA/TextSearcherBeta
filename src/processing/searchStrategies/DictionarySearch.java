@@ -18,27 +18,26 @@ public class DictionarySearch implements IsearchStrategy {
 
 	@Override
 	public List<? extends WordResult> search(String query) {
-		PriorityQueue<MultyWordResult> results = new PriorityQueue<>();
+		LinkedList<MultyWordResult> results = new LinkedList<>();
 		String[] words = Arrays.stream(query.split("\\s+"))
 				.filter(s-> !Stopwords.isStopword(s))
 				.toArray(String[]::new);
 			List<Word> firstWords = dict.get(stemmer.stem(words[0]).hashCode());
-
+			if(firstWords==null){
+				return results;
+			}
 			for(Word word : firstWords) {
 				long[] locs = new long[words.length];
 				locs[0] = word.getEntryIndex();
 				boolean success = setWordLocsStartingFrom(locs,words,1, word.getSrcBlk());
 				if(success) {
-					System.out.println("found block");
-					System.out.println(word.getSrcBlk().toString());
-					System.out.println("-----");
 					results.add(new MultyWordResult(words,word.getSrcBlk(),locs));
 				}
 		}
 		
 		
-
-		return new ArrayList<>(results);
+		Collections.sort(results);
+		return results;
 	}
 
 	private boolean setWordLocsStartingFrom(long[] locs, String[] words, int nextWordIndex, Block srcBlk) {

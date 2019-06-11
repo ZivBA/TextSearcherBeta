@@ -136,8 +136,15 @@ public class STmovieParsingRule implements IparsingRule {
 	public void printResult(WordResult wordResult) throws IOException {
 		Pattern resultPat = Pattern.compile(getMatcherRegex(wordResult.getWord()), Pattern.DOTALL);
 		Matcher m = resultPat.matcher(wordResult.getBlock().toString());
+
 		System.out.println("The query was matched at the line: ");
-		System.out.println(m.find() ? m.group() : "ERROR");
+		System.out.println(wordResult.toString());
+		//System.out.println(m.find() ? m.group() : "ERROR");
+		long[] offsets = wordResult.getOffsets();
+		for(long l: offsets){
+			System.out.println("words from block " + wordResult.getBlock().extractFromBlock(l,l+20) + "\n");
+
+		}
 		System.out.println("In the scene with the metadata: " + wordResult.getBlock().getMeta() + "\n");
 	}
 }
