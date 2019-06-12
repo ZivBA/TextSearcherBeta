@@ -84,7 +84,7 @@ public class Block {
 		return inputFile;
 	}
 
-	public String getMeta() {
-		return this.metaData.toString();
+	public List<String> getMeta() {
+		return this.metaData;
 	}
 }

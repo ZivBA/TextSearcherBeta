@@ -48,7 +48,11 @@ public class MultyWordResult extends WordResult implements Comparable<MultyWordR
 
 	@Override
 	public long[] getOffsets() {
-		return wordPositions;
+		long offsets[] = new long[wordPositions.length];
+		for(int i = 0; i < wordPositions.length ; i++){
+			offsets[i] = wordPositions[i] - getBlock().getStartIndex();
+		}
+		return offsets;
 	}
 
 	@Override

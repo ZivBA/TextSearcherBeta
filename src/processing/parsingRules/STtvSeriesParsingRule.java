@@ -11,7 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class STtvSeriesParsingRule implements IparsingRule {
-	static final private String START_BLOCK_REGEX = "^\\s([0-9]+)(.*)\\1";
+	static final private String START_BLOCK_REGEX = "^\\s([0-9]+)(.*)";
 	static final private String CHARACHTOR_NAMES = "^[^\\S\\r\\n]+([A-Z]+)[^\\S\\r\\n]*\\n";
 	static final private Pattern charachterPattern = Pattern.compile(CHARACHTOR_NAMES);
 
@@ -67,16 +67,20 @@ public class STtvSeriesParsingRule implements IparsingRule {
 			Pattern charachterPattern = Pattern.compile(CHARACHTOR_NAMES, Pattern.MULTILINE);
 			Matcher charachterMatcher = charachterPattern.matcher(scene);
 
-			metaData.add("Scene Title: " + titleMatcher.group(2).trim());
-			metaData.add("Charachters: ");
+			metaData.add(titleMatcher.group(2).trim());
+			metaData.add(titleMatcher.group(1).trim());
+			List<String> characters = new LinkedList<>();
 
 			while (charachterMatcher.find()) {
 				String charName = scene.substring(charachterMatcher.start(), charachterMatcher.end()).trim();
-				if (!metaData.contains(charName)) {
-					metaData.add(charName);
+				if (!characters.contains(charName)) {
+					characters.add(charName);
 				}
 			}
+			metaData.add(String.join(",",characters));
+
 			Block resBlock = new Block(inputFile, startPos, endPos);
+
 			resBlock.setMetadata(metaData);
 			return resBlock;
 
@@ -130,18 +134,28 @@ public class STtvSeriesParsingRule implements IparsingRule {
 
 	@Override
 	public void printResult(WordResult wordResult) throws IOException {
+		for(int i=0; i< 256; i++){
+			System.out.print("=");
+		}
+		System.out.println();
+
+		System.out.println(wordResult.toString());
 		Pattern resultPat = Pattern.compile(getMatcherRegex(wordResult.getWord()), Pattern.DOTALL);
 		Matcher m = resultPat.matcher(wordResult.getBlock().toString());
+		List<String> meta = wordResult.getBlock().getMeta();
+		System.out.println("Appearing in scene " + meta.get(1) + ", titled \"" + meta.get(0) + "\"");
+//		System.out.println("Taken out of the entry " + "\"" + entryName + "\"");
+		if(!meta.get(2).equals(""))
+			System.out.println("With the characters: " + meta.get(2));
+//		System.out.println("Written by: " + "\"" + author + "\"");
 
-		System.out.println("The query was matched at the line: ");
-		System.out.println(wordResult.toString());
 		//System.out.println(m.find() ? m.group() : "ERROR");
-		long[] offsets = wordResult.getOffsets();
-		for(long l: offsets){
-			System.out.println("words from block " + wordResult.getBlock().extractFromBlock(l,l+20) + "\n");
-
-		}
-		System.out.println("In the scene with the metadata: " + wordResult.getBlock().getMeta() + "\n");
+//		long[] offsets = wordResult.getOffsets();
+//		for(long l: offsets){
+//			System.out.println("words from block " + wordResult.getBlock().extractFromBlock(l,l+20) + "\n");
+//
+//		}
+//		System.out.println("In the scene with the metadata: " + wordResult.getBlock().getMeta() + "\n");
 	}
 
 }

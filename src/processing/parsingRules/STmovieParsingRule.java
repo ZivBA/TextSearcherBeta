@@ -71,17 +71,20 @@ public class STmovieParsingRule implements IparsingRule {
 			Pattern charachterPattern = Pattern.compile(CHARACHTOR_NAMES, Pattern.MULTILINE);
 			Matcher charachterMatcher = charachterPattern.matcher(scene);
 
-			metaData.add("Scene Title: " + titleMatcher.group(2).trim());
-			metaData.add("Charachters: ");
+			metaData.add(titleMatcher.group(2).trim());
+			metaData.add(titleMatcher.group(1).trim());
 
+			List<String> characters = new LinkedList<>();
 			while (charachterMatcher.find()) {
 				String charName = scene.substring(charachterMatcher.start(), charachterMatcher.end()).trim();
-				if (!metaData.contains(charName)) {
-					metaData.add(charName);
+				if (!characters.contains(charName)) {
+					characters.add(charName);
 				}
 			}
+			metaData.add(String.join(",",characters));
 			Block resBlock = new Block(inputFile, startPos, endPos);
 			resBlock.setMetadata(metaData);
+
 			return resBlock;
 
 		} catch (IOException e) {
