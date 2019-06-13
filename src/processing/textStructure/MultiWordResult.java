@@ -3,9 +3,13 @@ package processing.textStructure;
 import java.io.IOException;
 import java.util.Arrays;
 
+/**
+ * This class defines a query result for multiple non-consecutive words.
+ */
 public class MultiWordResult extends WordResult implements Comparable<MultiWordResult> {
 	private long[] wordPositions;
 	private int confidence;
+
 
 
 	private MultiWordResult(Block blk, String[] query, long idx) {

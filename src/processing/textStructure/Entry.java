@@ -6,6 +6,9 @@ import java.io.*;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * This class represents a single file within a Corpus
+ */
 public class Entry implements Iterable<Block>, Serializable {
 	public static final long serialVersionUID = 1L;
     private final IparsingRule parseRule;
@@ -25,7 +28,11 @@ public class Entry implements Iterable<Block>, Serializable {
     }
 
 
-    @Override
+	/**
+	 * Iterate over Block objects in the Entry
+	 * @return a block iterator
+	 */
+	@Override
     public Iterator<Block> iterator() {
         return this.blockList.iterator();
     }

@@ -86,17 +86,7 @@ public abstract class Aindexer<T extends IsearchStrategy> {
 	 */
 	protected abstract void writeIndexFile();
 
-	/**
-	 * write the parameters of the indexer
-	 * @param objectOut the output stream to write into
-	 * @throws IOException  If the object stream misbehaves
-	 */
-    protected void writeParams( ObjectOutputStream objectOut) throws IOException {
-    	final String hashCode = this.origin.getChecksum();
-        objectOut.writeObject(hashCode);
 
-        objectOut.writeObject(this.origin);
-    }
 
 	/**
 	 * Extract the parsing rule used for indexing this data structure.

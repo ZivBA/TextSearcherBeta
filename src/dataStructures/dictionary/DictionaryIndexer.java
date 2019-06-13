@@ -128,12 +128,24 @@ public class DictionaryIndexer extends Aindexer<DictionarySearch> {
 
 	}
 
+	/**
+	 * write the parameters of the indexer
+	 * @param objectOut the output stream to write into
+	 * @throws IOException  If the object stream misbehaves
+	 */
+	private void writeParams(ObjectOutputStream objectOut) throws IOException {
+		final String hashCode = this.origin.getChecksum();
+		objectOut.writeObject(hashCode);
 
-	@Override
-    protected void writeParams( ObjectOutputStream objectOut) throws IOException {
-		super.writeParams(objectOut);
+		objectOut.writeObject(this.origin);
 		objectOut.writeObject(dict);
 	}
+
+
+//    protected void writeParams( ObjectOutputStream objectOut) throws IOException {
+//		super.writeParams(objectOut);
+//		objectOut.writeObject(dict);
+//	}
 
 	@Override
 	public IparsingRule getParseRule() {

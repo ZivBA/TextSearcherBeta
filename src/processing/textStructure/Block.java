@@ -6,6 +6,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class represents an arbitrary block of text within a file
+ */
 public class Block implements Serializable {
 	public static final long serialVersionUID = 1L;
 
@@ -21,6 +24,8 @@ public class Block implements Serializable {
 
 	}
 
+
+	public String getEntryName(){return "";};
 
 	public Block(Block blk) {
 		this.inputFile = blk.inputFile;
