@@ -26,9 +26,9 @@ public class MultiWordResult extends WordResult implements Comparable<MultiWordR
 	}
 
 	/**
-	 *
-	 * @param locs
-	 * @return
+	 * Calculate the confidence level of a result, defined by the sum of word distances.
+	 * @param locs  The locations of the query words in the text
+	 * @return  The sum of distances
 	 */
 	private int calcConfidence(long[] locs) {
 		int sum = 0;
@@ -38,6 +38,11 @@ public class MultiWordResult extends WordResult implements Comparable<MultiWordR
 		return sum;
 	}
 
+	/**
+	 * Comparator for multy-word results
+	 * @param o The other result to compare against
+	 * @return  int representing comparison result, according to the comparable interface.
+	 */
 	@Override
 	public int compareTo(MultiWordResult o) {
 
@@ -49,6 +54,12 @@ public class MultiWordResult extends WordResult implements Comparable<MultiWordR
 		return 0;
 	}
 
+	/**
+	 * Extract a string that contains all words in the multy-word-result
+	 * This should be a sentance starting at the word with the minimal location (index) and ending
+	 * at the first line-break after the last word
+	 * @return  A piece of text containing all query words
+	 */
 	@Override
 	public String resultToString() throws IOException {
 		Arrays.sort(wordPositions);
@@ -58,19 +69,19 @@ public class MultiWordResult extends WordResult implements Comparable<MultiWordR
 		return temp.substring(Math.max(startIdx,0),endIdx);
 	}
 
-	@Override
-	public long[] getOffsets() {
-		long offsets[] = new long[wordPositions.length];
-		for(int i = 0; i < wordPositions.length ; i++){
-			offsets[i] = wordPositions[i] - getBlock().getStartIndex();
-		}
-		return offsets;
-	}
+//	@Override
+//	public long[] getOffsets() {
+//		long offsets[] = new long[wordPositions.length];
+//		for(int i = 0; i < wordPositions.length ; i++){
+//			offsets[i] = wordPositions[i] - getBlock().getStartIndex();
+//		}
+//		return offsets;
+//	}
 
-	@Override
-	public String toString(){
-		String offsets = super.toString();
-		return offsets + "\nconfidence : " + confidence;
-	}
+//	@Override
+//	public String toString(){
+//		String offsets = super.toString();
+//		return offsets + "\nconfidence : " + confidence;
+//	}
 
 }

@@ -115,11 +115,11 @@ public class STmovieParsingRule implements IparsingRule, Serializable {
 		System.out.println("The query was matched at the line: ");
 		System.out.println(wordResult.toString());
 		//System.out.println(m.find() ? m.group() : "ERROR");
-		long[] offsets = wordResult.getOffsets();
-		for(long l: offsets){
+//		long[] offsets = wordResult.getOffsets();
+//		for(long l: offsets){
 			System.out.println("words from block " + wordResult.resultToString() + "\n");
 
-		}
+//		}
 		System.out.println("In the scene with the metadata: " + wordResult.getBlock().getMetadata() + "\n");
 	}
 }

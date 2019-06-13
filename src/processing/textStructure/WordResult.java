@@ -62,34 +62,26 @@ public class WordResult {
 		return new String(rawString).split("\n")[0].strip();
     }
 
-	/**
-	 *
-	 * @return
-	 */
-	public long[] getOffsets() {
-        long[] locs = new long[1];
-        locs[0] = idxInBlk;
-        return locs;
-    }
 
-    @Override
-    public String toString(){
-        String blkAsString = getBlock().toString();
-        long[] offsets = getOffsets();
-        long start = 999999999;
-        long end = -1;
-        for(long offset: offsets){
-            System.out.println(offset);
-            if(offset<start) start = offset;
-            if(offset>end) end = offset;
-        }
-        end = blkAsString.indexOf("\n", (int)end);
-        if(end==-1){
-            end = blkAsString.length();
-        }
-        System.out.println("start " + start + " end " + end);
-        return blkAsString.substring((int)start,(int) end);
-    }
+
+//    @Override
+//    public String toString(){
+//        String blkAsString = getBlock().toString();
+//        long[] offsets = getOffsets();
+//        long start = 999999999;
+//        long end = -1;
+//        for(long offset: offsets){
+//            System.out.println(offset);
+//            if(offset<start) start = offset;
+//            if(offset>end) end = offset;
+//        }
+//        end = blkAsString.indexOf("\n", (int)end);
+//        if(end==-1){
+//            end = blkAsString.length();
+//        }
+//        System.out.println("start " + start + " end " + end);
+//        return blkAsString.substring((int)start,(int) end);
+//    }
 
 
 }
