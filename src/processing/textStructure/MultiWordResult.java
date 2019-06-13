@@ -3,21 +3,33 @@ package processing.textStructure;
 import java.io.IOException;
 import java.util.Arrays;
 
-public class MultyWordResult extends WordResult implements Comparable<MultyWordResult> {
+public class MultiWordResult extends WordResult implements Comparable<MultiWordResult> {
 	private long[] wordPositions;
 	private int confidence;
-	
-	private MultyWordResult(Block blk, String[] query, long idx) {
+
+
+	private MultiWordResult(Block blk, String[] query, long idx) {
 		super(blk, query, idx);
 		// TODO Auto-generated constructor stub
 	}
 
-	public MultyWordResult(String[] query, Block block, long[] locs) {
+	/**
+	 * Constructor
+	 * @param query The list of query words
+	 * @param block The block where this result came from
+	 * @param locs  The indices of the words in the block
+	 */
+	public MultiWordResult(String[] query, Block block, long[] locs) {
 		this(block,query,locs[0]);
 		wordPositions = locs;
 		confidence = calcConfidence(locs);
 	}
 
+	/**
+	 *
+	 * @param locs
+	 * @return
+	 */
 	private int calcConfidence(long[] locs) {
 		int sum = 0;
 		for(int i = 0; i < wordPositions.length - 1; i++) {
@@ -27,7 +39,7 @@ public class MultyWordResult extends WordResult implements Comparable<MultyWordR
 	}
 
 	@Override
-	public int compareTo(MultyWordResult o) {
+	public int compareTo(MultiWordResult o) {
 
 		if(o.confidence > this.confidence) {
 			return -1;

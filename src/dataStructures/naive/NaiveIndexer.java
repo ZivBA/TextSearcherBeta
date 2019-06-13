@@ -5,6 +5,9 @@ import processing.searchStrategies.NaiveSearchRK;
 import processing.textStructure.*;
 import dataStructures.Aindexer;
 import processing.searchStrategies.NaiveSearch;
+import utils.WrongMD5ChecksumException;
+
+import java.io.FileNotFoundException;
 
 /**
  * A "naive" indexer. This approach forgoes actually preprocessing the file, and simply loads the text and searches directly on it.
@@ -36,19 +39,25 @@ public class NaiveIndexer extends Aindexer<NaiveSearch> {
 	}
 
 	@Override
-	protected void castRawData(Object readObject) {
-		// does nothing
+	protected void readIndexedFile(){
+		//does nothing
 	}
+
+	@Override
+	protected void writeIndexFile() {
+		//does nothing
+	}
+
 
 	public Corpus getOrigin() {
 		return this.origin;
 	}
 
 
-	@Override
-	protected IndexTypes getIndexType() {
-		return TYPE_NAME;
-	}
+//	@Override
+//	protected IndexTypes getIndexType() {
+//		return TYPE_NAME;
+//	}
 
 	@Override
 	public IparsingRule getParseRule() {

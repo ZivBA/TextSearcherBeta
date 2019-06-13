@@ -31,7 +31,6 @@ public class NaiveSearch implements IsearchStrategy {
 
 	@Override
 	public List<WordResult> search(String query) {
-		// TODO Auto-generated method stub
 		List<WordResult> results = new ArrayList<>();
 		for (Entry entry : this.origin){
 			for (Block blk : entry){

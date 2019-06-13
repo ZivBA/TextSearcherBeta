@@ -6,6 +6,7 @@ import processing.searchStrategies.DictionarySearch;
 import processing.textStructure.*;
 import utils.Stemmer;
 import utils.Stopwords;
+import utils.WrongMD5ChecksumException;
 
 import java.io.*;
 import java.util.HashMap;
@@ -37,6 +38,42 @@ public class DictionaryIndexer extends Aindexer<DictionarySearch> {
 		dict = new HashMap<>();
 	}
 
+
+	@Override
+	protected void readIndexedFile() throws WrongMD5ChecksumException, FileNotFoundException {
+		FileInputStream fi = new FileInputStream(new File(getIndexedPath()));
+		try {
+			ObjectInputStream oi = new ObjectInputStream(fi);
+			String oldHashCode = (String) oi.readObject();
+			if (oldHashCode.equals(this.origin.getChecksum())) {
+				this.origin = (Corpus) oi.readObject();
+				this.castRawData(oi.readObject());
+			} else{
+				throw new WrongMD5ChecksumException();
+			}
+		}catch(IOException | ClassNotFoundException e) {
+			throw new RuntimeException(e.getMessage());
+		}
+
+
+
+	}
+	@Override
+	protected void writeIndexFile() {
+		try {
+			String indexPath = getIndexedPath();
+			FileOutputStream fileOut = new FileOutputStream(indexPath);
+			ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+			writeParams(objectOut);
+			objectOut.close();
+			System.out.println("The Object was succesfully written to a file");
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+	}
+
 	@Override
 	protected void indexCorpus() {
 		for(Entry e: origin){
@@ -44,14 +81,13 @@ public class DictionaryIndexer extends Aindexer<DictionarySearch> {
 		}
 	}
 
-	@Override
 	@SuppressWarnings("unchecked")
-	protected void castRawData(Object readObject) {
+	private void castRawData(Object readObject) {
 		this.dict = (HashMap<Integer, List<Word>>) readObject;
 	}
 
 
-	public void indexEntry(Entry inputEntry) {
+	private void indexEntry(Entry inputEntry) {
 		Pattern p = Pattern.compile("\\w+");
 		Matcher m = p.matcher("");
 		int chunkSize = 2048;
@@ -70,9 +106,7 @@ public class DictionaryIndexer extends Aindexer<DictionarySearch> {
 					byte[] rawBytes = new byte[(int) bytesToRead];
 
 					int bytesRead = file.read(rawBytes);
-//					for (int k =0; k < 256; k++){
-//						if ((int)rawBytes[k] <=0) { rawBytes[k] = (byte)' ';}
-//					}
+
 					sentence = new String(rawBytes);
 					m.reset(sentence);
 					long lastMatch = 0;
@@ -106,20 +140,6 @@ public class DictionaryIndexer extends Aindexer<DictionarySearch> {
 		return origin.getParsingRule();
 	}
 
-	private void writeDictionaryToFile() {
-		try {
-
-			FileOutputStream fileOut = new FileOutputStream(this.dictFile);
-			ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-			objectOut.writeObject(this.hashCode);
-			objectOut.writeObject(this.dict);
-			objectOut.close();
-			System.out.println("The Object  was succesfully written to a file");
-
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-	}
 
 	private void updateDict(String word, long start, long end, Block blk) {
 		word = STEMMER.stem(word);
@@ -136,10 +156,6 @@ public class DictionaryIndexer extends Aindexer<DictionarySearch> {
 
 
 
-	@Override
-	protected IndexTypes getIndexType() {
-		return TYPE_NAME;
-	}
 
 	@Override
 	public DictionarySearch asSearchInterface() {

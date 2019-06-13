@@ -1,7 +1,7 @@
 package processing.searchStrategies;
 
 import processing.textStructure.Block;
-import processing.textStructure.MultyWordResult;
+import processing.textStructure.MultiWordResult;
 import processing.textStructure.Word;
 import processing.textStructure.WordResult;
 import utils.Stopwords;
@@ -18,7 +18,7 @@ public class DictionarySearch implements IsearchStrategy {
 
 	@Override
 	public List<? extends WordResult> search(String query) {
-		LinkedList<MultyWordResult> results = new LinkedList<>();
+		LinkedList<MultiWordResult> results = new LinkedList<>();
 		String[] words = Arrays.stream(query.split("\\s+"))
 				.filter(s-> !Stopwords.isStopword(s))
 				.toArray(String[]::new);
@@ -31,7 +31,7 @@ public class DictionarySearch implements IsearchStrategy {
 				locs[0] = word.getEntryIndex();
 				boolean success = setWordLocsStartingFrom(locs,words,1, word.getSrcBlk());
 				if(success) {
-					results.add(new MultyWordResult(words,word.getSrcBlk(),locs));
+					results.add(new MultiWordResult(words,word.getSrcBlk(),locs));
 				}
 		}
 		

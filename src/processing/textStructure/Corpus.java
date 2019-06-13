@@ -6,12 +6,14 @@ import utils.MD5;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.nio.file.Files;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Corpus implements Iterable<Entry>{
+public class Corpus implements Iterable<Entry>, Serializable {
+	public static final long serialVersionUID = 1L;
     private List<Entry> entryList;
     private IparsingRule parsingRule;
     private String corpusPath;
@@ -85,4 +87,10 @@ public class Corpus implements Iterable<Entry>{
     public IparsingRule getParsingRule() {
         return this.parsingRule;
     }
+
+	public void updateRAFs() {
+		for (Entry ent : this.entryList){
+			ent.updateRAFs();
+		}
+	}
 }

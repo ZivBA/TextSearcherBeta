@@ -20,6 +20,8 @@ import utils.WrongMD5ChecksumException;
  *           IsearchStrategy interface.
  */
 public abstract class Aindexer<T extends IsearchStrategy> {
+	public static final long serialVersionUID = 1L;
+
 	public static enum IndexTypes {DICT, NAIVE, NAIVE_RK, SUFFIX_TREE}
     IndexTypes dataStructType;
     protected Corpus origin;
@@ -39,10 +41,11 @@ public abstract class Aindexer<T extends IsearchStrategy> {
 	public void index() {
     	try {
 			readIndexedFile();
+			origin.updateRAFs();
 		} catch (FileNotFoundException | WrongMD5ChecksumException e) {
     	    origin.populate();
 			indexCorpus();
-			//writeToFile();
+			writeIndexFile();
 		}
     	
     }
@@ -63,55 +66,21 @@ public abstract class Aindexer<T extends IsearchStrategy> {
 	 * @throws FileNotFoundException
 	 * @throws WrongMD5ChecksumException
 	 */
-	private void readIndexedFile() throws FileNotFoundException, WrongMD5ChecksumException {
-    	FileInputStream fi = new FileInputStream(new File(getIndexedPath()));
-    	try {
-    		ObjectInputStream oi = new ObjectInputStream(fi);
-    		String oldHashCode = (String) oi.readObject();
-    		if (oldHashCode.equals(this.origin.getChecksum())) {
-                this.castRawData(oi.readObject());
-            } else{
-    		    throw new WrongMD5ChecksumException();
-            }
-    	}catch(IOException | ClassNotFoundException e) {
-    		throw new RuntimeException(e.getMessage());
-    	}
+	protected abstract void readIndexedFile() throws FileNotFoundException, WrongMD5ChecksumException;
 
-
-		
-	}
 
 	/**
-	 * Convert a read object file into the indexer's specific data type.
-	 * @param readObject    the input object to cast
-	 */
-    protected abstract void castRawData(Object readObject);
-
-	/**
-	 * Getter for the cached index file.
+	 * Getter for the cached index file path.
 	 * @return  the path to the cached index file.
 	 */
-	private String getIndexedPath() {
+	protected String getIndexedPath() {
 		return origin.getPath() + "_cache";
 	}
 
 	/**
 	 * Write the indernal index into file.
 	 */
-	private void writeIndexFile() {
-        try {
-            String indexPath = getIndexedPath();
-            FileOutputStream fileOut = new FileOutputStream(indexPath);
-            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-            writeParams(objectOut);
-            objectOut.close();
-            System.out.println("The Object was succesfully written to a file");
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-    }
+	protected abstract void writeIndexFile();
 
 	/**
 	 * write the parameters of the indexer
@@ -119,10 +88,9 @@ public abstract class Aindexer<T extends IsearchStrategy> {
 	 * @throws IOException  If the object stream misbehaves
 	 */
     protected void writeParams( ObjectOutputStream objectOut) throws IOException {
-    	String hashCode = this.origin.getChecksum();
+    	final String hashCode = this.origin.getChecksum();
         objectOut.writeObject(hashCode);
 
-        objectOut.writeObject(getIndexType());
         objectOut.writeObject(this.origin);
     }
 
@@ -131,12 +99,12 @@ public abstract class Aindexer<T extends IsearchStrategy> {
 	 * @return  an instance of a parser implementing IparsingRule
 	 */
 	public abstract IparsingRule getParseRule();
-
-	/**
-	 * simple getter
-	 * @return  the DS type
-	 */
-    protected abstract IndexTypes getIndexType();
+//
+//	/**
+//	 * simple getter
+//	 * @return  the DS type
+//	 */
+//    protected abstract IndexTypes getIndexType();
 
 	/**
 	 * simple getter
