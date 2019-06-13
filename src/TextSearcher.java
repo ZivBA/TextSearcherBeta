@@ -46,7 +46,7 @@ public class TextSearcher {
             for (WordResult result: results){
                 try {
                     sIndexer.getParseRule().printResult(result);
-                } catch (IOException | IndexOutOfBoundsException e) {
+                } catch (IOException e) {
                     break;
                 }
             }
