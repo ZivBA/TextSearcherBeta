@@ -1,16 +1,17 @@
 package processing.parsingRules;
 
+import processing.textStructure.Block;
+import processing.textStructure.WordResult;
+
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.List;
-
-import processing.textStructure.Block;
-import processing.textStructure.WordResult;
 
 /**
  * An interface describing the contract any parser should maintain, as well as possible default methods.
  */
 public interface IparsingRule {
+	enum ParserTypes {SIMPLE, ST_MOVIE, ST_TV}
 	public static long SerialVersionUID =1;
 	int MAXLINELENGTH = 256;
 

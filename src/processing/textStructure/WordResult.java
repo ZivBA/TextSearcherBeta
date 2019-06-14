@@ -1,9 +1,6 @@
 package processing.textStructure;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 
 /**
  * This class represents a result containing a single string (single word or multiple words treated as one)
@@ -56,32 +53,9 @@ public class WordResult {
 	 * @throws IOException
 	 */
 	public String resultToString() throws IOException {
-		this.getBlock().inputFile.seek(idxInBlk);
-		byte[] rawString = new byte[Math.toIntExact(idxInBlk+50)];
-		this.getBlock().inputFile.read(rawString);
-		return new String(rawString).split("\n")[0].strip();
+	
     }
 
-
-
-//    @Override
-//    public String toString(){
-//        String blkAsString = getBlock().toString();
-//        long[] offsets = getOffsets();
-//        long start = 999999999;
-//        long end = -1;
-//        for(long offset: offsets){
-//            System.out.println(offset);
-//            if(offset<start) start = offset;
-//            if(offset>end) end = offset;
-//        }
-//        end = blkAsString.indexOf("\n", (int)end);
-//        if(end==-1){
-//            end = blkAsString.length();
-//        }
-//        System.out.println("start " + start + " end " + end);
-//        return blkAsString.substring((int)start,(int) end);
-//    }
 
 
 }

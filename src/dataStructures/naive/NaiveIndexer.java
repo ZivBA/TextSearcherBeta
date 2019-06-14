@@ -1,13 +1,10 @@
 package dataStructures.naive;
 
-import processing.parsingRules.IparsingRule;
-import processing.searchStrategies.NaiveSearchRK;
-import processing.textStructure.*;
 import dataStructures.Aindexer;
+import processing.parsingRules.IparsingRule;
 import processing.searchStrategies.NaiveSearch;
-import utils.WrongMD5ChecksumException;
-
-import java.io.FileNotFoundException;
+import processing.searchStrategies.NaiveSearchRK;
+import processing.textStructure.Corpus;
 
 /**
  * A "naive" indexer. This approach forgoes actually preprocessing the file, and simply loads the text and searches directly on it.
@@ -54,11 +51,6 @@ public class NaiveIndexer extends Aindexer<NaiveSearch> {
 	}
 
 
-//	@Override
-//	protected IndexTypes getIndexType() {
-//		return TYPE_NAME;
-//	}
-
 	@Override
 	public IparsingRule getParseRule() {
 		return this.origin.getParsingRule();
@@ -67,7 +59,6 @@ public class NaiveIndexer extends Aindexer<NaiveSearch> {
 
 	@Override
 	public NaiveSearch asSearchInterface() {
-		// TODO Auto-generated method stub
 		return this.isRK ? new NaiveSearch(this.origin) : new NaiveSearchRK(this.origin);
 	}
 

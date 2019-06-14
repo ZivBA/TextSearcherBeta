@@ -3,16 +3,9 @@ package dataStructures;
 import processing.parsingRules.IparsingRule;
 import processing.searchStrategies.IsearchStrategy;
 import processing.textStructure.Corpus;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
 import utils.WrongMD5ChecksumException;
+
+import java.io.FileNotFoundException;
 
 /**
  * The abstract class describing the necessary methods and common implementations of all indexing data structures.
@@ -37,6 +30,7 @@ public abstract class Aindexer<T extends IsearchStrategy> {
 
 	/**
 	 * Main indexing method. Common implementation trying to read indexed cache file
+	 * This method can be edited, but is enough assuming the other methods are implemented well.
 	 */
 	public void index() {
     	try {
@@ -49,7 +43,6 @@ public abstract class Aindexer<T extends IsearchStrategy> {
 			writeIndexFile();
 			System.out.println("success on indexing file");
 
-			//writeToFile();
 		}
     	
     }
@@ -78,7 +71,7 @@ public abstract class Aindexer<T extends IsearchStrategy> {
 	 * @return  the path to the cached index file.
 	 */
 	protected String getIndexedPath() {
-		return origin.getPath() + "_cache";
+	
 	}
 
 	/**

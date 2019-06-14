@@ -1,7 +1,5 @@
 package processing.textStructure;
 
-import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.io.Serializable;
 
 /**
@@ -54,17 +52,7 @@ public class Word implements Serializable {
 	 * @return  The word in String format.
 	 */
 	protected String extractWord(){
-		byte[] rawWord = new byte[length];
-		RandomAccessFile theFile = this.srcBlk.getRAF();
-		try {
-			theFile.seek(srcBlk.getStartIndex()+srcBlkOffset);
-			theFile.read(rawWord);
-			return new String(rawWord);
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		}
-
+	
 	}
 
 	/**

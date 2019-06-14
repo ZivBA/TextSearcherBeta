@@ -1,9 +1,7 @@
 package processing.textStructure;
 
-import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,66 +13,74 @@ public class Block implements Serializable {
 	private long endIdx;
 	transient RandomAccessFile inputFile;
 	private long startIdx;
-	private List<String> metaData = new ArrayList<>();
 
+	/**
+	 * Constructor
+	 * @param inputFile     the RAF object backing this block
+	 * @param startIdx      start index of the block within the file
+	 * @param endIdx        end index of the block within the file
+	 */
 	public Block(RandomAccessFile inputFile, long startIdx, long endIdx) {
 		this.inputFile = inputFile;
 		this.startIdx = startIdx;
 		this.endIdx = endIdx;
 
 	}
-
-
-	public String getEntryName(){return "";};
-
-	public Block(Block blk) {
-		this.inputFile = blk.inputFile;
-		this.metaData = blk.metaData;
-		this.startIdx = blk.startIdx;
-		this.endIdx = blk.endIdx;
+	
+	/**
+	 * The filename from which this block was extracted
+	 * @return  filename
+	 */
+	public String getEntryName(){
+	
 	}
 
+
+
+///////// getters //////////
+	/**
+	 * @return start index
+	 */
 	public long getStartIndex() {
 		return startIdx;
 	}
-
+	
+	/**
+	 * @return  end index
+	 */
 	public long getEndIndex() {
 		return endIdx;
 	}
-
+	
+	/**
+	 * Convert an abstract block into a string
+	 * @return  string representation of the block (the entire text of the block from start to end indices)
+	 */
 	@Override
 	public String toString() {
-		try {
-			inputFile.seek(startIdx);
-			byte[] resultBytes = new byte[Math.toIntExact(endIdx - startIdx + 1)];
-			inputFile.seek(startIdx);
-			inputFile.read(resultBytes);
-			return new String(resultBytes);
-		} catch (IOException e) {
-			e.printStackTrace();
-			return "";
-		}
 
 	}
-
-
+	
+	/**
+	 * Adds metadata to the block
+	 * @param metaData A list containing metadata entries related to this block
+	 */
 	public void setMetadata(List<String> metaData) {
-		this.metaData = metaData;
 	}
-
-	String extractFromBlock(long startIdx, long endIdx) throws IOException {
-		startIdx = startIdx < 0 ? 0 : startIdx;
-		this.inputFile.seek(startIdx);
-		byte[] rawString = new byte[Math.toIntExact(endIdx - startIdx + 1)];
-		this.inputFile.read(rawString);
-		return new String(rawString);
-	}
-
+	
+	
+	/**
+	 * @return the RAF object for this block
+	 */
 	public RandomAccessFile getRAF() {
-		return inputFile;
-	}
 
+	}
+	
+	/**
+	 * Get the metadata of the block, if applicable for the parsing rule used
+	 * @return  String of all metadata.
+	 */
 	public List<String> getMetadata() {
-		return this.metaData;
+
 	}
 }

@@ -44,7 +44,7 @@ public class SimpleParsingRule implements IparsingRule, Serializable {
 				String rawBlock = new String(rawBytes);
 				m.reset(rawBlock);
 				while (m.find()) {
-					if (m.end()-m.start() > 0) {
+					if (m.end()-m.start() > 1) {
 						entryBlocks.add(parseRawBlock(inputFile, m.start() + i, m.end() + i));
 					}
 					endOfBlockOffset = m.end();
